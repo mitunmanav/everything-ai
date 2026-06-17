@@ -1,0 +1,5 @@
+.everything-ai/
+.github/
+outputs/
+work/
+*.log
