@@ -1,0 +1,30 @@
+{
+  "name": "everything-ai-skill",
+  "version": "0.2.0",
+  "description": "Install the Everything AI Codex skill.",
+  "license": "MIT",
+  "bin": {
+    "everything-ai-install": "./scripts/install.js",
+    "everything-ai": "./scripts/install.js"
+  },
+  "scripts": {
+    "test": "python tests/test_everything_ai.py && node scripts/install.js --dry-run"
+  },
+  "files": [
+    "skills/everything-ai",
+    "scripts/install.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitunmanav/everything-ai.git"
+  },
+  "keywords": [
+    "codex",
+    "skill",
+    "ai-agent",
+    "observability",
+    "memory"
+  ]
+}
