@@ -18,14 +18,14 @@ jobs:
       contents: read
       actions: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
         with:
           persist-credentials: false
-      - uses: ossf/scorecard-action@v2.4.3
+      - uses: ossf/scorecard-action@99c09fe975337306107572b4fdf4db224cf8e2f2
         with:
           results_file: results.sarif
           results_format: sarif
           publish_results: true
-      - uses: github/codeql-action/upload-sarif@v4
+      - uses: github/codeql-action/upload-sarif@411bbbe57033eedfc1a82d68c01345aa96c737d7
         with:
           sarif_file: results.sarif
