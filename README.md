@@ -88,6 +88,24 @@ Trace fields:
 
 ## Install
 
+Fast install from GitHub with `npx`:
+
+```powershell
+npx --yes github:mitunmanav/everything-ai
+```
+
+Safe options:
+
+```powershell
+npx --yes github:mitunmanav/everything-ai -- --dry-run
+npx --yes github:mitunmanav/everything-ai -- --force
+npx --yes github:mitunmanav/everything-ai -- --target "C:\path\to\skills\everything-ai"
+```
+
+The installer copies only `skills/everything-ai`, writes to `~/.codex/skills/everything-ai` by default, refuses overwrite unless `--force` is used, sends no telemetry, and reads no secrets.
+
+Manual install:
+
 Copy the skill folder into your Codex skills folder:
 
 ```powershell

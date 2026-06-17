@@ -24,9 +24,9 @@ This project is for non-technical users who say "do everything" because they do 
 
 ```powershell
 python .\tests\test_everything_ai.py
+node .\scripts\install.js --dry-run
 ```
 
 ## Review Style
 
 Reviews should be kind and direct. This project welcomes beginner contributors.
-
