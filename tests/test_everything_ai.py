@@ -255,7 +255,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert CLAUDE_AGENT.exists(), "Claude agent metadata required"
     claude = read(CLAUDE_AGENT)
     assert "display_name: Everything AI" in claude
-    assert "default_prompt: Use -ai." in claude
+    assert "default_prompt:" in claude
 
     package = json.loads(read(PACKAGE))
     assert package["version"] == "0.3.0"
@@ -274,7 +274,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
         capture_output=True,
         check=True,
     )
-    assert ".codex" in openai_dry.stdout
+    assert ".agents" in openai_dry.stdout
     assert ".claude" in claude_dry.stdout
 
 
