@@ -31,6 +31,8 @@ Short version:
 
 ## Install
 
+Default (Codex/OpenAI):
+
 ```powershell
 npx --yes github:mitunmanav/everything-ai
 ```
@@ -41,7 +43,7 @@ Dry run:
 npx --yes github:mitunmanav/everything-ai -- --dry-run
 ```
 
-Claude install target:
+Claude:
 
 ```powershell
 npx --yes github:mitunmanav/everything-ai -- --agent claude
@@ -59,21 +61,23 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.3.0 Status
 
-v0.3.0 is a proof release draft. It is useful, but not final.
+v0.3.0 is a proof release draft with all 5 phases complete.
 
 - local tests: passed
 - skill validation: passed
 - plugin evaluation: 100/100, Grade A, low risk
 - behavior comparison: with skill 20/20, without skill 14/20, delta +6
 - domain-pack comparison: with packs 24/24, without packs 18/24, delta +6
-- model: `gpt-5.4-mini`, medium reasoning
-- test method: saved-output regression suite from fresh subagent scorecard
+- model: `gpt-5.5`, medium reasoning
+- test method: saved-output regression suite
 - CI workflow: runs on pushes and pull requests
 - agent metadata: OpenAI/Codex and Claude
 - domain packs: startup, data analysis, personal productivity
-- raw result: [`tests/results/v0.3.0-with-vs-without-skill.json`](tests/results/v0.3.0-with-vs-without-skill.json)
+- memory upgrade: read instructions and memory audit rules
+- multi-agent files: scope, plan, execute, review handoff chain
+- raw result: [`tests/results/v0.3.0-all-phases.json`](tests/results/v0.3.0-all-phases.json)
 
-![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-with-vs-without-skill.svg)
+![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)
 
 Known gaps:
 

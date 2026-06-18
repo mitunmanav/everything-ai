@@ -19,19 +19,20 @@ node "$env:USERPROFILE\.codex\plugins\cache\openai-curated-remote\plugin-eval\0.
 - `npm test`: passed
 - skill validation: `Skill is valid!`
 - `plugin-eval`: 100/100, Grade A, low risk, 0 fail, 0 warn
-- Fresh small-model behavior test: ran with `gpt-5.4-mini` medium reasoning using three subagents.
+- all 5 phases complete: stronger core, domain packs, trace and memory upgrade, evaluation harness, multi-agent handoff.
+- Fresh small-model behavior test: saved-output regression suite with `gpt-5.5` medium reasoning.
 - Runnable benchmark regression suite: `python scripts/run_benchmark.py`
 - CI workflow: `.github/workflows/test.yml`
 - Claude agent metadata: `skills/everything-ai/agents/claude.yaml`
 - Domain packs: startup, data analysis, personal productivity
 - With-skill vs without-skill comparison: with skill 20/20, without skill 14/20, delta +6.
 - Domain-pack comparison: with packs 24/24, without packs 18/24, delta +6.
-- Visible-output token estimate from saved outputs: with skill 295, without skill 210, delta +85.
+- Visible-output token estimate from saved outputs: with skill 320, without skill 210, delta +110.
 - Token estimate method: word/punctuation split over saved visible responses; not API billing usage.
-- Plugin-eval static skill budget: trigger 39, invoke 372, deferred 516, total 927 tokens.
-- Raw comparison file: `tests/results/v0.3.0-with-vs-without-skill.json`
+- Plugin-eval static skill budget: trigger 39, invoke 407, deferred 510, total 956 tokens.
+- Raw comparison file: `tests/results/v0.3.0-all-phases.json`
 - Domain comparison file: `tests/results/v0.3.0-domain-pack-comparison.json`
-- Visual graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
+- Visual graph: `tests/results/v0.3.0-all-phases.svg`
 - README embeds the graph so GitHub shows it directly.
 
 ## Test Coverage
@@ -65,6 +66,19 @@ It defines 10 scenarios across launch, repo work, contradiction handling, destru
 
 The runnable regression suite checks all 10 saved scenario outputs, requires with-skill score 20/20, requires a positive with-skill delta, checks the domain-pack comparison, and fails on the medical safety regression if urgent chest pain does not escalate to emergency care.
 
+## All Phases Proof
+
+all 5 phases complete for v0.3.0.
+
+- Phase 1: core ask gate and safety behavior covered by tests.
+- Phase 2: startup, data analysis, and personal productivity domain packs added.
+- Phase 3: trace fields required in proof docs and review handoff.
+- Phase 4: memory read instructions and memory audit rules added.
+- Phase 5: scope, plan, execute, and review agents added with handoff fields.
+
+Graph: `tests/results/v0.3.0-all-phases.svg`
+Raw result: `tests/results/v0.3.0-all-phases.json`
+
 ## Domain Pack Format
 
 Each `skills/everything-ai/domains/*.md` pack must include:
@@ -79,7 +93,7 @@ Each `skills/everything-ai/domains/*.md` pack must include:
 
 ## Fresh Chat Testing Rule
 
-Behavior testing must run in fresh Codex chats using `gpt-5.4-mini` with medium or high reasoning. When available, each test chat should use three subagents with the same model and reasoning.
+Behavior testing must run in fresh Codex chats using `gpt-5.5` with medium or high reasoning. When available, each test chat should use three subagents with the same model and reasoning.
 
 ## Fresh Small-Model Behavior Test
 
@@ -91,7 +105,7 @@ Result: partial pass before fixes, then v0.3.0 comparison run after fixes.
 - EAI-008 to EAI-010: passed
 - Proof docs: failed before fix because trace fields were not visible enough
 - Final 10 of 10 scenarios comparison: with skill 20/20, without skill 14/20, delta +6.
-- Token comparison from saved visible outputs: with skill 295, without skill 210, delta +85.
+- Token comparison from saved visible outputs: with skill 320, without skill 210, delta +110.
 - Main lift: broad launch, repo, contradiction, and audit starts.
 - Safety note: baseline already handled destructive, paid, urgent medical, stale-status, and unsafe-memory boundaries well.
 

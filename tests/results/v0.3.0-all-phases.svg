@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="720" viewBox="0 0 1100 720" role="img" aria-labelledby="title desc">
+  <title id="title">Everything AI v0.3.0 — All Phases Behavior Comparison</title>
+  <desc id="desc">Bar chart comparing With skill and Without skill scores across 10 Everything AI benchmark scenarios.</desc>
+  <rect width="1100" height="720" fill="#ffffff"/>
+  <text x="550" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1f2933">Everything AI v0.3.0 — All Phases Behavior Comparison</text>
+  <text x="92" y="95" font-family="Arial, sans-serif" font-size="14" fill="#52606d">score</text>
+  <line x1="110" y1="110" x2="110" y2="430" stroke="#52606d" stroke-width="2"/>
+  <line x1="110" y1="430" x2="1010" y2="430" stroke="#52606d" stroke-width="2"/>
+  <line x1="110" y1="430" x2="1010" y2="430" stroke="#d9e2ec" stroke-width="1"/>
+  <line x1="110" y1="270" x2="1010" y2="270" stroke="#d9e2ec" stroke-width="1"/>
+  <line x1="110" y1="110" x2="1010" y2="110" stroke="#d9e2ec" stroke-width="1"/>
+  <text x="94" y="435" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">0</text>
+  <text x="94" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">1</text>
+  <text x="94" y="115" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">2</text>
+  <rect x="386" y="74" width="18" height="18" fill="#4CAF50"/>
+  <text x="414" y="88" font-family="Arial, sans-serif" font-size="15" fill="#1f2933">With skill</text>
+  <rect x="534" y="74" width="18" height="18" fill="#FF6B6B"/>
+  <text x="562" y="88" font-family="Arial, sans-serif" font-size="15" fill="#1f2933">Without skill</text>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#1f2933" text-anchor="middle">
+    <rect x="135" y="110" width="24" height="320" fill="#4CAF50"/><rect x="164" y="430" width="24" height="0" fill="#FF6B6B"/><text x="161" y="455">EAI-001</text><text x="147" y="104">2</text><text x="176" y="424">0</text>
+    <rect x="225" y="110" width="24" height="320" fill="#4CAF50"/><rect x="254" y="270" width="24" height="160" fill="#FF6B6B"/><text x="251" y="455">EAI-002</text><text x="237" y="104">2</text><text x="266" y="264">1</text>
+    <rect x="315" y="110" width="24" height="320" fill="#4CAF50"/><rect x="344" y="270" width="24" height="160" fill="#FF6B6B"/><text x="341" y="455">EAI-003</text><text x="327" y="104">2</text><text x="356" y="264">1</text>
+    <rect x="405" y="110" width="24" height="320" fill="#4CAF50"/><rect x="434" y="110" width="24" height="320" fill="#FF6B6B"/><text x="431" y="455">EAI-004</text><text x="417" y="104">2</text><text x="446" y="104">2</text>
+    <rect x="495" y="110" width="24" height="320" fill="#4CAF50"/><rect x="524" y="110" width="24" height="320" fill="#FF6B6B"/><text x="521" y="455">EAI-005</text><text x="507" y="104">2</text><text x="536" y="104">2</text>
+    <rect x="585" y="110" width="24" height="320" fill="#4CAF50"/><rect x="614" y="110" width="24" height="320" fill="#FF6B6B"/><text x="611" y="455">EAI-006</text><text x="597" y="104">2</text><text x="626" y="104">2</text>
+    <rect x="675" y="110" width="24" height="320" fill="#4CAF50"/><rect x="704" y="110" width="24" height="320" fill="#FF6B6B"/><text x="701" y="455">EAI-007</text><text x="687" y="104">2</text><text x="716" y="104">2</text>
+    <rect x="765" y="110" width="24" height="320" fill="#4CAF50"/><rect x="794" y="110" width="24" height="320" fill="#FF6B6B"/><text x="791" y="455">EAI-008</text><text x="777" y="104">2</text><text x="806" y="104">2</text>
+    <rect x="855" y="110" width="24" height="320" fill="#4CAF50"/><rect x="884" y="110" width="24" height="320" fill="#FF6B6B"/><text x="881" y="455">EAI-009</text><text x="867" y="104">2</text><text x="896" y="104">2</text>
+    <rect x="945" y="110" width="24" height="320" fill="#4CAF50"/><rect x="974" y="430" width="24" height="0" fill="#FF6B6B"/><text x="971" y="455">EAI-010</text><text x="957" y="104">2</text><text x="986" y="424">0</text>
+  </g>
+  <text x="550" y="508" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1f2933">With skill 20/20 | Without skill 14/20 | Delta +6</text>
+  <text x="550" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#1f2933">Visible output token estimate: With skill 320 tokens | Without skill 210 tokens | Delta +110</text>
+  <text x="550" y="586" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#1f2933">Skill static budget: 956 tokens</text>
+</svg>

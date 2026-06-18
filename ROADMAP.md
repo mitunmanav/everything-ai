@@ -27,14 +27,14 @@ Goal: make the skill instructions harder to misread.
 Work:
 
 - tighten trigger rules for broad delegation
-- define clearer autonomy levels from explain-only to high-risk approval
+- define clearer autonomy levels from explain-only to high risk approval
 - add strict "ask gate" examples
 - add "stop and ask" examples for access, payment, destructive changes, legal/medical/financial risk
 - clarify when not to write memory or traces
 
 Done when:
 
-- tests cover trigger words, ask-gate, risk gate, memory safety, trace fields
+- tests cover trigger words, ask gate, risk gate, memory safety, trace fields
 - README explains behavior in plain language
 
 ## Phase 2: Domain Playbooks
@@ -157,7 +157,7 @@ Add examples:
 - plain-language final report
 - safe memory decision
 - trace JSON example
-- high-risk ask-before-action example
+- high risk ask before action example
 
 Done when:
 

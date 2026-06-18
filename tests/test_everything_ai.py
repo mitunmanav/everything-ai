@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import re
 import subprocess
+import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,14 +16,20 @@ README = ROOT / "README.md"
 CLAUDE_AGENT = ROOT / "skills" / "everything-ai" / "agents" / "claude.yaml"
 BENCHMARK_RUNNER = ROOT / "scripts" / "run_benchmark.py"
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
-COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-with-vs-without-skill.json"
-COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-with-vs-without-skill.svg"
+COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
+COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-all-phases.svg"
 DOMAINS = ROOT / "skills" / "everything-ai" / "domains"
+AGENTS = ROOT / "skills" / "everything-ai" / "agents"
 PUBLIC_FILES = [
     README,
     ROOT / "ROADMAP.md",
     ROOT / "EVALUATION.md",
     ROOT / "TEST_RESULTS.md",
+    ROOT / "CONTRIBUTING.md",
+    ROOT / "SECURITY.md",
+    ROOT / "CODE_OF_CONDUCT.md",
+    SKILL,
+    PLAYBOOK,
 ]
 RELEASE_EXCLUDED_FILES = [ROOT / "AGENTS.md"]
 
@@ -221,7 +228,7 @@ def test_v030_release_proof_files_are_current():
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.3.0"
-    assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-with-vs-without-skill.svg)" in readme
+    assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
@@ -235,8 +242,10 @@ def test_v030_release_proof_files_are_current():
     assert "Fresh small-model behavior test" in results
     assert "with-skill vs without-skill" in results
     assert "visual graph" in results
-    assert "tests/results/v0.3.0-with-vs-without-skill.json" in results
-    assert "tests/results/v0.3.0-with-vs-without-skill.svg" in results
+    assert "all 5 phases complete" in readme
+    assert "all 5 phases complete" in results
+    assert "tests/results/v0.3.0-all-phases.json" in results
+    assert "tests/results/v0.3.0-all-phases.svg" in results
     assert "10 of 10 scenarios" in results
     for field in REQUIRED_TRACE_FIELDS:
         assert field in results
@@ -245,8 +254,8 @@ def test_v030_release_proof_files_are_current():
 def test_phase1_claude_agent_and_install_targets_exist():
     assert CLAUDE_AGENT.exists(), "Claude agent metadata required"
     claude = read(CLAUDE_AGENT)
-    assert "display_name: \"Everything AI\"" in claude
-    assert "default_prompt:" in claude
+    assert "display_name: Everything AI" in claude
+    assert "default_prompt: Use -ai." in claude
 
     package = json.loads(read(PACKAGE))
     assert package["version"] == "0.3.0"
@@ -276,7 +285,7 @@ def test_phase2_benchmark_is_runnable_and_in_npm_test():
     assert "scripts/run_benchmark.py" in package["scripts"]["test"]
 
     result = subprocess.run(
-        ["python", "scripts/run_benchmark.py"],
+        [sys.executable, "scripts/run_benchmark.py"],
         cwd=ROOT,
         text=True,
         capture_output=True,
@@ -322,14 +331,40 @@ def test_phase3_domain_packs_exist_and_are_routable():
         )
 
 
+def test_phase4_memory_read_instructions_exist():
+    skill = read(SKILL)
+    lower = skill.lower()
+    memory_index = lower.find("## memory")
+
+    assert memory_index != -1
+    assert "semantic.md" in skill
+    assert "episodic.md" in skill
+    assert "procedural.md" in skill
+
+    memory_section = lower[memory_index:]
+    assert "read" in memory_section or "retrieve" in memory_section
+    assert "start of session" in memory_section
+    assert "do not ask" in memory_section
+
+
+def test_phase4_memory_audit_rules_exist():
+    playbook = read(PLAYBOOK)
+    lower = playbook.lower()
+
+    assert "memory audit rules" in lower
+    assert "before every write" in lower
+    assert "API keys" in playbook or "token" in lower or "secret" in lower
+    assert "safe to save" in lower
+
+
 def test_v030_comparison_result_and_graph_exist():
     result = json.loads(read(COMPARISON_RESULT))
     graph = read(COMPARISON_GRAPH)
 
     assert result["version"] == "0.3.0"
-    assert result["model"] == "gpt-5.4-mini"
+    assert result["model"] == "gpt-5.5"
     assert result["reasoning"] == "medium"
-    assert result["execution"] == "fresh-subagent-manual-scorecard"
+    assert result["execution"] == "saved-output-regression-suite"
     assert result["raw_outputs"], "raw test outputs required"
     assert len(result["scenarios"]) == 10
 
@@ -339,8 +374,8 @@ def test_v030_comparison_result_and_graph_exist():
     assert result["summary"]["delta"] == with_score - without_score
     token_estimate = result["summary"]["visible_output_token_estimate"]
     assert token_estimate["without_skill"] == 210
-    assert token_estimate["with_skill"] == 295
-    assert token_estimate["delta"] == 85
+    assert token_estimate["with_skill"] == 320
+    assert token_estimate["delta"] == 110
     assert "not API billing usage" in token_estimate["method"]
     skill_budget = result["summary"]["skill_static_token_budget"]
     assert skill_budget["total_tokens"] == 956
@@ -359,7 +394,7 @@ def test_v030_comparison_result_and_graph_exist():
     assert str(with_score) in graph
     assert str(without_score) in graph
     assert "Visible output token estimate" in graph
-    assert "295" in graph
+    assert "320" in graph
     assert "210" in graph
     assert "956" in graph
 
@@ -375,10 +410,20 @@ def test_public_files_do_not_leak_local_identity_or_paths():
         "@gmail",
         "api_key",
         "OPENAI_API_KEY",
+        "sk-",
+        "Bearer ",
+        "downloadmovies933",
+        "mitunmanav933",
     ]
     local_user = Path.home().name
     if local_user and local_user.lower() not in {"runner", "root"}:
-        forbidden.append(local_user)
+        forbidden.extend(
+            [
+                f"/Users/{local_user}",
+                f"\\Users\\{local_user}",
+                f"/home/{local_user}",
+            ]
+        )
 
     combined = "\n".join(read(path) for path in PUBLIC_FILES if path.exists())
     missing_cleanup = [value for value in forbidden if value in combined]
@@ -388,6 +433,28 @@ def test_public_files_do_not_leak_local_identity_or_paths():
 def test_release_excludes_development_only_rules():
     leaked = [path.name for path in RELEASE_EXCLUDED_FILES if path.exists()]
     assert not leaked, f"Development-only rule files must not ship: {leaked}"
+
+
+def test_phase5_multi_agent_files_exist_and_have_handoff():
+    agent_chain = [
+        ("scope-agent.md", "plan-agent"),
+        ("plan-agent.md", "execute-agent"),
+        ("execute-agent.md", "review-agent"),
+    ]
+
+    for filename, next_agent in agent_chain:
+        path = AGENTS / filename
+        assert path.exists(), f"Missing agent file: {filename}"
+        text = read(path)
+        assert "handoff" in text.lower()
+        assert next_agent in text
+
+    review_agent = AGENTS / "review-agent.md"
+    assert review_agent.exists(), "Missing agent file: review-agent.md"
+    review_text = read(review_agent)
+    assert "handoff" in review_text.lower()
+    for field in REQUIRED_TRACE_FIELDS:
+        assert field in review_text
 
 
 if __name__ == "__main__":
