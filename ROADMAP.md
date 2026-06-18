@@ -184,13 +184,11 @@ Done when:
 
 ## Immediate Next Build Tasks
 
-1. Run full 10-scenario with-skill vs without-skill comparison.
-2. Add trace schema and example trace.
-3. Expand tests for risk gate and memory poisoning.
-4. Rewrite playbook into domain sections.
-5. Add benchmark fixture prompts.
-6. Update README with short before/after examples.
-7. Create release checklist.
+1. Publish current v0.3.0 branch when approved.
+2. Add live model runner for the benchmark.
+3. Replace saved-output domain-pack comparison with live model execution.
+4. Add trace schema and example trace.
+5. Create release checklist.
 
 ## Guardrails
 

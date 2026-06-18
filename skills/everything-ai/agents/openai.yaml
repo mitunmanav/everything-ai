@@ -1,4 +1,3 @@
 interface:
   display_name: "Everything AI"
-  short_description: "Expand vague everything requests into action"
-  default_prompt: "Use $everything-ai to handle everything for this task with safe defaults and minimal questions."
+  default_prompt: "Use $everything-ai."

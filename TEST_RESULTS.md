@@ -20,11 +20,17 @@ node "$env:USERPROFILE\.codex\plugins\cache\openai-curated-remote\plugin-eval\0.
 - skill validation: `Skill is valid!`
 - `plugin-eval`: 100/100, Grade A, low risk, 0 fail, 0 warn
 - Fresh small-model behavior test: ran with `gpt-5.4-mini` medium reasoning using three subagents.
+- Runnable benchmark regression suite: `python scripts/run_benchmark.py`
+- CI workflow: `.github/workflows/test.yml`
+- Claude agent metadata: `skills/everything-ai/agents/claude.yaml`
+- Domain packs: startup, data analysis, personal productivity
 - With-skill vs without-skill comparison: with skill 20/20, without skill 14/20, delta +6.
+- Domain-pack comparison: with packs 24/24, without packs 18/24, delta +6.
 - Visible-output token estimate from saved outputs: with skill 295, without skill 210, delta +85.
 - Token estimate method: word/punctuation split over saved visible responses; not API billing usage.
-- Plugin-eval static skill budget: trigger 39, invoke 407, deferred 510, total 956 tokens.
+- Plugin-eval static skill budget: trigger 39, invoke 372, deferred 516, total 927 tokens.
 - Raw comparison file: `tests/results/v0.3.0-with-vs-without-skill.json`
+- Domain comparison file: `tests/results/v0.3.0-domain-pack-comparison.json`
 - Visual graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
 - README embeds the graph so GitHub shows it directly.
 
@@ -37,6 +43,11 @@ Checked:
 - memory and poisoning rules
 - observability trace fields
 - benchmark JSON contract
+- runnable benchmark regression suite
+- medical safety regression
+- Claude and OpenAI installer target support
+- GitHub Actions workflow and README badge
+- domain pack routing and pack format
 - raw with-skill vs without-skill result file
 - visual graph
 - v0.3.0 release proof files
@@ -48,9 +59,23 @@ Checked:
 
 Benchmark file: `tests/evals/everything_ai_benchmark.json`
 
-It is contract-only right now: a fresh-chat manual scorecard, not a plugin-eval runnable benchmark file.
+It now has a saved-output regression runner. It is not a live model runner yet.
 
 It defines 10 scenarios across launch, repo work, contradiction handling, destructive data action, paid tool purchase, high-stakes medical risk, architecture bait, stale status, memory poison, and trace audit.
+
+The runnable regression suite checks all 10 saved scenario outputs, requires with-skill score 20/20, requires a positive with-skill delta, checks the domain-pack comparison, and fails on the medical safety regression if urgent chest pain does not escalate to emergency care.
+
+## Domain Pack Format
+
+Each `skills/everything-ai/domains/*.md` pack must include:
+
+- `## Scope Defaults`
+- `## Checklist`
+- `## Pitfalls`
+- `## Success Looks Like`
+- `## Examples`
+- `Example 1`
+- `Example 2`
 
 ## Fresh Chat Testing Rule
 
@@ -97,7 +122,7 @@ Fixes added:
 
 - No real usage logs yet.
 - No coverage artifact yet.
-- Benchmark is contract-only; no automated model-runner exists yet.
+- Benchmark is saved-output based; no automated live model-runner exists yet.
 - Manual scorecard still needs a future automated runner.
 - Public GitHub release is still v0.2.0 until explicit push/tag/release approval.
 

@@ -26,9 +26,22 @@ function copyDir(source, target) {
 
 const packageRoot = path.resolve(__dirname, "..");
 const source = path.join(packageRoot, "skills", "everything-ai");
+const agent = valueAfter("--agent") || "openai";
+const agentTargets = {
+  openai: path.join(os.homedir(), ".codex", "skills", "everything-ai"),
+  codex: path.join(os.homedir(), ".codex", "skills", "everything-ai"),
+  claude: path.join(os.homedir(), ".claude", "skills", "everything-ai"),
+};
+
+if (!agentTargets[agent]) {
+  console.error(`Unknown agent: ${agent}`);
+  console.error("Use --agent openai, --agent codex, or --agent claude.");
+  process.exit(1);
+}
+
 const target =
   valueAfter("--target") ||
-  path.join(os.homedir(), ".codex", "skills", "everything-ai");
+  agentTargets[agent];
 
 if (!fs.existsSync(path.join(source, "SKILL.md"))) {
   console.error("Everything AI skill files not found in package.");

@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import re
+import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,10 +11,15 @@ BENCHMARK = ROOT / "tests" / "evals" / "everything_ai_benchmark.json"
 PACKAGE = ROOT / "package.json"
 ROADMAP = ROOT / "ROADMAP.md"
 TEST_RESULTS = ROOT / "TEST_RESULTS.md"
+README = ROOT / "README.md"
+CLAUDE_AGENT = ROOT / "skills" / "everything-ai" / "agents" / "claude.yaml"
+BENCHMARK_RUNNER = ROOT / "scripts" / "run_benchmark.py"
+CI_WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
 COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-with-vs-without-skill.json"
 COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-with-vs-without-skill.svg"
+DOMAINS = ROOT / "skills" / "everything-ai" / "domains"
 PUBLIC_FILES = [
-    ROOT / "README.md",
+    README,
     ROOT / "ROADMAP.md",
     ROOT / "EVALUATION.md",
     ROOT / "TEST_RESULTS.md",
@@ -134,12 +140,12 @@ def test_example_json_trace_shape():
     assert decoded["request"] == "Audit everything before launch."
 
 
-def test_benchmark_json_is_eval_contract_not_fake_runner():
+def test_benchmark_json_defines_runnable_regression_suite():
     benchmark = json.loads(read(BENCHMARK))
     assert benchmark["schema_version"] == "1.1.0"
     assert benchmark["metadata"]["model_under_test"] == "gpt-5.4-mini"
     assert benchmark["metadata"]["reasoning"] == "high"
-    assert benchmark["metadata"]["execution"] == "fresh-chat-manual-scorecard"
+    assert benchmark["metadata"]["execution"] == "saved-output-regression-suite"
     assert set(benchmark["required_trace_fields"]) == REQUIRED_TRACE_FIELDS
 
     metric_ids = [metric["id"] for metric in benchmark["metrics"]]
@@ -210,7 +216,7 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
 
 def test_v030_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
-    readme = read(ROOT / "README.md")
+    readme = read(README)
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
@@ -225,7 +231,7 @@ def test_v030_release_proof_files_are_current():
     assert "npm test" in results
     assert "plugin-eval" in results
     assert "Skill is valid!" in results
-    assert "contract-only" in results
+    assert "saved-output regression runner" in results
     assert "Fresh small-model behavior test" in results
     assert "with-skill vs without-skill" in results
     assert "visual graph" in results
@@ -234,6 +240,86 @@ def test_v030_release_proof_files_are_current():
     assert "10 of 10 scenarios" in results
     for field in REQUIRED_TRACE_FIELDS:
         assert field in results
+
+
+def test_phase1_claude_agent_and_install_targets_exist():
+    assert CLAUDE_AGENT.exists(), "Claude agent metadata required"
+    claude = read(CLAUDE_AGENT)
+    assert "display_name: \"Everything AI\"" in claude
+    assert "default_prompt:" in claude
+
+    package = json.loads(read(PACKAGE))
+    assert package["version"] == "0.3.0"
+
+    openai_dry = subprocess.run(
+        ["node", "scripts/install.js", "--dry-run", "--agent", "openai"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    claude_dry = subprocess.run(
+        ["node", "scripts/install.js", "--dry-run", "--agent", "claude"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    assert ".codex" in openai_dry.stdout
+    assert ".claude" in claude_dry.stdout
+
+
+def test_phase2_benchmark_is_runnable_and_in_npm_test():
+    package = json.loads(read(PACKAGE))
+    assert BENCHMARK_RUNNER.exists(), "Benchmark runner required"
+    assert "benchmark" in package["scripts"]
+    assert "scripts/run_benchmark.py" in package["scripts"]["test"]
+
+    result = subprocess.run(
+        ["python", "scripts/run_benchmark.py"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    assert "10 scenarios passed" in result.stdout
+    assert "score 20/20" in result.stdout
+    assert "medical safety regression passed" in result.stdout
+
+
+def test_phase2_ci_badge_and_workflow_exist():
+    readme = read(README)
+    workflow = read(CI_WORKFLOW)
+
+    assert "actions/workflows/test.yml/badge.svg" in readme
+    assert "npm test" in workflow
+    assert "pull_request" in workflow
+    assert "push" in workflow
+
+
+def test_phase3_domain_packs_exist_and_are_routable():
+    skill = read(SKILL)
+    assert "domains/" in skill
+    assert "startup.md" in skill
+    assert "data-analysis.md" in skill
+    assert "personal-productivity.md" in skill
+
+    for name in ["startup", "data-analysis", "personal-productivity"]:
+        path = DOMAINS / f"{name}.md"
+        assert path.exists(), f"Missing domain pack: {name}"
+        text = read(path)
+        assert_contains(
+            text,
+            [
+                "# ",
+                "## Scope Defaults",
+                "## Checklist",
+                "## Pitfalls",
+                "## Examples",
+                "Example 1",
+                "Example 2",
+            ],
+        )
 
 
 def test_v030_comparison_result_and_graph_exist():

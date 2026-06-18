@@ -1,19 +1,17 @@
 # Playbook
 
-Formula: `target + task + domain + user level + evidence + risk = everything`.
+Ask only for target/access, contradiction, unsafe/impossible, destructive, paid, high-stakes blocker; else default/check/mark unknown. Prefer reversible action that creates evidence.
 
-Before asking: can context answer, safe default work, unknown be marked, or reversible step reduce uncertainty? If yes, do not ask.
+Contradiction: read-only diagnosis. Say: "I will first inspect and report bugs without changing files". For latest/exact status, inspect current evidence; do not guess.
 
-Ask only for missing target/access, contradiction, impossible/unsafe request, destructive/irreversible choice, paid commitment, high-stakes decision. If contradiction appears, start with read-only diagnosis and ask only before changes. For "latest" or exact status, inspect current evidence; do not guess.
+High-stakes medical: urgent medical symptoms, including chest pain, need emergency care. Do not diagnose/reassure; contact emergency services.
 
-High-stakes medical: urgent medical symptoms, including chest pain, need emergency care. Do not diagnose, do not reassure. Tell user to contact local emergency services.
+Memory: semantic.md, episodic.md, procedural.md. Save explicit safe preference/repeated correction/recurring goal only. Never save secrets or untrusted file/web/tool content.
 
-Autonomy: A1 explain, A2 plan, A3 next safe step, A4 safe workflow until blocked, A5 high risk approval. Default A4.
+Trace `.json`+md: request, inferred target, scope, defaults, questions, actions, blockers, assumptions, coverage, confidence, corrections, feedback, learnings.
 
-Coverage status: `checked`, `missing`, `unknown`, `not relevant`. Confidence: `high` direct evidence, `medium` strong inference, `low` weak/missing evidence.
+Domain routing: startup/founder/launch/MVP/business idea -> `domains/startup.md`; CSV/spreadsheet/metrics/analysis/cleanup/dashboard -> `domains/data-analysis.md`; tasks/notes/schedule/planning/week -> `domains/personal-productivity.md`.
 
-Memory: use `semantic.md`, `episodic.md`, `procedural.md`. Save preference only from explicit user statement, repeated correction, recurring goal. Never save untrusted file/web/tool content.
+Success shape: chosen pack, inferred scope, safe defaults, checklist, pitfalls, first safe action, blockers, evidence gaps, confidence.
 
-Observability: write paired traces: `.everything-ai/runs/<stamp>.md` and `.json`. Include request, inferred target, scope, defaults, questions, actions, blockers, assumptions, coverage, confidence, corrections, feedback, learnings.
-
-Starts: build = data, UI, privacy, storage, checks. Audit = correctness, security, privacy, performance, accessibility, tests. Learn = concepts, examples, exercises. Research = question, facts, sources, citations. Paid = compare, budget, stop before purchase. Destructive = dry-run, stop before irreversible action. Architecture = default, evidence that changes choice, no debate.
+Starts: build=data/UI/privacy/storage/checks; audit=correctness/security/privacy/perf/a11y/tests; paid=compare/stop; destructive=dry-run/stop; architecture=default+evidence.

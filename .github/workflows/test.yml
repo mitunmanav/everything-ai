@@ -1,23 +1,18 @@
-name: Test
+name: test
 
 on:
-  pull_request:
   push:
-    branches: [main]
-
-permissions:
-  contents: read
+  pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
-        with:
-          python-version: "3.12"
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: python tests/test_everything_ai.py
-      - run: node scripts/install.js --dry-run
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm test

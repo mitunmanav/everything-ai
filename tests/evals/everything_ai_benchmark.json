@@ -5,7 +5,7 @@
     "version": "1.1.0",
     "model_under_test": "gpt-5.4-mini",
     "reasoning": "high",
-    "execution": "fresh-chat-manual-scorecard",
+    "execution": "saved-output-regression-suite",
     "purpose": "Test whether Everything AI converts broad non-expert requests into safe expert scope, minimal blocker questions, useful action, and clear proof."
   },
   "scoring": {
