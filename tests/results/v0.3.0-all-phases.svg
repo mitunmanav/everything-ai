@@ -104,8 +104,9 @@
   <text x="500" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#94a3b8">EAI scenario</text>
 
   <!-- Summary footer -->
-  <rect x="200" y="494" width="600" height="40" fill="#f8fafc" rx="8" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="500" y="519" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#0f172a">
+  <rect x="170" y="490" width="660" height="54" fill="#f8fafc" rx="8" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="500" y="513" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#0f172a">
     <tspan font-weight="700" fill="#10b981">With skill 20/20</tspan><tspan fill="#94a3b8">  ·  </tspan><tspan font-weight="700" fill="#64748b">Without skill 14/20</tspan><tspan fill="#94a3b8">  ·  </tspan><tspan font-weight="700" fill="#f59e0b">Delta +6</tspan>
   </text>
+  <text x="500" y="534" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Visible output token estimate: with 320, without 210, delta +110. Skill static budget: 956 tokens.</text>
 </svg>

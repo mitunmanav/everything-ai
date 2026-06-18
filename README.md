@@ -61,7 +61,7 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.3.0 Status
 
-Proof release. All 5 phases complete. 19/19 tests green.
+Proof release: all 5 phases complete. 19/19 tests green.
 
 | Metric | Result |
 |---|---|
@@ -69,7 +69,7 @@ Proof release. All 5 phases complete. 19/19 tests green.
 | Eval | 100/100, Grade A, low risk |
 | Model | gpt-5.5, medium reasoning |
 
-![Behavior comparison](tests/results/v0.3.0-all-phases.svg)
+![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)
 
 Details: [TEST_RESULTS.md](TEST_RESULTS.md) · [EVALUATION.md](EVALUATION.md) · [ROADMAP.md](ROADMAP.md)
 
