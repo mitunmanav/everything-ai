@@ -26,6 +26,7 @@ node "$env:USERPROFILE\.codex\plugins\cache\openai-curated-remote\plugin-eval\0.
 - Plugin-eval static skill budget: trigger 39, invoke 407, deferred 510, total 956 tokens.
 - Raw comparison file: `tests/results/v0.3.0-with-vs-without-skill.json`
 - Visual graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
+- README embeds the graph so GitHub shows it directly.
 
 ## Test Coverage
 
@@ -41,6 +42,7 @@ Checked:
 - v0.3.0 release proof files
 - installer dry-run
 - public files do not leak local identity or local paths
+- public files do not leak emails, private thread IDs, tokens, secrets, or private user details
 
 ## Benchmark Contract
 

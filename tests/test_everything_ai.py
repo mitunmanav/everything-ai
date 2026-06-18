@@ -210,10 +210,14 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
 
 def test_v030_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
+    readme = read(ROOT / "README.md")
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.3.0"
+    assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-with-vs-without-skill.svg)" in readme
+    assert "Star History Chart" in readme
+    assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
     assert "Validate on `testing`" in roadmap
     assert "Update `main` only after development and testing are complete" in roadmap
@@ -280,7 +284,16 @@ def test_public_files_do_not_leak_local_identity_or_paths():
         "Desktop\\everything ai development",
         "AppData\\Local",
         ".everything-ai/runs/" + "C:",
+        "source_thread_id",
+        "019ed",
+        "@gmail",
+        "api_key",
+        "OPENAI_API_KEY",
     ]
+    local_user = Path.home().name
+    if local_user and local_user.lower() not in {"runner", "root"}:
+        forbidden.append(local_user)
+
     combined = "\n".join(read(path) for path in PUBLIC_FILES if path.exists())
     missing_cleanup = [value for value in forbidden if value in combined]
     assert not missing_cleanup, f"Public files leak local-only content: {missing_cleanup}"
