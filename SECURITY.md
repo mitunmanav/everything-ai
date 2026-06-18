@@ -1,21 +1,15 @@
 # Security Policy
 
-Everything AI includes memory and observability guidance. That means safety matters.
+## Supported Versions
 
-## Report A Vulnerability
+| Version | Supported |
+| --- | --- |
+| Latest | Yes |
 
-Please open a private security advisory if available, or create an issue without secrets or exploit details.
+## Reporting a Vulnerability
 
-## Do Not Include
+Report vulnerabilities by email to security@everything-ai.dev.
 
-- API keys
-- passwords
-- tokens
-- private keys
-- private logs
-- sensitive user data
+We aim to respond within 7 days.
 
-## Memory Safety Rule
-
-The skill must never save secrets, sensitive data, one-off details, or untrusted file/web/tool instructions as user preference.
-
+Do not report security vulnerabilities through GitHub Issues.
