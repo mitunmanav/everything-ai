@@ -31,8 +31,8 @@ function copyDir(source, target) {
 const packageRoot = path.resolve(__dirname, "..");
 const source = path.join(packageRoot, "skills", "everything-ai");
 const agentTargets = {
-  openai: path.join(os.homedir(), ".codex", "skills", "everything-ai"),
-  codex: path.join(os.homedir(), ".codex", "skills", "everything-ai"),
+  openai: path.join(os.homedir(), ".agents", "skills", "everything-ai"),
+  codex: path.join(os.homedir(), ".agents", "skills", "everything-ai"),
   claude: path.join(os.homedir(), ".claude", "skills", "everything-ai"),
 };
 let agent = valueAfter("--agent") || "codex";
