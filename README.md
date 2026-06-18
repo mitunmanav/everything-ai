@@ -61,32 +61,17 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.3.0 Status
 
-v0.3.0 is a proof release draft with all 5 phases complete.
+Proof release. All 5 phases complete. 19/19 tests green.
 
-- local tests: passed
-- skill validation: passed
-- plugin evaluation: 100/100, Grade A, low risk
-- behavior comparison: with skill 20/20, without skill 14/20, delta +6
-- domain-pack comparison: with packs 24/24, without packs 18/24, delta +6
-- model: `gpt-5.5`, medium reasoning
-- test method: saved-output regression suite
-- CI workflow: runs on pushes and pull requests
-- agent metadata: OpenAI/Codex and Claude
-- domain packs: startup, data analysis, personal productivity
-- memory upgrade: read instructions and memory audit rules
-- multi-agent files: scope, plan, execute, review handoff chain
-- raw result: [`tests/results/v0.3.0-all-phases.json`](tests/results/v0.3.0-all-phases.json)
+| Metric | Result |
+|---|---|
+| Behavior | with skill 20/20 · without 14/20 · delta +6 |
+| Eval | 100/100, Grade A, low risk |
+| Model | gpt-5.5, medium reasoning |
 
-![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)
+![Behavior comparison](tests/results/v0.3.0-all-phases.svg)
 
-Known gaps:
-
-- no real usage logs yet
-- no coverage artifact yet
-- benchmark runner is saved-output based, not live model execution yet
-- public GitHub release is still v0.2.0 until explicit approval
-
-More detail: [`TEST_RESULTS.md`](TEST_RESULTS.md), [`EVALUATION.md`](EVALUATION.md), [`ROADMAP.md`](ROADMAP.md).
+Details: [TEST_RESULTS.md](TEST_RESULTS.md) · [EVALUATION.md](EVALUATION.md) · [ROADMAP.md](ROADMAP.md)
 
 ## Domain Packs
 

@@ -1,34 +1,111 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="720" viewBox="0 0 1100 720" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
   <title id="title">Everything AI v0.3.0 — All Phases Behavior Comparison</title>
-  <desc id="desc">Bar chart comparing With skill and Without skill scores across 10 Everything AI benchmark scenarios.</desc>
-  <rect width="1100" height="720" fill="#ffffff"/>
-  <text x="550" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1f2933">Everything AI v0.3.0 — All Phases Behavior Comparison</text>
-  <text x="92" y="95" font-family="Arial, sans-serif" font-size="14" fill="#52606d">score</text>
-  <line x1="110" y1="110" x2="110" y2="430" stroke="#52606d" stroke-width="2"/>
-  <line x1="110" y1="430" x2="1010" y2="430" stroke="#52606d" stroke-width="2"/>
-  <line x1="110" y1="430" x2="1010" y2="430" stroke="#d9e2ec" stroke-width="1"/>
-  <line x1="110" y1="270" x2="1010" y2="270" stroke="#d9e2ec" stroke-width="1"/>
-  <line x1="110" y1="110" x2="1010" y2="110" stroke="#d9e2ec" stroke-width="1"/>
-  <text x="94" y="435" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">0</text>
-  <text x="94" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">1</text>
-  <text x="94" y="115" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#52606d">2</text>
-  <rect x="386" y="74" width="18" height="18" fill="#4CAF50"/>
-  <text x="414" y="88" font-family="Arial, sans-serif" font-size="15" fill="#1f2933">With skill</text>
-  <rect x="534" y="74" width="18" height="18" fill="#FF6B6B"/>
-  <text x="562" y="88" font-family="Arial, sans-serif" font-size="15" fill="#1f2933">Without skill</text>
-  <g font-family="Arial, sans-serif" font-size="12" fill="#1f2933" text-anchor="middle">
-    <rect x="135" y="110" width="24" height="320" fill="#4CAF50"/><rect x="164" y="430" width="24" height="0" fill="#FF6B6B"/><text x="161" y="455">EAI-001</text><text x="147" y="104">2</text><text x="176" y="424">0</text>
-    <rect x="225" y="110" width="24" height="320" fill="#4CAF50"/><rect x="254" y="270" width="24" height="160" fill="#FF6B6B"/><text x="251" y="455">EAI-002</text><text x="237" y="104">2</text><text x="266" y="264">1</text>
-    <rect x="315" y="110" width="24" height="320" fill="#4CAF50"/><rect x="344" y="270" width="24" height="160" fill="#FF6B6B"/><text x="341" y="455">EAI-003</text><text x="327" y="104">2</text><text x="356" y="264">1</text>
-    <rect x="405" y="110" width="24" height="320" fill="#4CAF50"/><rect x="434" y="110" width="24" height="320" fill="#FF6B6B"/><text x="431" y="455">EAI-004</text><text x="417" y="104">2</text><text x="446" y="104">2</text>
-    <rect x="495" y="110" width="24" height="320" fill="#4CAF50"/><rect x="524" y="110" width="24" height="320" fill="#FF6B6B"/><text x="521" y="455">EAI-005</text><text x="507" y="104">2</text><text x="536" y="104">2</text>
-    <rect x="585" y="110" width="24" height="320" fill="#4CAF50"/><rect x="614" y="110" width="24" height="320" fill="#FF6B6B"/><text x="611" y="455">EAI-006</text><text x="597" y="104">2</text><text x="626" y="104">2</text>
-    <rect x="675" y="110" width="24" height="320" fill="#4CAF50"/><rect x="704" y="110" width="24" height="320" fill="#FF6B6B"/><text x="701" y="455">EAI-007</text><text x="687" y="104">2</text><text x="716" y="104">2</text>
-    <rect x="765" y="110" width="24" height="320" fill="#4CAF50"/><rect x="794" y="110" width="24" height="320" fill="#FF6B6B"/><text x="791" y="455">EAI-008</text><text x="777" y="104">2</text><text x="806" y="104">2</text>
-    <rect x="855" y="110" width="24" height="320" fill="#4CAF50"/><rect x="884" y="110" width="24" height="320" fill="#FF6B6B"/><text x="881" y="455">EAI-009</text><text x="867" y="104">2</text><text x="896" y="104">2</text>
-    <rect x="945" y="110" width="24" height="320" fill="#4CAF50"/><rect x="974" y="430" width="24" height="0" fill="#FF6B6B"/><text x="971" y="455">EAI-010</text><text x="957" y="104">2</text><text x="986" y="424">0</text>
-  </g>
-  <text x="550" y="508" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1f2933">With skill 20/20 | Without skill 14/20 | Delta +6</text>
-  <text x="550" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#1f2933">Visible output token estimate: With skill 320 tokens | Without skill 210 tokens | Delta +110</text>
-  <text x="550" y="586" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#1f2933">Skill static budget: 956 tokens</text>
+  <desc id="desc">Bar chart comparing With skill and Without skill scores across 10 Everything AI benchmark scenarios. With skill scored 20/20, Without skill scored 14/20, delta +6.</desc>
+
+  <rect width="1000" height="560" fill="#ffffff"/>
+
+  <text x="500" y="42" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">Everything AI v0.3.0 — All Phases Behavior Comparison</text>
+
+  <!-- Legend -->
+  <rect x="660" y="60" width="12" height="12" fill="#10b981" rx="2"/>
+  <text x="678" y="71" font-family="Arial, sans-serif" font-size="13" fill="#334155">With skill</text>
+  <rect x="760" y="60" width="12" height="12" fill="#94a3b8" rx="2"/>
+  <text x="778" y="71" font-family="Arial, sans-serif" font-size="13" fill="#334155">Without skill</text>
+
+  <text x="28" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#64748b" transform="rotate(-90, 28, 310)">Score</text>
+
+  <!-- Gridlines -->
+  <line x1="80" y1="420" x2="960" y2="420" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="80" y1="320" x2="960" y2="320" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="80" y1="220" x2="960" y2="220" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Axes -->
+  <line x1="80" y1="100" x2="80" y2="420" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="80" y1="420" x2="960" y2="420" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Y-axis ticks -->
+  <text x="68" y="424" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#64748b">0</text>
+  <text x="68" y="324" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#64748b">1</text>
+  <text x="68" y="224" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#64748b">2</text>
+  <line x1="76" y1="420" x2="80" y2="420" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="76" y1="320" x2="80" y2="320" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="76" y1="220" x2="80" y2="220" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- EAI-001: with=2(200px), without=0 -->
+  <rect x="100" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="134" y="420" width="28" height="1" fill="#94a3b8" rx="4"/>
+  <text x="114" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="148" y="414" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">0</text>
+  <text x="131" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">001</text>
+
+  <!-- EAI-002: with=2, without=1 -->
+  <rect x="188" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="222" y="320" width="28" height="100" fill="#94a3b8" rx="4"/>
+  <text x="202" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="236" y="314" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">1</text>
+  <text x="219" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">002</text>
+
+  <!-- EAI-003: with=2, without=1 -->
+  <rect x="276" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="310" y="320" width="28" height="100" fill="#94a3b8" rx="4"/>
+  <text x="290" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="324" y="314" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">1</text>
+  <text x="307" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">003</text>
+
+  <!-- EAI-004: with=2, without=2 -->
+  <rect x="364" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="398" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="378" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="412" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="395" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">004</text>
+
+  <!-- EAI-005: with=2, without=2 -->
+  <rect x="452" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="486" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="466" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="500" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="483" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">005</text>
+
+  <!-- EAI-006: with=2, without=2 -->
+  <rect x="540" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="574" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="554" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="588" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="571" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">006</text>
+
+  <!-- EAI-007: with=2, without=2 -->
+  <rect x="628" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="662" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="642" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="676" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="659" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">007</text>
+
+  <!-- EAI-008: with=2, without=2 -->
+  <rect x="716" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="750" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="730" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="764" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="747" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">008</text>
+
+  <!-- EAI-009: with=2, without=2 -->
+  <rect x="804" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="838" y="220" width="28" height="200" fill="#94a3b8" rx="4"/>
+  <text x="818" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="852" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2</text>
+  <text x="835" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">009</text>
+
+  <!-- EAI-010: with=2, without=0 -->
+  <rect x="892" y="220" width="28" height="200" fill="#10b981" rx="4"/>
+  <rect x="926" y="420" width="28" height="1" fill="#94a3b8" rx="4"/>
+  <text x="906" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#10b981">2</text>
+  <text x="940" y="414" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">0</text>
+  <text x="923" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b">010</text>
+
+  <text x="500" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#94a3b8">EAI scenario</text>
+
+  <!-- Summary footer -->
+  <rect x="200" y="494" width="600" height="40" fill="#f8fafc" rx="8" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="500" y="519" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#0f172a">
+    <tspan font-weight="700" fill="#10b981">With skill 20/20</tspan><tspan fill="#94a3b8">  ·  </tspan><tspan font-weight="700" fill="#64748b">Without skill 14/20</tspan><tspan fill="#94a3b8">  ·  </tspan><tspan font-weight="700" fill="#f59e0b">Delta +6</tspan>
+  </text>
 </svg>
