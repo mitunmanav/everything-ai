@@ -183,8 +183,10 @@ Current proof:
 - local test suite passes
 - plugin evaluation reports 100/100, Grade A
 - benchmark contract exists for 10 fresh-chat manual scorecard scenarios
-- with-skill vs without-skill comparison exists for 4 scenarios
+- with-skill vs without-skill comparison exists for 10 scenarios
 - comparison score: with skill 20/20, without skill 14/20, delta +6
+- visible-output token estimate: with skill 295, without skill 210, delta +85
+- plugin-eval static skill budget: 956 total tokens
 - raw result: `tests/results/v0.3.0-with-vs-without-skill.json`
 - graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
 

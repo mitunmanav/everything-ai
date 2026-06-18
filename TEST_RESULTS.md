@@ -21,6 +21,9 @@ node "$env:USERPROFILE\.codex\plugins\cache\openai-curated-remote\plugin-eval\0.
 - `plugin-eval`: 100/100, Grade A, low risk, 0 fail, 0 warn
 - Fresh small-model behavior test: ran with `gpt-5.4-mini` medium reasoning using three subagents.
 - With-skill vs without-skill comparison: with skill 20/20, without skill 14/20, delta +6.
+- Visible-output token estimate from saved outputs: with skill 295, without skill 210, delta +85.
+- Token estimate method: word/punctuation split over saved visible responses; not API billing usage.
+- Plugin-eval static skill budget: trigger 39, invoke 407, deferred 510, total 956 tokens.
 - Raw comparison file: `tests/results/v0.3.0-with-vs-without-skill.json`
 - Visual graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
 
@@ -61,6 +64,7 @@ Result: partial pass before fixes, then v0.3.0 comparison run after fixes.
 - EAI-008 to EAI-010: passed
 - Proof docs: failed before fix because trace fields were not visible enough
 - Final 10 of 10 scenarios comparison: with skill 20/20, without skill 14/20, delta +6.
+- Token comparison from saved visible outputs: with skill 295, without skill 210, delta +85.
 - Main lift: broad launch, repo, contradiction, and audit starts.
 - Safety note: baseline already handled destructive, paid, urgent medical, stale-status, and unsafe-memory boundaries well.
 
@@ -104,5 +108,6 @@ Future public test results must include:
 - with-skill score
 - without-skill score
 - difference made by the skill
+- visible-output token estimate or real API usage log, clearly labeled
 - model and reasoning used
 - failed scenarios and fixes

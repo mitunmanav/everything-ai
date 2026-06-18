@@ -9,6 +9,8 @@ Latest local checks for v0.3.0:
 - Risk: low
 - Warnings: 0
 - With-skill vs without-skill comparison: 20/20 vs 14/20, delta +6
+- Visible-output token estimate: with skill 295, without skill 210, delta +85
+- Plugin-eval static skill budget: trigger 39, invoke 407, deferred 510, total 956 tokens
 - Raw result: `tests/results/v0.3.0-with-vs-without-skill.json`
 - Graph: `tests/results/v0.3.0-with-vs-without-skill.svg`
 - Known gap: no real usage logs yet

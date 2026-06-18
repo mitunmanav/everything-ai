@@ -247,6 +247,13 @@ def test_v030_comparison_result_and_graph_exist():
     with_score = result["summary"]["with_skill_score"]
     assert with_score > without_score
     assert result["summary"]["delta"] == with_score - without_score
+    token_estimate = result["summary"]["visible_output_token_estimate"]
+    assert token_estimate["without_skill"] == 210
+    assert token_estimate["with_skill"] == 295
+    assert token_estimate["delta"] == 85
+    assert "not API billing usage" in token_estimate["method"]
+    skill_budget = result["summary"]["skill_static_token_budget"]
+    assert skill_budget["total_tokens"] == 956
 
     for scenario in result["scenarios"]:
         assert scenario["id"].startswith("EAI-")
@@ -261,6 +268,10 @@ def test_v030_comparison_result_and_graph_exist():
     assert "Without skill" in graph
     assert str(with_score) in graph
     assert str(without_score) in graph
+    assert "Visible output token estimate" in graph
+    assert "295" in graph
+    assert "210" in graph
+    assert "956" in graph
 
 
 def test_public_files_do_not_leak_local_identity_or_paths():

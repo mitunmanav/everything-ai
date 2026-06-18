@@ -9,6 +9,19 @@
     "with_skill_score": 20,
     "delta": 6,
     "max_score": 20,
+    "visible_output_token_estimate": {
+      "method": "Auditable estimate from saved visible outputs using word/punctuation token splitting. This is not API billing usage.",
+      "without_skill": 210,
+      "with_skill": 295,
+      "delta": 85
+    },
+    "skill_static_token_budget": {
+      "source": "plugin-eval analyze static estimate",
+      "trigger_cost_tokens": 39,
+      "invoke_cost_tokens": 407,
+      "deferred_cost_tokens": 510,
+      "total_tokens": 956
+    },
     "finding": "Everything AI improved broad delegation, repo work, contradiction handling, and audit starts. Baseline model already handled destructive, paid, urgent medical, stale-status, and unsafe-memory boundaries well."
   },
   "raw_outputs": {
