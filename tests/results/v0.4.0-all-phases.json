@@ -1,0 +1,32 @@
+{
+  "version": "0.4.0",
+  "date": "2026-06-19",
+  "execution": "unit-test-suite-regression",
+  "summary": {
+    "tests_passed": 31,
+    "tests_total": 31,
+    "benchmark_scenarios": 20,
+    "domains": 10,
+    "phases_complete": 5,
+    "finding": "Everything AI v0.4.0 adds 7 domain packs (10 total), memory bootstrap, plain-language UX, context hook, and 20-scenario benchmark. 31/31 tests green."
+  },
+  "domains": [
+    "startup",
+    "data-analysis",
+    "personal-productivity",
+    "coding",
+    "writing",
+    "health",
+    "learning",
+    "finance",
+    "life",
+    "research"
+  ],
+  "phases": {
+    "A": "Domain expansion — 7 new packs, 10-domain routing in SKILL.md and playbook.md",
+    "B": "Memory bootstrap — creates semantic.md, episodic.md, procedural.md at install time",
+    "C": "Non-technical UX — QUICKSTART.md, plain-language output rule",
+    "D": "Context hook — injects today date and working directory on every prompt",
+    "E": "Benchmark expansion — 20 scenarios, v0.4.0 tag, package.json bump"
+  }
+}

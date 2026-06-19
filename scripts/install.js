@@ -56,7 +56,24 @@ function ask(rl, question) {
 }
 
 async function promptForInstall() {
-  console.log("Everything AI Skill Installer");
+  console.log("");
+  console.log("╔══════════════════════════════════════════════╗");
+  console.log("║     Everything AI — Skill Installer v0.4.0   ║");
+  console.log("╠══════════════════════════════════════════════╣");
+  console.log("║  Installs the everything-ai skill so your    ║");
+  console.log("║  AI agent handles full tasks with safe       ║");
+  console.log("║  defaults across 10 domains.                 ║");
+  console.log("║                                              ║");
+  console.log("║  What gets installed:                        ║");
+  console.log("║  • Skill files (10 domain packs)             ║");
+  console.log("║  • Memory files (semantic, episodic,         ║");
+  console.log("║    procedural) created on first run          ║");
+  console.log("║  • Context hook — date + directory on        ║");
+  console.log("║    every prompt (Codex only)                 ║");
+  console.log("║                                              ║");
+  console.log("║  No telemetry. No secrets read.              ║");
+  console.log("║  Refuses overwrite unless --force used.      ║");
+  console.log("╚══════════════════════════════════════════════╝");
   console.log("");
 
   const rl = readline.createInterface({

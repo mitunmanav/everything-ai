@@ -229,7 +229,9 @@ def test_v040_release_proof_files_are_current():
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.4.0"
-    assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)" in readme
+    assert "![Everything AI v0.4.0 domain coverage](tests/results/v0.4.0-all-phases.svg)" in readme
+    assert "## v0.4.0 Status" in readme
+    assert "31/31 tests green" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
@@ -243,7 +245,7 @@ def test_v040_release_proof_files_are_current():
     assert "Fresh small-model behavior test" in results
     assert "with-skill vs without-skill" in results
     assert "visual graph" in results
-    assert "all 5 phases complete" in readme
+    assert "5 complete" in readme
     assert "all 5 phases complete" in results
     assert "tests/results/v0.3.0-all-phases.json" in results
     assert "tests/results/v0.3.0-all-phases.svg" in results
@@ -446,6 +448,20 @@ def test_v030_comparison_result_and_graph_exist():
     assert "320" in graph
     assert "210" in graph
     assert "956" in graph
+
+
+def test_v040_comparison_result_and_graph_exist():
+    result = json.loads(read(ROOT / "tests" / "results" / "v0.4.0-all-phases.json"))
+    graph = read(ROOT / "tests" / "results" / "v0.4.0-all-phases.svg")
+
+    assert result["version"] == "0.4.0"
+    assert result["summary"]["tests_passed"] == 31
+    assert result["summary"]["tests_total"] == 31
+    assert result["summary"]["domains"] == 10
+    assert result["summary"]["benchmark_scenarios"] == 20
+    assert len(result["domains"]) == 10
+    assert "<svg" in graph
+    assert "31 / 31 tests passing" in graph
 
 
 def test_public_files_do_not_leak_local_identity_or_paths():
