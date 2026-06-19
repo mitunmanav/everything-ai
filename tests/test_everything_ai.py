@@ -625,7 +625,7 @@ def test_phase_c_plain_language_rule_in_skill():
     skill = read(SKILL)
     assert_contains(skill, [
         "plain language",
-        "no jargon",
+        "No jargon",
     ])
 
 
