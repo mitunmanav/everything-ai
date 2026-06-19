@@ -1,78 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" role="img" aria-labelledby="t d">
-<title id="t">Everything AI v0.4.0 — behavior quality, with vs without the skill</title>
-<desc id="d">Blind cross-model judge, score as percent of the rubric max, higher is better. Top panel gpt-5.5 at medium reasoning: without skill 88.2 percent, with skill 92.1 percent, a 3.9 point gain, with the biggest lift on trace completeness and ask-gating. Bottom panel gpt-5.4-mini at low reasoning: without skill 75.0 percent, with skill 64.5 percent, a -10.5 point drop, every metric lower. The skill helps a capable model and overloads a small one.</desc>
-<rect width="880" height="560" fill="#0d1117"/>
-<text x="440.0" y="30" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#c9d1d9">Behavior quality with vs without the skill (blind cross-model judge)</text>
-<text x="440.0" y="50" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b949e">Score as % of rubric max, higher is better · 10 vague-request scenarios, both arms, n=20 scored runs per model</text>
-<rect x="290.0" y="62" width="11" height="11" fill="#8b949e" rx="2"/>
-<text x="306.0" y="72" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e">without skill</text>
-<rect x="410.0" y="62" width="11" height="11" fill="#2da44e" rx="2"/>
-<text x="426.0" y="72" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e">with skill (helps)</text>
-<rect x="545.0" y="62" width="11" height="11" fill="#cf222e" rx="2"/>
-<text x="561.0" y="72" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e">with skill (hurts)</text>
-<text x="70" y="110" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">gpt-5.5 · medium reasoning  —  off 88.2%  →  on 92.1%  (+3.9)</text>
-<line x1="70" y1="244.0" x2="810" y2="244.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="247.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">0</text>
-<line x1="70" y1="213.0" x2="810" y2="213.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="216.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">25</text>
-<line x1="70" y1="182.0" x2="810" y2="182.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="185.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">50</text>
-<line x1="70" y1="151.0" x2="810" y2="151.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="154.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">75</text>
-<line x1="70" y1="120.0" x2="810" y2="120.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="123.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">100</text>
-<rect x="88.0" y="130.4" width="31.7" height="113.6" fill="#8b949e" rx="1.5"/>
-<rect x="126.0" y="120.0" width="31.7" height="124.0" fill="#2da44e" rx="1.5"/>
-<text x="122.9" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">ask-gate</text>
-<rect x="193.7" y="120.0" width="31.7" height="124.0" fill="#8b949e" rx="1.5"/>
-<rect x="231.7" y="135.5" width="31.7" height="108.5" fill="#2da44e" rx="1.5"/>
-<text x="228.6" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">scope</text>
-<rect x="299.4" y="132.4" width="31.7" height="111.6" fill="#8b949e" rx="1.5"/>
-<rect x="337.5" y="144.8" width="31.7" height="99.2" fill="#2da44e" rx="1.5"/>
-<text x="334.3" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">defaults</text>
-<rect x="405.1" y="120.0" width="31.7" height="124.0" fill="#8b949e" rx="1.5"/>
-<rect x="443.2" y="120.0" width="31.7" height="124.0" fill="#2da44e" rx="1.5"/>
-<text x="440.0" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">risk-stop</text>
-<rect x="510.8" y="147.5" width="31.7" height="96.5" fill="#8b949e" rx="1.5"/>
-<rect x="548.9" y="140.6" width="31.7" height="103.4" fill="#2da44e" rx="1.5"/>
-<text x="545.7" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">proof</text>
-<rect x="616.5" y="120.0" width="31.7" height="124.0" fill="#8b949e" rx="1.5"/>
-<rect x="654.6" y="120.0" width="31.7" height="124.0" fill="#2da44e" rx="1.5"/>
-<text x="651.4" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">memory</text>
-<rect x="722.3" y="143.2" width="31.7" height="100.8" fill="#8b949e" rx="1.5"/>
-<rect x="760.3" y="120.0" width="31.7" height="124.0" fill="#2da44e" rx="1.5"/>
-<text x="757.1" y="258.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">complete</text>
-<text x="70" y="350" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">gpt-5.4-mini · low reasoning  —  off 75.0%  →  on 64.5%  (-10.5)</text>
-<line x1="70" y1="484.0" x2="810" y2="484.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="487.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">0</text>
-<line x1="70" y1="453.0" x2="810" y2="453.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="456.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">25</text>
-<line x1="70" y1="422.0" x2="810" y2="422.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="425.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">50</text>
-<line x1="70" y1="391.0" x2="810" y2="391.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="394.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">75</text>
-<line x1="70" y1="360.0" x2="810" y2="360.0" stroke="#30363d" stroke-width="1"/>
-<text x="64" y="363.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">100</text>
-<rect x="88.0" y="380.6" width="31.7" height="103.4" fill="#8b949e" rx="1.5"/>
-<rect x="126.0" y="391.0" width="31.7" height="93.0" fill="#cf222e" rx="1.5"/>
-<text x="122.9" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">ask-gate</text>
-<rect x="193.7" y="422.0" width="31.7" height="62.0" fill="#8b949e" rx="1.5"/>
-<rect x="231.7" y="437.5" width="31.7" height="46.5" fill="#cf222e" rx="1.5"/>
-<text x="228.6" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">scope</text>
-<rect x="299.4" y="409.6" width="31.7" height="74.4" fill="#8b949e" rx="1.5"/>
-<rect x="337.5" y="422.0" width="31.7" height="62.0" fill="#cf222e" rx="1.5"/>
-<text x="334.3" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">defaults</text>
-<rect x="405.1" y="360.0" width="31.7" height="124.0" fill="#8b949e" rx="1.5"/>
-<rect x="443.2" y="360.0" width="31.7" height="124.0" fill="#cf222e" rx="1.5"/>
-<text x="440.0" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">risk-stop</text>
-<rect x="510.8" y="401.4" width="31.7" height="82.6" fill="#8b949e" rx="1.5"/>
-<rect x="548.9" y="422.0" width="31.7" height="62.0" fill="#cf222e" rx="1.5"/>
-<text x="545.7" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">proof</text>
-<rect x="616.5" y="360.0" width="31.7" height="124.0" fill="#8b949e" rx="1.5"/>
-<rect x="654.6" y="360.0" width="31.7" height="124.0" fill="#cf222e" rx="1.5"/>
-<text x="651.4" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">memory</text>
-<rect x="722.3" y="383.2" width="31.7" height="100.8" fill="#8b949e" rx="1.5"/>
-<rect x="760.3" y="398.8" width="31.7" height="85.2" fill="#cf222e" rx="1.5"/>
-<text x="757.1" y="498.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">complete</text>
-<text x="440.0" y="548" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.5" fill="#8b949e">The honest measurement: a real model answering real vague requests in a neutral scratch dir, scored blind. The skill is built for capable models.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="580" viewBox="0 0 880 580" role="img" aria-labelledby="t d">
+<title id="t">Everything AI v0.4.0 — what the skill changes, per metric</title>
+<desc id="d">Blind cross-model judge. Bars show the change the skill makes per metric, on minus off, in points of the rubric max: green above the zero line where it helps, red below where it hurts. Top panel gpt-5.5 at medium reasoning is mostly green, overall 3.9 points, led by trace completeness and ask-gating, with small drops on scope and defaults. Bottom panel gpt-5.4-mini at low reasoning is all red, overall -10.5 points: the same instructions overload a small model. The skill helps a capable model and hurts a small one.</desc>
+<rect width="880" height="580" fill="#0d1117"/>
+<text x="440.0" y="30" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#c9d1d9">What the skill changes, metric by metric (blind cross-model judge)</text>
+<text x="440.0" y="50" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b949e">Bars = with-skill minus without-skill, in points of rubric max · above 0 the skill helps, below 0 it hurts · n=20 scored runs per model</text>
+<rect x="330.0" y="62" width="11" height="11" fill="#2da44e" rx="2"/>
+<text x="346.0" y="72" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e">skill helps</text>
+<rect x="445.0" y="62" width="11" height="11" fill="#cf222e" rx="2"/>
+<text x="461.0" y="72" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e">skill hurts</text>
+<text x="70" y="122" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">gpt-5.5 · medium reasoning  —  off 88.2%  →  on 92.1%  <tspan fill="#2da44e">overall +3.9 pts</tspan></text>
+<line x1="70" y1="146.0" x2="810" y2="146.0" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="149.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">+20</text>
+<line x1="70" y1="181.8" x2="810" y2="181.8" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="184.8" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">+10</text>
+<line x1="70" y1="253.2" x2="810" y2="253.2" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="256.2" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">-10</text>
+<line x1="70" y1="289.0" x2="810" y2="289.0" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="292.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">-20</text>
+<line x1="70" y1="217.5" x2="810" y2="217.5" stroke="#6e7681" stroke-width="1.5"/>
+<rect x="98.5" y="187.6" width="48.6" height="29.9" fill="#2da44e" rx="1.5"/>
+<text x="122.9" y="182.6" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">+8</text>
+<text x="122.9" y="302.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">ask-gate</text>
+<rect x="204.3" y="217.5" width="48.6" height="44.7" fill="#cf222e" rx="1.5"/>
+<text x="228.6" y="274.2" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-12</text>
+<text x="228.6" y="140.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">scope</text>
+<rect x="310.0" y="217.5" width="48.6" height="35.7" fill="#cf222e" rx="1.5"/>
+<text x="334.3" y="265.2" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-10</text>
+<text x="334.3" y="140.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">defaults</text>
+<rect x="415.7" y="216.5" width="48.6" height="2" fill="#6e7681" rx="1"/>
+<text x="440.0" y="211.5" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">0</text>
+<text x="440.0" y="302.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">risk-stop</text>
+<rect x="521.4" y="197.7" width="48.6" height="19.8" fill="#2da44e" rx="1.5"/>
+<text x="545.7" y="192.7" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">+6</text>
+<text x="545.7" y="302.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">proof</text>
+<rect x="627.1" y="216.5" width="48.6" height="2" fill="#6e7681" rx="1"/>
+<text x="651.4" y="211.5" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">0</text>
+<text x="651.4" y="302.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">memory</text>
+<rect x="732.8" y="150.5" width="48.6" height="67.0" fill="#2da44e" rx="1.5"/>
+<text x="757.1" y="145.5" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">+19</text>
+<text x="757.1" y="302.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">complete</text>
+<text x="70" y="377" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">gpt-5.4-mini · low reasoning  —  off 75.0%  →  on 64.5%  <tspan fill="#cf222e">overall -10.5 pts</tspan></text>
+<line x1="70" y1="401.0" x2="810" y2="401.0" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="404.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">+20</text>
+<line x1="70" y1="436.8" x2="810" y2="436.8" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="439.8" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">+10</text>
+<line x1="70" y1="508.2" x2="810" y2="508.2" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="511.2" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">-10</text>
+<line x1="70" y1="544.0" x2="810" y2="544.0" stroke="#30363d" stroke-width="1"/>
+<text x="64" y="547.0" text-anchor="end" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">-20</text>
+<line x1="70" y1="472.5" x2="810" y2="472.5" stroke="#6e7681" stroke-width="1.5"/>
+<rect x="98.5" y="472.5" width="48.6" height="29.9" fill="#cf222e" rx="1.5"/>
+<text x="122.9" y="514.4" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-8</text>
+<text x="122.9" y="395.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">ask-gate</text>
+<rect x="204.3" y="472.5" width="48.6" height="44.7" fill="#cf222e" rx="1.5"/>
+<text x="228.6" y="529.2" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-12</text>
+<text x="228.6" y="395.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">scope</text>
+<rect x="310.0" y="472.5" width="48.6" height="35.7" fill="#cf222e" rx="1.5"/>
+<text x="334.3" y="520.2" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-10</text>
+<text x="334.3" y="395.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">defaults</text>
+<rect x="415.7" y="471.5" width="48.6" height="2" fill="#6e7681" rx="1"/>
+<text x="440.0" y="466.5" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">0</text>
+<text x="440.0" y="557.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">risk-stop</text>
+<rect x="521.4" y="472.5" width="48.6" height="59.5" fill="#cf222e" rx="1.5"/>
+<text x="545.7" y="544.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-17</text>
+<text x="545.7" y="395.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">proof</text>
+<rect x="627.1" y="471.5" width="48.6" height="2" fill="#6e7681" rx="1"/>
+<text x="651.4" y="466.5" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">0</text>
+<text x="651.4" y="557.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">memory</text>
+<rect x="732.8" y="472.5" width="48.6" height="44.7" fill="#cf222e" rx="1.5"/>
+<text x="757.1" y="529.2" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#c9d1d9">-12</text>
+<text x="757.1" y="395.0" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9.5" fill="#8b949e">complete</text>
+<text x="440.0" y="568" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.5" fill="#8b949e">A real model answering vague "do everything" requests in a neutral scratch dir, scored blind. The skill is built for capable models.</text>
 </svg>

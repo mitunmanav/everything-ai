@@ -482,8 +482,8 @@ def test_v040_comparison_result_and_graph_exist():
     assert "blind cross-model judge" in graph
     assert "gpt-5.5" in graph
     assert "gpt-5.4-mini" in graph
-    assert "without skill" in graph
-    assert "with skill" in graph
+    assert "skill helps" in graph
+    assert "skill hurts" in graph
     assert "88.2" in graph and "92.1" in graph
 
 
