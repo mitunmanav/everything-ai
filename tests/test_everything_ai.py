@@ -607,6 +607,27 @@ def test_phase_b_bootstrap_script_exists_and_creates_memory_files():
             assert "## " in content, f"{name} must have sections"
 
 
+def test_phase_c_quickstart_exists_and_has_examples():
+    p = ROOT / "QUICKSTART.md"
+    assert p.exists(), "QUICKSTART.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## What it does",
+        "## How to use",
+        "## Examples",
+        "## What it will do",
+        "## When it will ask",
+    ])
+
+
+def test_phase_c_plain_language_rule_in_skill():
+    skill = read(SKILL)
+    assert_contains(skill, [
+        "plain language",
+        "no jargon",
+    ])
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
