@@ -5,7 +5,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK = ROOT / "tests" / "evals" / "everything_ai_benchmark.json"
-RESULTS = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
+BASELINE_RESULTS = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
 
 
 def load_json(path):
@@ -36,7 +36,7 @@ REQUIRED_SAVED_OUTPUT_FIELDS = {
 
 def main():
     benchmark = load_json(BENCHMARK)
-    results = load_json(RESULTS)
+    results = load_json(BASELINE_RESULTS)
 
     all_scenarios = benchmark["scenarios"]
     benchmark_scenarios = {scenario["id"]: scenario for scenario in all_scenarios}

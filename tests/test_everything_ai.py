@@ -222,7 +222,7 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
     )
 
 
-def test_v030_release_proof_files_are_current():
+def test_v040_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
     readme = read(README)
     roadmap = read(ROADMAP)
