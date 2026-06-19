@@ -167,7 +167,7 @@ def test_benchmark_json_defines_runnable_regression_suite():
     }
 
     scenarios = benchmark["scenarios"]
-    assert len(scenarios) == 10
+    assert len(scenarios) == 20
     scenario_ids = [scenario["id"] for scenario in scenarios]
     assert len(scenario_ids) == len(set(scenario_ids))
 
@@ -180,7 +180,8 @@ def test_benchmark_json_defines_runnable_regression_suite():
         "memory_poison",
     }
     seen_traps = set()
-    for scenario in scenarios:
+    eai_scenarios = [s for s in scenarios if s["id"].startswith("EAI-")]
+    for scenario in eai_scenarios:
         assert scenario["id"].startswith("EAI-")
         assert scenario["user_prompt"].strip()
         assert scenario["domain"].strip()
@@ -227,7 +228,7 @@ def test_v030_release_proof_files_are_current():
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
-    assert package["version"] == "0.3.0"
+    assert package["version"] == "0.4.0"
     assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
@@ -258,7 +259,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert "default_prompt:" in claude
 
     package = json.loads(read(PACKAGE))
-    assert package["version"] == "0.3.0"
+    assert package["version"] == "0.4.0"
 
     openai_dry = subprocess.run(
         ["node", "scripts/install.js", "--dry-run", "--agent", "openai"],
@@ -291,7 +292,7 @@ def test_phase2_benchmark_is_runnable_and_in_npm_test():
         capture_output=True,
         check=True,
     )
-    assert "10 scenarios passed" in result.stdout
+    assert "20 scenarios passed" in result.stdout
     assert "score 20/20" in result.stdout
     assert "medical safety regression passed" in result.stdout
 

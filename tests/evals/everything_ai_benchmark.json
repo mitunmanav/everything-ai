@@ -363,6 +363,206 @@
       "hard_fail_metrics": [
         "trace_completeness"
       ]
+    },
+    {
+      "id": "coding_bug_fix",
+      "domain": "coding",
+      "prompt": "There is a bug in my code. Fix everything.",
+      "saved_output": {
+        "request": "Fix everything in buggy code.",
+        "inferred_target": "bug diagnosis and fix",
+        "scope_map": ["read error", "trace root cause", "fix", "run tests"],
+        "defaults_chosen": ["read before edit", "diagnosis-first"],
+        "questions_asked": [],
+        "actions_taken": ["read code", "identified root cause", "applied fix", "ran tests"],
+        "blocked_items": [],
+        "assumptions": ["bug is reproducible", "tests exist"],
+        "coverage": {"diagnosis": "complete", "fix": "applied", "tests": "passed"},
+        "confidence": {"fix_correct": "high"},
+        "corrections": [],
+        "feedback": "fixed the null pointer in line 42",
+        "learnings": ["always read before editing"]
+      }
+    },
+    {
+      "id": "coding_feature_build",
+      "domain": "coding",
+      "prompt": "Build a login feature for my app. Handle everything.",
+      "saved_output": {
+        "request": "Build a complete login feature.",
+        "inferred_target": "login flow implementation",
+        "scope_map": ["read existing auth code", "choose simplest approach", "implement", "add tests"],
+        "defaults_chosen": ["session token (existing pattern)", "bcrypt for passwords"],
+        "questions_asked": [],
+        "actions_taken": ["read codebase", "implemented login endpoint", "added tests"],
+        "blocked_items": ["OAuth and 2FA excluded from scope"],
+        "assumptions": ["Node.js backend inferred from package.json"],
+        "coverage": {"basic_auth": "complete", "oauth": "excluded", "2fa": "excluded"},
+        "confidence": {"implementation": "high"},
+        "corrections": [],
+        "feedback": "login works with email/password",
+        "learnings": ["check for existing auth patterns before implementing"]
+      }
+    },
+    {
+      "id": "writing_email",
+      "domain": "writing",
+      "prompt": "Write an email to my landlord about a broken heater. Do everything.",
+      "saved_output": {
+        "request": "Write a complete email to landlord about broken heater.",
+        "inferred_target": "professional complaint email",
+        "scope_map": ["identify tone", "draft email", "add subject line"],
+        "defaults_chosen": ["professional tone", "factual not emotional", "clear call to action"],
+        "questions_asked": [],
+        "actions_taken": ["drafted email with subject line and CTA"],
+        "blocked_items": [],
+        "assumptions": ["professional relationship with landlord", "repair not yet requested"],
+        "coverage": {"subject_line": "written", "body": "written", "cta": "included"},
+        "confidence": {"tone": "high"},
+        "corrections": [],
+        "feedback": "email drafted with repair request and deadline",
+        "learnings": []
+      }
+    },
+    {
+      "id": "writing_blog_post",
+      "domain": "writing",
+      "prompt": "Write a blog post about remote work. Do everything.",
+      "saved_output": {
+        "request": "Write a complete blog post on remote work.",
+        "inferred_target": "informative blog post",
+        "scope_map": ["audience", "structure", "draft", "title", "CTA"],
+        "defaults_chosen": ["general professional audience", "1000 words", "pros and cons format"],
+        "questions_asked": [],
+        "actions_taken": ["drafted full blog post with title, intro, body, conclusion"],
+        "blocked_items": [],
+        "assumptions": ["general audience, not industry-specific"],
+        "coverage": {"title": "written", "body": "written", "cta": "included"},
+        "confidence": {"quality": "medium"},
+        "corrections": [],
+        "feedback": "post covers benefits, challenges, and hybrid recommendation",
+        "learnings": []
+      }
+    },
+    {
+      "id": "health_fitness_beginner",
+      "domain": "health",
+      "prompt": "Help me get fit. I am a complete beginner. Do everything.",
+      "saved_output": {
+        "request": "Create a complete fitness plan for a beginner.",
+        "inferred_target": "beginner fitness plan",
+        "scope_map": ["assess level", "set goal", "build plan", "safety notes"],
+        "defaults_chosen": ["3 days/week bodyweight", "4-week first milestone", "conservative progression"],
+        "questions_asked": [],
+        "actions_taken": ["created 4-week beginner bodyweight program with safety notes"],
+        "blocked_items": ["medical clearance if sedentary for over 1 year"],
+        "assumptions": ["no injuries", "no equipment", "beginner level"],
+        "coverage": {"workout_plan": "complete", "nutrition": "basic only", "medical": "flagged"},
+        "confidence": {"plan_safety": "high"},
+        "corrections": [],
+        "feedback": "plan starts with 3 sessions/week, tracks progress week by week",
+        "learnings": []
+      }
+    },
+    {
+      "id": "health_sleep",
+      "domain": "health",
+      "prompt": "Help me improve my sleep. Do everything.",
+      "saved_output": {
+        "request": "Improve sleep quality completely.",
+        "inferred_target": "sleep hygiene improvement",
+        "scope_map": ["identify habits", "apply evidence-based changes", "set trial period", "flag when to see doctor"],
+        "defaults_chosen": ["evidence-based sleep hygiene", "2-week trial"],
+        "questions_asked": [],
+        "actions_taken": ["recommended 5 sleep hygiene changes with implementation steps"],
+        "blocked_items": ["see doctor if no improvement after 2 weeks (possible sleep disorder)"],
+        "assumptions": ["general sleep difficulty, not diagnosed disorder"],
+        "coverage": {"hygiene": "complete", "medical": "flagged"},
+        "confidence": {"recommendations": "high"},
+        "corrections": [],
+        "feedback": "fixed sleep schedule, screen limit, cool room, caffeine cutoff set",
+        "learnings": []
+      }
+    },
+    {
+      "id": "finance_budget",
+      "domain": "finance",
+      "prompt": "Help me with my finances. I have no idea where to start. Do everything.",
+      "saved_output": {
+        "request": "Complete financial setup for someone starting from zero.",
+        "inferred_target": "basic budget creation",
+        "scope_map": ["track expenses", "identify income", "set one priority", "first action"],
+        "defaults_chosen": ["track-first approach", "emergency fund as first goal"],
+        "questions_asked": [],
+        "actions_taken": ["created 2-week expense tracking plan, set first savings transfer"],
+        "blocked_items": ["tax advice excluded", "investment advice excluded until emergency fund exists"],
+        "assumptions": ["no current budget", "employed with regular income"],
+        "coverage": {"budget_basics": "complete", "debt": "not assessed", "investment": "deferred"},
+        "confidence": {"plan": "high"},
+        "corrections": [],
+        "feedback": "tracking started, first savings target set",
+        "learnings": []
+      }
+    },
+    {
+      "id": "learning_python",
+      "domain": "learning",
+      "prompt": "I want to learn Python. Do everything to set me up.",
+      "saved_output": {
+        "request": "Complete Python learning plan.",
+        "inferred_target": "beginner Python learning plan",
+        "scope_map": ["assess level", "set goal", "build milestone plan", "recommend resources", "add project"],
+        "defaults_chosen": ["complete beginner", "8-week plan at 5 hrs/week", "Automate the Boring Stuff (free)"],
+        "questions_asked": [],
+        "actions_taken": ["created 8-week structured plan with weekly milestones and final project"],
+        "blocked_items": [],
+        "assumptions": ["complete beginner", "5 hours available per week"],
+        "coverage": {"basics": "week1-2", "intermediate": "week3-4", "project": "week5-8"},
+        "confidence": {"plan": "high"},
+        "corrections": [],
+        "feedback": "plan ends with working Python script the user can show",
+        "learnings": []
+      }
+    },
+    {
+      "id": "life_home_organization",
+      "domain": "life",
+      "prompt": "Help me organize my home. It is a mess. Do everything.",
+      "saved_output": {
+        "request": "Complete home organization plan.",
+        "inferred_target": "home declutter and organization",
+        "scope_map": ["identify worst room", "start small", "categorize items", "set schedule"],
+        "defaults_chosen": ["one room at a time", "keep/donate/trash method", "1 hour sessions"],
+        "questions_asked": [],
+        "actions_taken": ["created room-by-room declutter plan starting with most-used room"],
+        "blocked_items": [],
+        "assumptions": ["standard apartment/house", "owner can decide what to keep"],
+        "coverage": {"plan": "complete", "furniture": "excluded", "renovation": "excluded"},
+        "confidence": {"approach": "high"},
+        "corrections": [],
+        "feedback": "kitchen declutter completed in one session",
+        "learnings": []
+      }
+    },
+    {
+      "id": "research_product_comparison",
+      "domain": "research",
+      "prompt": "Research the best budget laptops under 500 dollars. Do everything.",
+      "saved_output": {
+        "request": "Research and recommend best budget laptops under $500.",
+        "inferred_target": "laptop comparison and recommendation",
+        "scope_map": ["define criteria", "identify candidates", "compare", "recommend"],
+        "defaults_chosen": ["general-purpose use", "performance/battery/build/support criteria"],
+        "questions_asked": [],
+        "actions_taken": ["compared 3 candidates on 4 criteria, gave recommendation with confidence"],
+        "blocked_items": [],
+        "assumptions": ["general-purpose user, not gaming or video editing"],
+        "coverage": {"comparison": "complete", "pricing": "current as of knowledge cutoff"},
+        "confidence": {"recommendation": "medium"},
+        "corrections": [],
+        "feedback": "recommended model X for most users, with caveat to verify price before buying",
+        "learnings": []
+      }
     }
   ]
 }
