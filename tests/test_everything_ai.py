@@ -537,6 +537,22 @@ def test_phase_a_finance_domain_pack():
     ])
 
 
+def test_phase_a_life_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "life.md"
+    assert p.exists(), "life.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "professional",
+        "reversible",
+        "action",
+    ])
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
