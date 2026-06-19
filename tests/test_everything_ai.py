@@ -331,6 +331,22 @@ def test_phase3_domain_packs_exist_and_are_routable():
         )
 
 
+def test_phase_a_coding_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "coding.md"
+    assert p.exists(), "coding.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "bug",
+        "test",
+        "read-only",
+    ])
+
+
 def test_phase4_memory_read_instructions_exist():
     skill = read(SKILL)
     lower = skill.lower()
