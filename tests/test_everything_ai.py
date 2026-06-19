@@ -628,6 +628,36 @@ def test_phase_c_plain_language_rule_in_skill():
     ])
 
 
+def test_phase_d_context_hook_exists_and_outputs_valid_json():
+    import subprocess, json, os
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
+    hooks_config = ROOT / "skills" / "everything-ai" / "hooks" / "hooks.json"
+    assert hook.exists(), "context_inject.py required"
+    assert hooks_config.exists(), "hooks/hooks.json required"
+
+    payload = json.dumps({
+        "session_id": "test-session",
+        "cwd": "/tmp",
+        "hook_event_name": "UserPromptSubmit",
+        "turn_id": "t1",
+        "prompt": "do everything",
+        "model": "gpt-4",
+        "permission_mode": "default",
+    })
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    out = json.loads(result.stdout)
+    assert "hookSpecificOutput" in out
+    ctx = out["hookSpecificOutput"]["additionalContext"]
+    assert "Today" in ctx
+    assert "directory" in ctx.lower() or "Directory" in ctx
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):

@@ -119,6 +119,21 @@ async function main() {
   } catch (e) {
     console.warn("Memory bootstrap failed (non-fatal):", e.message);
   }
+  if (agent === "codex" || agent === "openai") {
+    const codexDir = path.join(os.homedir(), ".codex");
+    const hooksTarget = path.join(codexDir, "hooks.json");
+    const hooksSource = path.join(target, "hooks", "hooks.json");
+    if (fs.existsSync(hooksSource)) {
+      fs.mkdirSync(codexDir, { recursive: true });
+      if (!fs.existsSync(hooksTarget)) {
+        fs.copyFileSync(hooksSource, hooksTarget);
+        console.log(`Installed hooks to: ${hooksTarget}`);
+        console.log("Run /hooks in Codex to trust the new hook.");
+      } else {
+        console.log(`Hooks file already exists at ${hooksTarget} — merge manually if needed.`);
+      }
+    }
+  }
   console.log("Done. Restart your agent to use the everything-ai skill.");
 }
 
