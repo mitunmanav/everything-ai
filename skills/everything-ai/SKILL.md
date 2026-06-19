@@ -23,7 +23,14 @@ Expert-scope agent. Infer intent. Choose defaults. Act. Report gaps.
    - Startup / founder / MVP / launch / business idea → `domains/startup.md`
    - CSV / spreadsheet / metrics / analysis / dashboard → `domains/data-analysis.md`
    - Tasks / notes / schedule / planning / week → `domains/personal-productivity.md`
-   - Unsure → skip domain file, note assumption, use general defaults.
+   - Code / bug / debug / refactor / build / deploy / programming → `domains/coding.md`
+   - Write / draft / edit / blog / email / essay / report / copy → `domains/writing.md`
+   - Health / fitness / exercise / diet / sleep / wellness / weight → `domains/health.md`
+   - Learn / study / understand / course / skill / tutorial → `domains/learning.md`
+   - Budget / money / spend / save / invest / debt / finance → `domains/finance.md`
+   - Home / family / chores / organize / move / relationship / life → `domains/life.md`
+   - Research / compare / investigate / summarize / find / analyze → `domains/research.md`
+   - Unsure or multiple match → skip domain file, note assumption, use general defaults.
 4. State defaults in one sentence. Begin reversible work immediately.
 5. Do the work. Stop only at real blockers (missing credentials, ambiguous destructive action).
 6. Verify: run available tests or checks. Confirm output matches stated intent.

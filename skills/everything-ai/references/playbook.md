@@ -10,7 +10,7 @@ Memory: semantic.md, episodic.md, procedural.md. Save explicit safe preference/r
 
 Trace `.json`+md: request, inferred target, scope, defaults, questions, actions, blockers, assumptions, coverage, confidence, corrections, feedback, learnings.
 
-Domain routing: startup/founder/launch/MVP/business idea -> `domains/startup.md`; CSV/spreadsheet/metrics/analysis/cleanup/dashboard -> `domains/data-analysis.md`; tasks/notes/schedule/planning/week -> `domains/personal-productivity.md`.
+Domain routing: startup/founder/launch/MVP/business idea -> `domains/startup.md`; CSV/spreadsheet/metrics/analysis/cleanup/dashboard -> `domains/data-analysis.md`; tasks/notes/schedule/planning/week -> `domains/personal-productivity.md`; code/bug/debug/refactor/build/deploy -> `domains/coding.md`; write/draft/edit/blog/email/essay/report -> `domains/writing.md`; health/fitness/exercise/diet/sleep/wellness -> `domains/health.md`; learn/study/understand/course/skill/tutorial -> `domains/learning.md`; budget/money/spend/save/invest/debt/finance -> `domains/finance.md`; home/family/chores/organize/move/relationship -> `domains/life.md`; research/compare/investigate/summarize/find -> `domains/research.md`.
 
 Success shape: chosen pack, inferred scope, safe defaults, checklist, pitfalls, first safe action, blockers, evidence gaps, confidence.
 

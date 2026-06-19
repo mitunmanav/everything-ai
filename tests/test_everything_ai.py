@@ -569,6 +569,24 @@ def test_phase_a_research_domain_pack():
     ])
 
 
+def test_phase_a_routing_covers_all_10_domains():
+    skill = read(SKILL)
+    domains = [
+        "domains/startup.md",
+        "domains/data-analysis.md",
+        "domains/personal-productivity.md",
+        "domains/coding.md",
+        "domains/writing.md",
+        "domains/health.md",
+        "domains/learning.md",
+        "domains/finance.md",
+        "domains/life.md",
+        "domains/research.md",
+    ]
+    for d in domains:
+        assert d in skill, f"Missing routing for {d}"
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
