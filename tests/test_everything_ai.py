@@ -587,6 +587,26 @@ def test_phase_a_routing_covers_all_10_domains():
         assert d in skill, f"Missing routing for {d}"
 
 
+def test_phase_b_bootstrap_script_exists_and_creates_memory_files():
+    import subprocess, tempfile, os
+    bootstrap = ROOT / "scripts" / "bootstrap-memory.js"
+    assert bootstrap.exists(), "bootstrap-memory.js required"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        result = subprocess.run(
+            ["node", str(bootstrap), "--dir", tmp],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+        for name in ["semantic.md", "episodic.md", "procedural.md"]:
+            p = os.path.join(tmp, name)
+            assert os.path.exists(p), f"Missing: {name}"
+            content = open(p).read()
+            assert "## " in content, f"{name} must have sections"
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):

@@ -110,6 +110,15 @@ async function main() {
 
   copyDir(source, target);
   console.log(`Installed Everything AI skill to: ${target}`);
+  const { execSync } = require("child_process");
+  try {
+    execSync(
+      `node "${path.join(packageRoot, "scripts", "bootstrap-memory.js")}" --dir "${target}"`,
+      { stdio: "inherit" }
+    );
+  } catch (e) {
+    console.warn("Memory bootstrap failed (non-fatal):", e.message);
+  }
   console.log("Done. Restart your agent to use the everything-ai skill.");
 }
 
