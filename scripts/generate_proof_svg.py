@@ -119,14 +119,17 @@ def main():
     W, H = 880, 580
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
            f'viewBox="0 0 {W} {H}" role="img" aria-labelledby="t d">']
+    def bar_list(mdl):
+        d = deltas_pp(mdl)
+        return ", ".join(f"{METRIC_LABELS[m]} {d[m]:+.0f}" for m in METRIC_LABELS)
+
     out.append('<title id="t">Everything AI v0.4.0 — what the skill changes, per metric</title>')
     out.append(
         '<desc id="d">Blind cross-model judge. Bars show the change the skill makes per metric, '
         'on minus off, in points of the rubric max: green above the zero line where it helps, red below where it hurts. '
-        f'Top panel gpt-5.5 at medium reasoning is mostly green, overall {strong["delta_pct"]} points, '
-        'led by trace completeness and ask-gating, with small drops on scope and defaults. '
-        f'Bottom panel gpt-5.4-mini at low reasoning is all red, overall {weak["delta_pct"]} points: '
-        'the same instructions overload a small model. The skill helps a capable model and hurts a small one.</desc>')
+        f'Top panel gpt-5.5 at medium reasoning, overall {strong["delta_pct"]} points — {bar_list(strong)}. '
+        f'Bottom panel gpt-5.4-mini at low reasoning, overall {weak["delta_pct"]} points — {bar_list(weak)}. '
+        'The skill helps a capable model and overloads a small one.</desc>')
     out.append(f'<rect width="{W}" height="{H}" fill="#0d1117"/>')
 
     out.append(f'<text x="{W/2}" y="30" text-anchor="middle" font-family="{FONT}" '

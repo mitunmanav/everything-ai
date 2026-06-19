@@ -229,7 +229,7 @@ def test_v040_release_proof_files_are_current():
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.4.0"
-    assert "(tests/results/v0.4.0-all-phases.svg)" in readme
+    assert 'src="tests/results/v0.4.0-all-phases.svg"' in readme
     assert "## v0.4.0 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme

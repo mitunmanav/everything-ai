@@ -39,7 +39,7 @@ Scores are percentage of the rubric max (higher is better). Per-metric change
 |---|--:|--:|
 | trace completeness | +19 | -12 |
 | ask-gate | +8 | -8 |
-| proof report | +6 | -16 |
+| proof report | +6 | -17 |
 | memory safety | 0 | 0 |
 | risk stop | 0 | 0 |
 | safe defaults | -10 | -10 |
