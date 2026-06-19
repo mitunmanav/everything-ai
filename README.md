@@ -59,45 +59,47 @@ The installer copies only `skills/everything-ai`, sends no telemetry, reads no s
 
 Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
-## v0.3.0 Status
+## v0.4.0 Status
 
-Proof release: all 5 phases complete. 19/19 tests green.
+10 domains · 20 benchmark scenarios · 31/31 tests green.
 
 | Metric | Result |
 |---|---|
-| Behavior | with skill 20/20 · without 14/20 · delta +6 |
-| Eval | 100/100, Grade A, low risk |
-| Model | gpt-5.5, medium reasoning |
+| Tests | 31/31 passing |
+| Domains | 10 domain packs |
+| Benchmark | 20 scenarios |
+| Phases | 5 complete |
 
-![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)
+![Everything AI v0.4.0 domain coverage](tests/results/v0.4.0-all-phases.svg)
 
-Details: [TEST_RESULTS.md](TEST_RESULTS.md) · [EVALUATION.md](EVALUATION.md) · [ROADMAP.md](ROADMAP.md)
+**v0.3.0 behavior baseline:** with skill 20/20 · without 14/20 · delta +6
+
+Details: [QUICKSTART.md](QUICKSTART.md) · [TEST_RESULTS.md](TEST_RESULTS.md) · [ROADMAP.md](ROADMAP.md)
 
 ## Domain Packs
 
 Domain packs live in `skills/everything-ai/domains/`.
 
-Each pack must use this format:
+Each pack has five sections: `Scope Defaults`, `Checklist`, `Pitfalls`, `Success Looks Like`, `Examples`.
 
-- `## Scope Defaults`
-- `## Checklist`
-- `## Pitfalls`
-- `## Success Looks Like`
-- `## Examples` with `Example 1` and `Example 2`
+Current packs (10 total):
 
-Current packs:
-
-- `startup.md`
-- `data-analysis.md`
-- `personal-productivity.md`
-
-Saved domain-pack comparison: [`tests/results/v0.3.0-domain-pack-comparison.json`](tests/results/v0.3.0-domain-pack-comparison.json)
+| Pack | What it handles |
+|---|---|
+| `startup.md` | Founder, MVP, launch, business idea |
+| `data-analysis.md` | CSV, spreadsheet, metrics, dashboard |
+| `personal-productivity.md` | Tasks, notes, schedule, planning |
+| `coding.md` | Bugs, refactors, builds, deploys |
+| `writing.md` | Drafts, edits, emails, essays |
+| `health.md` | Fitness, diet, sleep, wellness |
+| `learning.md` | Courses, skills, study plans |
+| `finance.md` | Budget, debt, savings, investing |
+| `life.md` | Home, family, chores, moves |
+| `research.md` | Compare, investigate, summarize |
 
 ## Privacy
 
-v0.3.0 public files must not include local paths, local machine names, emails, tokens, secrets, private thread IDs, or private user details.
-
-Project tests scan public docs for local-only path and identity leaks.
+Public files contain no local paths, machine names, emails, tokens, secrets, or private user details. Tests scan for leaks before every commit.
 
 ## Star History
 

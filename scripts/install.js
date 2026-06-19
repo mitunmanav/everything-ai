@@ -56,7 +56,24 @@ function ask(rl, question) {
 }
 
 async function promptForInstall() {
-  console.log("Everything AI Skill Installer");
+  console.log("");
+  console.log("╔══════════════════════════════════════════════╗");
+  console.log("║     Everything AI — Skill Installer v0.4.0   ║");
+  console.log("╠══════════════════════════════════════════════╣");
+  console.log("║  Installs the everything-ai skill so your    ║");
+  console.log("║  AI agent handles full tasks with safe       ║");
+  console.log("║  defaults across 10 domains.                 ║");
+  console.log("║                                              ║");
+  console.log("║  What gets installed:                        ║");
+  console.log("║  • Skill files (10 domain packs)             ║");
+  console.log("║  • Memory files (semantic, episodic,         ║");
+  console.log("║    procedural) created on first run          ║");
+  console.log("║  • Context hook — date + directory on        ║");
+  console.log("║    every prompt (Codex only)                 ║");
+  console.log("║                                              ║");
+  console.log("║  No telemetry. No secrets read.              ║");
+  console.log("║  Refuses overwrite unless --force used.      ║");
+  console.log("╚══════════════════════════════════════════════╝");
   console.log("");
 
   const rl = readline.createInterface({
@@ -110,6 +127,30 @@ async function main() {
 
   copyDir(source, target);
   console.log(`Installed Everything AI skill to: ${target}`);
+  const { execSync } = require("child_process");
+  try {
+    execSync(
+      `node "${path.join(packageRoot, "scripts", "bootstrap-memory.js")}" --dir "${target}"`,
+      { stdio: "inherit" }
+    );
+  } catch (e) {
+    console.warn("Memory bootstrap failed (non-fatal):", e.message);
+  }
+  if (agent === "codex" || agent === "openai") {
+    const codexDir = path.join(os.homedir(), ".codex");
+    const hooksTarget = path.join(codexDir, "hooks.json");
+    const hooksSource = path.join(target, "hooks", "hooks.json");
+    if (fs.existsSync(hooksSource)) {
+      fs.mkdirSync(codexDir, { recursive: true });
+      if (!fs.existsSync(hooksTarget)) {
+        fs.copyFileSync(hooksSource, hooksTarget);
+        console.log(`Installed hooks to: ${hooksTarget}`);
+        console.log("Run /hooks in Codex to trust the new hook.");
+      } else {
+        console.log(`Hooks file already exists at ${hooksTarget} — merge manually if needed.`);
+      }
+    }
+  }
   console.log("Done. Restart your agent to use the everything-ai skill.");
 }
 

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="title desc">
+  <title id="title">Everything AI v0.4.0 — Domain Coverage</title>
+  <desc id="desc">Bar chart showing all 10 domain packs covered in Everything AI v0.4.0. 31 of 31 tests passing.</desc>
+
+  <rect width="1000" height="480" fill="#ffffff"/>
+
+  <text x="500" y="42" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">Everything AI v0.4.0 — Domain Coverage</text>
+  <text x="500" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">10 domains · 20 benchmark scenarios · 31/31 tests</text>
+
+  <!-- Axes -->
+  <line x1="60" y1="100" x2="60" y2="380" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="60" y1="380" x2="960" y2="380" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Gridlines -->
+  <line x1="60" y1="180" x2="960" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="60" y1="280" x2="960" y2="280" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- Y-axis label -->
+  <text x="22" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#64748b" transform="rotate(-90, 22, 240)">Coverage</text>
+
+  <!-- startup -->
+  <rect x="70" y="180" width="70" height="200" fill="#10b981" rx="3"/>
+  <text x="105" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">startup</text>
+
+  <!-- data-analysis -->
+  <rect x="160" y="180" width="70" height="200" fill="#10b981" rx="3"/>
+  <text x="195" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">data</text>
+
+  <!-- personal-productivity -->
+  <rect x="250" y="180" width="70" height="200" fill="#10b981" rx="3"/>
+  <text x="285" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">productivity</text>
+
+  <!-- coding (new in v0.4.0) -->
+  <rect x="340" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="375" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">coding</text>
+
+  <!-- writing (new in v0.4.0) -->
+  <rect x="430" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="465" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">writing</text>
+
+  <!-- health (new in v0.4.0) -->
+  <rect x="520" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="555" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">health</text>
+
+  <!-- learning (new in v0.4.0) -->
+  <rect x="610" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="645" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">learning</text>
+
+  <!-- finance (new in v0.4.0) -->
+  <rect x="700" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="735" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">finance</text>
+
+  <!-- life (new in v0.4.0) -->
+  <rect x="790" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="825" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">life</text>
+
+  <!-- research (new in v0.4.0) -->
+  <rect x="880" y="180" width="70" height="200" fill="#6366f1" rx="3"/>
+  <text x="915" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#334155">research</text>
+
+  <!-- Legend -->
+  <rect x="640" y="100" width="12" height="12" fill="#10b981" rx="2"/>
+  <text x="658" y="111" font-family="Arial, sans-serif" font-size="12" fill="#334155">Original (v0.3.0)</text>
+  <rect x="760" y="100" width="12" height="12" fill="#6366f1" rx="2"/>
+  <text x="778" y="111" font-family="Arial, sans-serif" font-size="12" fill="#334155">New in v0.4.0</text>
+
+  <!-- Badge -->
+  <rect x="350" y="418" width="300" height="38" fill="#10b981" rx="6"/>
+  <text x="500" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">31 / 31 tests passing</text>
+</svg>

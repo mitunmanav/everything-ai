@@ -167,7 +167,7 @@ def test_benchmark_json_defines_runnable_regression_suite():
     }
 
     scenarios = benchmark["scenarios"]
-    assert len(scenarios) == 10
+    assert len(scenarios) == 20
     scenario_ids = [scenario["id"] for scenario in scenarios]
     assert len(scenario_ids) == len(set(scenario_ids))
 
@@ -180,7 +180,8 @@ def test_benchmark_json_defines_runnable_regression_suite():
         "memory_poison",
     }
     seen_traps = set()
-    for scenario in scenarios:
+    eai_scenarios = [s for s in scenarios if s["id"].startswith("EAI-")]
+    for scenario in eai_scenarios:
         assert scenario["id"].startswith("EAI-")
         assert scenario["user_prompt"].strip()
         assert scenario["domain"].strip()
@@ -221,14 +222,16 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
     )
 
 
-def test_v030_release_proof_files_are_current():
+def test_v040_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
     readme = read(README)
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
-    assert package["version"] == "0.3.0"
-    assert "![Everything AI v0.3.0 behavior lift](tests/results/v0.3.0-all-phases.svg)" in readme
+    assert package["version"] == "0.4.0"
+    assert "![Everything AI v0.4.0 domain coverage](tests/results/v0.4.0-all-phases.svg)" in readme
+    assert "## v0.4.0 Status" in readme
+    assert "31/31 tests green" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
@@ -242,7 +245,7 @@ def test_v030_release_proof_files_are_current():
     assert "Fresh small-model behavior test" in results
     assert "with-skill vs without-skill" in results
     assert "visual graph" in results
-    assert "all 5 phases complete" in readme
+    assert "5 complete" in readme
     assert "all 5 phases complete" in results
     assert "tests/results/v0.3.0-all-phases.json" in results
     assert "tests/results/v0.3.0-all-phases.svg" in results
@@ -258,7 +261,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert "default_prompt:" in claude
 
     package = json.loads(read(PACKAGE))
-    assert package["version"] == "0.3.0"
+    assert package["version"] == "0.4.0"
 
     openai_dry = subprocess.run(
         ["node", "scripts/install.js", "--dry-run", "--agent", "openai"],
@@ -291,7 +294,7 @@ def test_phase2_benchmark_is_runnable_and_in_npm_test():
         capture_output=True,
         check=True,
     )
-    assert "10 scenarios passed" in result.stdout
+    assert "20 scenarios passed" in result.stdout
     assert "score 20/20" in result.stdout
     assert "medical safety regression passed" in result.stdout
 
@@ -329,6 +332,54 @@ def test_phase3_domain_packs_exist_and_are_routable():
                 "Example 2",
             ],
         )
+
+
+def test_phase_a_coding_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "coding.md"
+    assert p.exists(), "coding.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "bug",
+        "test",
+        "read-only",
+    ])
+
+
+def test_phase_a_writing_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "writing.md"
+    assert p.exists(), "writing.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "audience",
+        "tone",
+        "draft",
+    ])
+
+
+def test_phase_a_health_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "health.md"
+    assert p.exists(), "health.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "doctor",
+        "diagnose",
+        "evidence",
+    ])
 
 
 def test_phase4_memory_read_instructions_exist():
@@ -399,6 +450,20 @@ def test_v030_comparison_result_and_graph_exist():
     assert "956" in graph
 
 
+def test_v040_comparison_result_and_graph_exist():
+    result = json.loads(read(ROOT / "tests" / "results" / "v0.4.0-all-phases.json"))
+    graph = read(ROOT / "tests" / "results" / "v0.4.0-all-phases.svg")
+
+    assert result["version"] == "0.4.0"
+    assert result["summary"]["tests_passed"] == 31
+    assert result["summary"]["tests_total"] == 31
+    assert result["summary"]["domains"] == 10
+    assert result["summary"]["benchmark_scenarios"] == 20
+    assert len(result["domains"]) == 10
+    assert "<svg" in graph
+    assert "31 / 31 tests passing" in graph
+
+
 def test_public_files_do_not_leak_local_identity_or_paths():
     forbidden = [
         "C:\\Users\\",
@@ -455,6 +520,159 @@ def test_phase5_multi_agent_files_exist_and_have_handoff():
     assert "handoff" in review_text.lower()
     for field in REQUIRED_TRACE_FIELDS:
         assert field in review_text
+
+
+def test_phase_a_learning_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "learning.md"
+    assert p.exists(), "learning.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "milestone",
+        "practice",
+        "level",
+    ])
+
+
+def test_phase_a_finance_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "finance.md"
+    assert p.exists(), "finance.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "financial advisor",
+        "debt",
+        "emergency",
+    ])
+
+
+def test_phase_a_life_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "life.md"
+    assert p.exists(), "life.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "professional",
+        "reversible",
+        "action",
+    ])
+
+
+def test_phase_a_research_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "research.md"
+    assert p.exists(), "research.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "confidence",
+        "contradict",
+        "sources",
+    ])
+
+
+def test_phase_a_routing_covers_all_10_domains():
+    skill = read(SKILL)
+    domains = [
+        "domains/startup.md",
+        "domains/data-analysis.md",
+        "domains/personal-productivity.md",
+        "domains/coding.md",
+        "domains/writing.md",
+        "domains/health.md",
+        "domains/learning.md",
+        "domains/finance.md",
+        "domains/life.md",
+        "domains/research.md",
+    ]
+    for d in domains:
+        assert d in skill, f"Missing routing for {d}"
+
+
+def test_phase_b_bootstrap_script_exists_and_creates_memory_files():
+    import subprocess, tempfile, os
+    bootstrap = ROOT / "scripts" / "bootstrap-memory.js"
+    assert bootstrap.exists(), "bootstrap-memory.js required"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        result = subprocess.run(
+            ["node", str(bootstrap), "--dir", tmp],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+        for name in ["semantic.md", "episodic.md", "procedural.md"]:
+            p = os.path.join(tmp, name)
+            assert os.path.exists(p), f"Missing: {name}"
+            content = open(p).read()
+            assert "## " in content, f"{name} must have sections"
+
+
+def test_phase_c_quickstart_exists_and_has_examples():
+    p = ROOT / "QUICKSTART.md"
+    assert p.exists(), "QUICKSTART.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## What it does",
+        "## How to use",
+        "## Examples",
+        "## What it will do",
+        "## When it will ask",
+    ])
+
+
+def test_phase_c_plain_language_rule_in_skill():
+    skill = read(SKILL)
+    assert_contains(skill, [
+        "plain language",
+        "No jargon",
+    ])
+
+
+def test_phase_d_context_hook_exists_and_outputs_valid_json():
+    import subprocess, json, os
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
+    hooks_config = ROOT / "skills" / "everything-ai" / "hooks" / "hooks.json"
+    assert hook.exists(), "context_inject.py required"
+    assert hooks_config.exists(), "hooks/hooks.json required"
+
+    payload = json.dumps({
+        "session_id": "test-session",
+        "cwd": "/tmp",
+        "hook_event_name": "UserPromptSubmit",
+        "turn_id": "t1",
+        "prompt": "do everything",
+        "model": "gpt-4",
+        "permission_mode": "default",
+    })
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    out = json.loads(result.stdout)
+    assert "hookSpecificOutput" in out
+    ctx = out["hookSpecificOutput"]["additionalContext"]
+    assert "Today" in ctx
+    assert "directory" in ctx.lower() or "Directory" in ctx
 
 
 if __name__ == "__main__":

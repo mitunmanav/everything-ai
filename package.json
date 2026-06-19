@@ -1,6 +1,6 @@
 {
   "name": "everything-ai-skill",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Install the Everything AI skill for Codex/OpenAI or Claude.",
   "license": "MIT",
   "bin": {
@@ -14,6 +14,8 @@
   "files": [
     "skills/everything-ai",
     "scripts/install.js",
+    "scripts/bootstrap-memory.js",
+    "QUICKSTART.md",
     "README.md",
     "LICENSE"
   ],
