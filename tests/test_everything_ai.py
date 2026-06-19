@@ -347,6 +347,22 @@ def test_phase_a_coding_domain_pack():
     ])
 
 
+def test_phase_a_writing_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "writing.md"
+    assert p.exists(), "writing.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "audience",
+        "tone",
+        "draft",
+    ])
+
+
 def test_phase4_memory_read_instructions_exist():
     skill = read(SKILL)
     lower = skill.lower()
