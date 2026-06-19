@@ -505,6 +505,22 @@ def test_phase5_multi_agent_files_exist_and_have_handoff():
         assert field in review_text
 
 
+def test_phase_a_learning_domain_pack():
+    p = ROOT / "skills" / "everything-ai" / "domains" / "learning.md"
+    assert p.exists(), "learning.md required"
+    text = p.read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Scope Defaults",
+        "## Checklist",
+        "## Pitfalls",
+        "## Success Looks Like",
+        "## Examples",
+        "milestone",
+        "practice",
+        "level",
+    ])
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
