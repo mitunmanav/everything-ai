@@ -11,3 +11,7 @@ AGENTS.md
 .env
 .env.*
 
+# Live-run raw model transcripts: contain local absolute paths and unrelated
+# project references. Keep local; aggregated scores ship as proof instead.
+tests/results/*/raw/
+

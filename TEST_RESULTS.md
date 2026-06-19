@@ -2,6 +2,80 @@
 
 Version: v0.3.0
 
+Latest proof is the **v0.4.0 live behavior run** below. The v0.3.0 sections that
+follow are the earlier saved-output proof, kept for history.
+
+## v0.4.0 Live Behavior Run
+
+### Method
+
+The honest measurement is a real model doing real work. We ran every benchmark
+scenario's vague "do everything" request through `codex exec` (read-only, in a
+neutral scratch dir so the bare model does not auto-audit this repo), twice: once
+with no skill (bare prompt) and once with `SKILL.md` prepended. We did this on two
+models so the skill's effect across capability is visible:
+
+- **gpt-5.5**, medium reasoning (the codex default)
+- **gpt-5.4-mini**, low reasoning (a deliberately weaker arm)
+
+All raw outputs are saved under `tests/results/v0.4.0-live/` and
+`tests/results/v0.4.0-live-mini/` with anonymized `run_NNN` ids. A separate
+**blind cross-model judge** (Claude) scored each output 0–2 per applicable rubric
+metric without ever seeing which arm produced it (`arm_key.json` is withheld from
+the judge). Ten scenarios carry the metric rubric and are scored under both arms,
+so n=20 scored runs per model. This is a `with-skill vs without-skill` comparison.
+
+### Result
+
+| model · reasoning | without skill | with skill | difference made by the skill |
+|---|--:|--:|--:|
+| gpt-5.5 · medium | 88.2% | 92.1% | **+3.9** |
+| gpt-5.4-mini · low | 75.0% | 64.5% | **-10.5** |
+
+Scores are percentage of the rubric max (higher is better). Per-metric change
+(with skill minus without, in percentage points of max):
+
+| metric | gpt-5.5 · medium | gpt-5.4-mini · low |
+|---|--:|--:|
+| trace completeness | +19 | -12 |
+| ask-gate | +8 | -8 |
+| proof report | +6 | -16 |
+| memory safety | 0 | 0 |
+| risk stop | 0 | 0 |
+| safe defaults | -10 | -10 |
+| scope inference | -12 | -12 |
+
+Visual graph: `tests/results/v0.4.0-all-phases.svg`. Raw aggregate:
+`tests/results/v0.4.0-live-run.json`.
+
+### Reading
+
+On a capable model the skill is a real, modest win: it makes the answer complete
+and stops the agent interrogating the user, at a small cost on scope/defaults the
+model already handled well. On a small low-reasoning model the same instructions
+overload it and every metric falls. **The skill is built for capable models.**
+
+### Failed scenarios and reruns
+
+During the gpt-5.4-mini batch, 2 of 40 runs failed transiently (an API/network
+blip while many codex processes ran at once), both on bare `skill_off` ideal-trace
+scenarios. We reproduced one prompt by hand and it succeeded cleanly, confirming the
+cause was transient, not the prompt. Both were **reran via `scripts/rerun_failures.py`
+and recovered** (`tests/results/v0.4.0-live-mini/rerun_report.json`). The gpt-5.5
+batch had 0 failures. Final dataset is 40/40 non-empty outputs per model.
+
+### Limitations
+
+- Small n (10 scored scenarios per arm, 4–5 samples per metric); single run, no
+  variance bars. Treat single-metric deltas as directional, not precise.
+- Frontier model is near the rubric ceiling without the skill, so headroom for a
+  large lift is small by construction.
+- The weak-model arm uses low reasoning; a mid-reasoning small model may differ.
+- The judge is a single blind model; a judge panel would tighten calibration.
+- Reproduce with `python3 scripts/run_live_benchmark.py` (add `--model gpt-5.4-mini
+  --reasoning low --out v0.4.0-live-mini` for the weak arm), then re-judge and
+  `python3 scripts/generate_proof_svg.py`.
+
 ## Latest Local Checks
 
 Status: passed.

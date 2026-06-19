@@ -184,11 +184,8 @@ Done when:
 
 ## Immediate Next Build Tasks
 
-1. Publish current v0.3.0 branch when approved.
-2. Add live model runner for the benchmark.
-3. Replace saved-output domain-pack comparison with live model execution.
-4. Add trace schema and example trace.
-5. Create release checklist.
+1. Add trace schema and example trace.
+2. Create release checklist.
 
 ## Guardrails
 
