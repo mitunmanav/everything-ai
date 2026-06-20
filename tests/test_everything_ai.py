@@ -233,7 +233,7 @@ def test_v041_release_proof_files_are_current():
     assert "## v0.4.1 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme
-    assert "35/35 tests green" in readme
+    assert "35/35 unit tests green" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
