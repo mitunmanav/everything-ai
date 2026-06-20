@@ -701,6 +701,31 @@ def test_phase_d_context_hook_exists_and_outputs_valid_json():
     assert "directory" in ctx.lower() or "Directory" in ctx
 
 
+def test_phase_d_context_hook_injects_memory_when_files_exist(tmp_path):
+    import subprocess, json, os
+    (tmp_path / "semantic.md").write_text("User prefers TypeScript.", encoding="utf-8")
+    (tmp_path / "episodic.md").write_text("Fixed login bug in session 3.", encoding="utf-8")
+    (tmp_path / "procedural.md").write_text("", encoding="utf-8")  # empty — must not appear
+
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
+    payload = json.dumps({"cwd": "/tmp/test"})
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload,
+        capture_output=True,
+        text=True,
+        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(tmp_path)},
+    )
+    assert result.returncode == 0, result.stderr
+    out = json.loads(result.stdout)
+    ctx = out["hookSpecificOutput"]["additionalContext"]
+    assert "User prefers TypeScript." in ctx
+    assert "Fixed login bug in session 3." in ctx
+    assert "[Memory: semantic.md]" in ctx
+    assert "[Memory: episodic.md]" in ctx
+    assert "[Memory: procedural.md]" not in ctx
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
