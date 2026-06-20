@@ -701,6 +701,18 @@ def test_phase_d_context_hook_exists_and_outputs_valid_json():
     assert "directory" in ctx.lower() or "Directory" in ctx
 
 
+def test_phase_d_skill_lite_exists_and_is_compact():
+    lite = ROOT / "skills" / "everything-ai" / "SKILL.lite.md"
+    assert lite.exists(), "SKILL.lite.md must exist for small model support"
+    text = lite.read_text(encoding="utf-8")
+    assert len(text) < 2000, f"SKILL.lite.md must be under 2000 chars, got {len(text)}"
+    assert "Infer" in text or "infer" in text, "lite skill must include infer/ask rule"
+    assert "Stop" in text or "stop" in text, "lite skill must include stop-before-risk rule"
+    assert "Report" in text or "report" in text, "lite skill must include report rule"
+    assert "domains/coding.md" not in text, "lite skill must not include domain routing"
+    assert "scope-agent" not in text, "lite skill must not include agent chain references"
+
+
 def test_phase_d_context_hook_injects_memory_when_files_exist(tmp_path):
     import subprocess, json, os
     (tmp_path / "semantic.md").write_text("User prefers TypeScript.", encoding="utf-8")
