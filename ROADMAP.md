@@ -182,10 +182,19 @@ Done when:
 - release checklist exists
 - package contains only intended files
 
+## Releases
+
+| Version | Date | Type | Summary |
+|---|---|---|---|
+| v0.3.0 | 2026-06-18 | feature | Five-phase skill, 19/19 tests green |
+| v0.4.0 | 2026-06-19 | feature | 10 domain packs, live benchmark, +3.9 on gpt-5.5, -10.5 on gpt-5.4-mini (PLUGIN_DATA bug) |
+| v0.4.1 | 2026-06-20 | bugfix | Remove PLUGIN_DATA memory-dir hijack; add Safe Defaults to SKILL.md; 35/35 tests green |
+
 ## Immediate Next Build Tasks
 
-1. Add trace schema and example trace.
-2. Create release checklist.
+1. Live retest v0.4.1 — confirm gpt-5.4-mini recovers from -10.5% after PLUGIN_DATA fix.
+2. Add trace schema and example trace (Phase 3).
+3. Create release checklist (Phase 7).
 
 ## Guardrails
 

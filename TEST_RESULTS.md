@@ -1,9 +1,60 @@
 # Test Results
 
-Version: v0.3.0
+Version: v0.4.1
 
-Latest proof is the **v0.4.0 live behavior run** below. The v0.3.0 sections that
-follow are the earlier saved-output proof, kept for history.
+Latest proof is the **v0.4.0 live behavior run** below, with the v0.4.1
+root-cause analysis that explains the gpt-5.4-mini regression. v0.3.0 sections
+follow for history.
+
+## v0.4.1 Root Cause Analysis
+
+**Status:** fix applied, retest pending.
+
+### What broke (v0.4.0)
+
+`context_inject.py` checked `PLUGIN_DATA` first when resolving the memory
+directory. In Codex environments `PLUGIN_DATA` is the plugin installation
+directory (e.g. `superpowers/6.0.3/`) — it contains no `semantic.md`,
+`episodic.md`, or `procedural.md`. The hook read it, found nothing, and
+injected zero context on every prompt. Agents had no basis for scope inference
+or safe defaults.
+
+Per-metric evidence from `tests/results/v0.4.0-live-run.json`:
+
+| metric | gpt-5.5 off → on | gpt-5.4-mini off → on | direction |
+|---|--:|--:|---|
+| scope inference | 2.0 → 1.75 | 1.0 → 0.75 | ⚠ regressed on both |
+| safe defaults | 1.8 → 1.6 | 1.2 → 1.0 | ⚠ regressed on both |
+| risk stop | 2.0 → 2.0 | 2.0 → 2.0 | ✓ unaffected (no context needed) |
+| memory safety | 2.0 → 2.0 | 2.0 → 2.0 | ✓ unaffected (no context needed) |
+
+Diagnostic fingerprint: skill_off outperforms skill_on on exactly the two
+metrics that depend on injected memory context. Memory-independent metrics
+hold at ceiling. gpt-5.5 (medium reasoning) absorbed the loss and still
+netted +3.9; gpt-5.4-mini (low reasoning) had no slack — every non-neutral
+metric fell, netting -10.5.
+
+Root cause JSON: `tests/results/v0.4.1-regression.json`.
+
+### Fixes applied
+
+| file | change |
+|---|---|
+| `skills/everything-ai/hooks/context_inject.py` | Removed `PLUGIN_DATA` branch entirely. Memory dir now resolves via `EVERYTHING_AI_MEMORY_DIR` → `~/.agents/skills/everything-ai` default. |
+| `skills/everything-ai/SKILL.md` | Added `## Safe Defaults` section (narrowest scope, reversible first, non-expert assumption, plain language). Replaced vague "use general defaults" with concrete domain tiebreaker + "apply safe defaults". |
+
+New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
+sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
+asserts the hook reads from the right directory. 35/35 tests green.
+
+### Projected recovery
+
+| model | v0.4.0 delta | v0.4.1 expected |
+|---|--:|---|
+| gpt-5.5 · medium | +3.9 | +5 to +7 (scope/defaults losses eliminated) |
+| gpt-5.4-mini · low | -10.5 | +4 to +8 (context injection restored) |
+
+Live retest not yet run.
 
 ## v0.4.0 Live Behavior Run
 
@@ -45,7 +96,7 @@ Scores are percentage of the rubric max (higher is better). Per-metric change
 | safe defaults | -10 | -10 |
 | scope inference | -12 | -12 |
 
-Visual graph: `tests/results/v0.4.0-all-phases.svg`. Raw aggregate:
+Visual graph: `tests/results/v0.4.1-regression.svg`. Raw aggregate:
 `tests/results/v0.4.0-live-run.json`.
 
 ### Reading

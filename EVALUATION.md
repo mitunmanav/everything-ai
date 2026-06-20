@@ -1,6 +1,29 @@
 # Evaluation
 
-Latest local checks for v0.3.0:
+Latest local checks for v0.4.1:
+
+- Test suite: 35/35 green
+- Version: 0.4.1
+- Key fix: removed `PLUGIN_DATA` branch from `context_inject.py` — hook now correctly reads from `EVERYTHING_AI_MEMORY_DIR` or `~/.agents/skills/everything-ai`
+- SKILL.md: added `## Safe Defaults` section; replaced vague "use general defaults" with concrete tiebreaker + explicit defaults
+- Regression guard: `test_phase_b_plugin_data_not_used_as_memory_dir` added and passing
+- Root cause evidence: `tests/results/v0.4.1-regression.json`
+- Proof chart: `tests/results/v0.4.1-regression.svg`
+- Live retest of fix: pending
+- Known gap: gpt-5.4-mini recovery from -10.5% unconfirmed until retest
+
+---
+
+v0.4.0 live run (2026-06-19):
+
+- gpt-5.5 · medium reasoning: off 88.2% → on 92.1%, delta **+3.9 pts**
+- gpt-5.4-mini · low reasoning: off 75.0% → on 64.5%, delta **-10.5 pts** (PLUGIN_DATA bug — fixed in v0.4.1)
+- Blind cross-model judge (Claude), n=20 per model
+- Full data: `tests/results/v0.4.0-live-run.json`
+
+---
+
+v0.3.0 checks (for history):
 
 - Skill validation: passed
 - Test suite: passed

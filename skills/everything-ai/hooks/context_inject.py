@@ -10,9 +10,7 @@ data = json.load(sys.stdin)
 today = date.today().strftime("%A, %B %d, %Y")
 cwd = data.get("cwd", os.getcwd())
 
-if "PLUGIN_DATA" in os.environ:
-    memory_dir = Path(os.environ["PLUGIN_DATA"])
-elif "EVERYTHING_AI_MEMORY_DIR" in os.environ:
+if "EVERYTHING_AI_MEMORY_DIR" in os.environ:
     memory_dir = Path(os.environ["EVERYTHING_AI_MEMORY_DIR"])
 else:
     memory_dir = Path.home() / ".agents" / "skills" / "everything-ai"

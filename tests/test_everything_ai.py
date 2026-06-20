@@ -222,18 +222,18 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
     )
 
 
-def test_v040_release_proof_files_are_current():
+def test_v041_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
     readme = read(README)
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
-    assert package["version"] == "0.4.0"
-    assert 'src="tests/results/v0.4.0-all-phases.svg"' in readme
-    assert "## v0.4.0 Status" in readme
+    assert package["version"] == "0.4.1"
+    assert 'src="tests/results/v0.4.1-regression.svg"' in readme
+    assert "## v0.4.1 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme
-    assert "32/32 tests green" in readme
+    assert "35/35 tests green" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
@@ -262,7 +262,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert "default_prompt:" in claude
 
     package = json.loads(read(PACKAGE))
-    assert package["version"] == "0.4.0"
+    assert package["version"] == "0.4.1"
 
     openai_dry = subprocess.run(
         ["node", "scripts/install.js", "--dry-run", "--agent", "openai"],
@@ -736,6 +736,42 @@ def test_phase_d_context_hook_injects_memory_when_files_exist(tmp_path):
     assert "[Memory: semantic.md]" in ctx
     assert "[Memory: episodic.md]" in ctx
     assert "[Memory: procedural.md]" not in ctx
+
+
+def test_phase_b_plugin_data_not_used_as_memory_dir():
+    """Regression guard: PLUGIN_DATA must never be used as the memory directory.
+    PLUGIN_DATA is the plugin installation dir (e.g. superpowers/6.0.3/) — it
+    contains no memory files. Using it silenced the hook on every Codex prompt,
+    causing the scope_inference/safe_defaults -10.5% regression in v0.4.0."""
+    import json, subprocess, sys, tempfile
+    from pathlib import Path
+
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
+
+    with tempfile.TemporaryDirectory() as plugin_dir, \
+         tempfile.TemporaryDirectory() as mem_dir:
+
+        # Put a real memory file in the memory dir
+        (Path(mem_dir) / "semantic.md").write_text("user prefers plain language")
+
+        # Put a decoy file in PLUGIN_DATA dir (should be ignored)
+        (Path(plugin_dir) / "semantic.md").write_text("DECOY — should not appear")
+
+        env = {
+            **__import__("os").environ,
+            "PLUGIN_DATA": plugin_dir,
+            "EVERYTHING_AI_MEMORY_DIR": mem_dir,
+        }
+        payload = json.dumps({"cwd": "/tmp"})
+        result = subprocess.run(
+            [sys.executable, str(hook)],
+            input=payload, capture_output=True, text=True, env=env
+        )
+        assert result.returncode == 0, result.stderr
+        ctx = json.loads(result.stdout)["hookSpecificOutput"]["additionalContext"]
+
+        assert "plain language" in ctx, "Memory from EVERYTHING_AI_MEMORY_DIR must be injected"
+        assert "DECOY" not in ctx, "PLUGIN_DATA must never be used as memory dir"
 
 
 if __name__ == "__main__":

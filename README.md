@@ -59,15 +59,15 @@ The installer copies only `skills/everything-ai`, sends no telemetry, reads no s
 
 Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
-## v0.4.0 Status
+## v0.4.1 Status
 
-10 domains · 20 benchmark scenarios · 32/32 tests green · finishes the job, stops interrogating you, **+3.9 pts** on a capable model.
+10 domains · 20 benchmark scenarios · 35/35 tests green · **+3.9 pts** on a capable model · PLUGIN_DATA memory-injection bug fixed.
 
 ## Numbers
 
 The honest measurement is a real model doing real work: `gpt-5.5` (and a smaller `gpt-5.4-mini`) answering the benchmark's vague "do everything" requests in a neutral scratch dir, with and without the skill, scored on the answer it leaves behind by a **blind cross-model judge** (Claude, never told which arm produced which output). Ten scenarios carry the rubric, scored under both arms — n=20 scored runs per model.
 
-<p align="center"><img alt="Per-metric change the skill makes, on minus off, in points of rubric max. gpt-5.5 (medium) is mostly green, overall +3.9: complete +19, ask-gate +8, proof +6, risk-stop 0, memory 0, defaults -10, scope -12. gpt-5.4-mini (low) is all red, overall -10.5: risk-stop 0, memory 0, ask-gate -8, defaults -10, complete -12, scope -12, proof -17." src="tests/results/v0.4.0-all-phases.svg" width="760"></p>
+<p align="center"><img alt="Root-cause analysis chart. Two panels, one per model, each showing per-metric delta bars (with-skill minus without-skill). gpt-5.5 medium overall +3.9: complete +19, ask-gate +8, proof +6, risk-stop 0, memory 0, scope -12, defaults -10. gpt-5.4-mini low overall -10.5: risk-stop 0, memory 0, ask-gate -8, complete -12, proof -17, scope -12, defaults -10. Amber dashed boxes on both panels mark scope and defaults as the regressed metrics. Blue callout explains the PLUGIN_DATA bug: hook read plugin install dir instead of memory dir, injected zero context, silenced scope inference and safe-default logic. Fix: removed PLUGIN_DATA branch from context_inject.py, added Safe Defaults section to SKILL.md. Retest pending." src="tests/results/v0.4.1-regression.svg" width="760"></p>
 
 Score as % of the rubric max (higher is better), per arm. **Bold** marks the winning arm in that column; `Δ` is the with-skill change in points.
 
@@ -82,7 +82,9 @@ Score as % of the rubric max (higher is better), per arm. **Bold** marks the win
 | with skill | 64.5 | 75 | 37.5 | 50 | 100 | 50 | 100 | 68.8 |
 | Δ | -10.5 | -8 | -12 | -10 | 0 | -17 | 0 | -12 |
 
-The win is biggest where it matters most: the answer is **complete** (+19) and the agent stops **interrogating you** (ask-gate +8). It is near zero on risk-stop and memory — both arms already perfect — and slightly negative on raw scope/defaults a capable model handles unaided. On a small low-reasoning model the same instructions **overload it** and every scored metric drops: the skill is built for capable models. Full method, per-task scores, reran failures, and limitations: [TEST_RESULTS.md](TEST_RESULTS.md).
+The win is biggest where it matters most: the answer is **complete** (+19) and the agent stops **interrogating you** (ask-gate +8). risk-stop and memory are zero — both arms already perfect.
+
+**v0.4.0 regression root cause (fixed in v0.4.1):** scope and defaults are negative on both models because `context_inject.py` was reading `PLUGIN_DATA` (the plugin install directory) as the memory dir. No memory files live there. The hook injected zero context on every prompt, removing the agent's only basis for scope inference and safe defaults. gpt-5.5 is resilient enough to absorb this and still net +3.9; gpt-5.4-mini has no slack and netted -10.5. v0.4.1 removes the `PLUGIN_DATA` branch and adds an explicit `## Safe Defaults` section to SKILL.md. Retest pending. Full root cause, per-metric evidence, and projected recovery: [TEST_RESULTS.md](TEST_RESULTS.md).
 
 Details: [QUICKSTART.md](QUICKSTART.md) · [TEST_RESULTS.md](TEST_RESULTS.md) · [ROADMAP.md](ROADMAP.md)
 
