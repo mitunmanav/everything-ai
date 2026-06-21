@@ -48,10 +48,12 @@
     }
   },
   "diagnostic_fingerprint": "skill_off outperforms skill_on on scope_inference and safe_defaults across BOTH models. Unique to context-dependent metrics. Memory-independent metrics (risk_stop, memory_safety) hold at ceiling — confirming the bug is specifically in context injection, not the skill logic.",
-  "projected_v0_4_1": {
-    "note": "Live retest not yet run. Based on fix removing the zero-injection condition.",
-    "gpt-5.4-mini_expected_recovery": "scope_inference and safe_defaults should recover to off-baseline levels or better. Conservative estimate: -10.5% → +4 to +8% range.",
-    "gpt-5.5_expected": "scope_inference and safe_defaults losses eliminated. Overall delta improves from +3.9% toward +6 to +8%."
+  "confirmed_v0_4_1": {
+    "note": "Retest complete (n=40, gpt-5.4-mini only). First run failed transiently; second run confirmed. gpt-5.5 not re-run in v0.4.1.",
+    "gpt-5.4-mini_actual": "off 88.2% → on 90.8% → +2.6 pts overall. Recovery of +13.1 pts from v0.4.0 bugged baseline of -10.5.",
+    "gpt-5.5_actual": "Not retested. v0.4.0 result (+3.9 pts) stands as the current reference.",
+    "raw_data": "tests/results/v0.4.1-retest-run.json",
+    "graph": "tests/results/v0.4.1-fixed.svg"
   },
   "commits": {
     "context_inject_fix": "Remove PLUGIN_DATA branch from context_inject.py",

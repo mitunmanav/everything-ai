@@ -71,7 +71,7 @@ The measurement: a real model doing real work — `gpt-5.5` (and `gpt-5.4-mini`)
 
 <p align="center"><img alt="Two-chart results graph. Chart 1: gpt-5.5 medium reasoning per-metric skill delta as percent of metric max. ask-gate +8%, scope -13%, safe-defaults -10%, risk-stop 0%, proof-report +6%, memory 0%, trace-complete +19%. Overall off 88.2% on 92.1% delta +3.9 pts. Chart 2: gpt-5.4-mini low reasoning before and after fix. v0.4.0 PLUGIN_DATA bug: overall -10.5 pts (amber bar). v0.4.1 fixed: overall +2.6 pts (green bar). Recovery swing of plus 13.1 pts. gpt-5.5 reference bar at +3.9 shown faded. Note: v0.4.1 retested on mini only; first run failed transiently, second run confirmed." src="tests/results/v0.4.1-fixed.svg" width="760"></p>
 
-Score as % of the rubric max (higher is better), per arm — **v0.4.0 data, pre-patch**. **Bold** marks the winning arm; `Δ` is the with-skill change in points.
+Score as % of the rubric max (higher is better), per arm — **gpt-5.5 from v0.4.0 run · gpt-5.4-mini v0.4.0 bugged row + v0.4.1 fixed row**. **Bold** marks the winning arm; `Δ` is the with-skill change in points.
 
 | arm | overall | ask-gate | scope | defaults | risk-stop | proof | memory | complete |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|

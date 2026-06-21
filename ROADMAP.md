@@ -192,7 +192,7 @@ Done when:
 
 ## Immediate Next Build Tasks
 
-1. Live retest v0.4.1 — confirm gpt-5.4-mini recovers from -10.5% after PLUGIN_DATA fix.
+1. ~~Live retest v0.4.1~~ ✓ **Done** — gpt-5.4-mini confirmed +2.6 pts after PLUGIN_DATA fix (+13.1 pt recovery).
 2. Add trace schema and example trace (Phase 3).
 3. Create release checklist (Phase 7).
 
