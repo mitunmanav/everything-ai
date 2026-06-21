@@ -2,7 +2,7 @@
   "version": "0.4.1",
   "date": "2026-06-20",
   "type": "root-cause-analysis",
-  "status": "fix-applied-retest-pending",
+  "status": "fix-applied-retest-confirmed",
   "summary": "PLUGIN_DATA env var was hijacking the memory dir in Codex environments, injecting zero memory files on every prompt. This caused scope_inference and safe_defaults to regress on both models; gpt-5.4-mini had no resilience and netted -10.5%.",
   "root_cause": {
     "file": "skills/everything-ai/hooks/context_inject.py",
