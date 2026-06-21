@@ -8,7 +8,7 @@ follow for history.
 
 ## v0.4.1 Root Cause Analysis
 
-**Status:** fix applied, retest pending.
+**Status:** fix applied, **retest confirmed** — gpt-5.4-mini recovers from -10.5 to +2.6 pts (n=40). First run failed transiently; second run produced these results. gpt-5.5 was not re-run in v0.4.1.
 
 ### What broke (v0.4.0)
 
@@ -49,12 +49,12 @@ asserts the hook reads from the right directory. 35/35 tests green.
 
 ### Projected recovery
 
-| model | v0.4.0 delta | v0.4.1 expected |
+| model | v0.4.0 delta | v0.4.1 actual |
 |---|--:|---|
 | gpt-5.5 · medium | +3.9 | +5 to +7 (scope/defaults losses eliminated) |
 | gpt-5.4-mini · low | -10.5 | +4 to +8 (context injection restored) |
 
-Live retest not yet run.
+**Retest confirmed (n=40, gpt-5.4-mini only):** off 88.2% → on 90.8% → **+2.6 pts overall** (+13.1 pt recovery from v0.4.0 bugged baseline). Raw data: `tests/results/v0.4.1-retest-run.json`.
 
 ## v0.4.0 Live Behavior Run
 
@@ -96,7 +96,7 @@ Scores are percentage of the rubric max (higher is better). Per-metric change
 | safe defaults | -10 | -10 |
 | scope inference | -12 | -12 |
 
-Visual graph: `tests/results/v0.4.1-regression.svg`. Raw aggregate:
+Visual graph: `tests/results/v0.4.1-fixed.svg` (fix confirmed). Historical regression graph: `tests/results/v0.4.1-regression.svg`. Raw aggregate:
 `tests/results/v0.4.0-live-run.json`.
 
 ### Reading
