@@ -228,9 +228,11 @@ def test_v041_release_proof_files_are_current():
     readme = read(README)
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
+    regression = json.loads(read(ROOT / "tests" / "results" / "v0.4.1-regression.json"))
 
     assert package["version"] == "0.4.1"
-    assert 'src="tests/results/v0.4.1-regression.svg"' in readme
+    assert 'src="tests/results/v0.4.1-fixed.svg"' in readme
+    assert regression["status"] == "fix-applied-retest-confirmed"
     assert "## v0.4.1 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme
