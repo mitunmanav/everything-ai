@@ -3,6 +3,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -777,5 +778,9 @@ def test_phase_b_plugin_data_not_used_as_memory_dir():
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
-            fn()
+            if fn.__code__.co_argcount == 1:
+                with tempfile.TemporaryDirectory() as tmp:
+                    fn(Path(tmp))
+            else:
+                fn()
             print(f"ok {name}")
