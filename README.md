@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml)
 [![Version](https://img.shields.io/badge/version-0.4.2-blue)](package.json)
-[![Unit Tests](https://img.shields.io/badge/unit%20tests-46%2F46-brightgreen)](tests/test_everything_ai.py)
+[![Unit Tests](https://img.shields.io/badge/unit%20tests-45%2F45-brightgreen)](tests/test_everything_ai.py)
 [![Live Benchmark](https://img.shields.io/badge/live%20benchmark-not%20run%20for%20v0.4.2-yellow)](TEST_RESULTS.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
