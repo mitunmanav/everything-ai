@@ -52,6 +52,30 @@ def check_no_retest_pending():
             sys.exit(1)
 
 
+def check_live_benchmark_run(version):
+    """Block release if no live benchmark results exist for this version.
+    A live run produces a JSON file in tests/results/ named v{version}*.json.
+    Unit tests passing is not sufficient proof — live evaluation is required.
+    """
+    result_jsons = list((ROOT / "tests" / "results").glob(f"v{version}*.json"))
+    if not result_jsons:
+        print(
+            f"ERROR: No live benchmark results found for v{version} in tests/results/.\n"
+            f"       Unit tests alone are not release proof.\n"
+            f"       Run: python3 scripts/run_live_benchmark.py --version {version}\n"
+            f"       Then regenerate the SVG before releasing."
+        )
+        sys.exit(1)
+    test_results_text = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
+    if "No live benchmark results" in test_results_text and f"v{version}" in test_results_text[:500]:
+        print(
+            f"ERROR: TEST_RESULTS.md still says 'No live benchmark results' for v{version}.\n"
+            f"       Update TEST_RESULTS.md with actual numbers before releasing."
+        )
+        sys.exit(1)
+    print(f"Live benchmark results verified for v{version}.")
+
+
 def check_svg_and_docs_updated(version):
     svgs = list((ROOT / "tests" / "results").glob(f"v{version}*.svg"))
     if not svgs:
@@ -60,6 +84,12 @@ def check_svg_and_docs_updated(version):
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     if f"v{version}" not in readme:
         print(f"ERROR: README.md not updated for v{version}.")
+        sys.exit(1)
+    if "No live benchmark run yet" in readme:
+        print(
+            f"ERROR: README.md still says 'No live benchmark run yet' for v{version}.\n"
+            f"       Update with real results before releasing."
+        )
         sys.exit(1)
     test_results = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
     if f"v{version}" not in test_results:
@@ -90,6 +120,7 @@ def tag_and_release(version):
     if existing.stdout.strip():
         print(f"Tag v{version} already exists. Skipping release.")
         return
+    check_live_benchmark_run(version)
     check_svg_and_docs_updated(version)
     subprocess.run(["git", "tag", f"v{version}"], cwd=ROOT, check=True)
     subprocess.run(["git", "push", "origin", f"v{version}"], cwd=ROOT, check=True)

@@ -1,8 +1,12 @@
 # Test Results
 
-Version: v0.4.1
+Version: v0.4.2
 
-Latest proof is the **v0.4.0 live behavior run** below, with the v0.4.1
+**v0.4.2 has no live benchmark results.** Unit tests pass (46/46). No evaluation run has been conducted against the benchmark suite for v0.4.2 features. The results below are from v0.4.1 and earlier.
+
+---
+
+Latest live proof is the **v0.4.0 live behavior run** below, with the v0.4.1
 root-cause analysis that explains the gpt-5.4-mini regression. v0.3.0 sections
 follow for history.
 

@@ -61,7 +61,7 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.4.2 Status
 
-10 domains · 46/46 unit tests green · halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script.
+**No live benchmark run yet.** Unit tests pass (46/46) but v0.4.2 has not been evaluated against the benchmark suite. Features shipped: halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script. Live results pending.
 
 ## v0.4.1 Status
 
