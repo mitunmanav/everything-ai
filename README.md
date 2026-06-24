@@ -1,6 +1,10 @@
 # Everything AI
 
-[![test](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml)
+[![CI](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml)
+[![Version](https://img.shields.io/badge/version-0.4.2-blue)](package.json)
+[![Unit Tests](https://img.shields.io/badge/unit%20tests-46%2F46-brightgreen)](tests/test_everything_ai.py)
+[![Live Benchmark](https://img.shields.io/badge/live%20benchmark-not%20run%20for%20v0.4.2-yellow)](TEST_RESULTS.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Everything AI is an agent skill for people who ask AI to handle the whole task.
 
@@ -65,7 +69,7 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.4.1 Status
 
-10 domains · 20 benchmark scenarios · 35/35 unit tests green · PLUGIN_DATA memory-injection bug found in v0.4.0 and patched in v0.4.1 · **live retest confirmed: gpt-5.4-mini recovers from -10.5 to +2.6 pts** · gpt-5.5 baseline unchanged at +3.9 pts.
+10 domains · 20 benchmark scenarios · 35/35 unit tests green · PLUGIN_DATA memory-injection bug found in v0.4.0 and patched in v0.4.1 · **live retest confirmed: gpt-5.4-mini recovers from -10.5 to +2.6 pts (n=40)** · gpt-5.5 at +3.9 pts from v0.4.0 run — **not re-run in v0.4.1**.
 
 ## Numbers
 

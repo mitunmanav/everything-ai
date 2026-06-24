@@ -51,14 +51,16 @@ New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
 sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
 asserts the hook reads from the right directory. 35/35 tests green.
 
-### Projected recovery
+### Recovery results
 
-| model | v0.4.0 delta | v0.4.1 actual |
-|---|--:|---|
-| gpt-5.5 · medium | +3.9 | +5 to +7 (scope/defaults losses eliminated) |
-| gpt-5.4-mini · low | -10.5 | +4 to +8 (context injection restored) |
+| model | v0.4.0 delta | v0.4.1 result | status |
+|---|--:|---|---|
+| gpt-5.5 · medium | +3.9 | — | **not re-run in v0.4.1** — v0.4.0 number stands |
+| gpt-5.4-mini · low | -10.5 | **+2.6 pts** | retest confirmed (n=40) |
 
 **Retest confirmed (n=40, gpt-5.4-mini only):** off 88.2% → on 90.8% → **+2.6 pts overall** (+13.1 pt recovery from v0.4.0 bugged baseline). Raw data: `tests/results/v0.4.1-retest-run.json`.
+
+gpt-5.5 was not re-run in v0.4.1. The +3.9 pts figure is from the v0.4.0 run and has not been updated.
 
 ## v0.4.0 Live Behavior Run
 

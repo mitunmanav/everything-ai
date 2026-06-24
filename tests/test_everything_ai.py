@@ -901,8 +901,8 @@ def test_v042_push_script_exists_and_is_valid_python():
         ast.parse(source)
     except SyntaxError as e:
         raise AssertionError(f"push.py has syntax errors: {e}")
-    assert "run_tests" in source, "push.py must define run_tests()"
-    assert "get_changed_files" in source, "push.py must define get_changed_files()"
+    assert "check_unit_tests" in source, "push.py must define check_unit_tests()"
+    assert "run_preflight" in source, "push.py must define run_preflight()"
 
 
 def test_v042_evidence_gap_search_rule_in_skill():

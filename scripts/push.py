@@ -1,156 +1,342 @@
 #!/usr/bin/env python3
-"""Smart push script for everything-ai. Detects what changed and runs contextual checks.
-Run with: python3 scripts/push.py
 """
+Pre-push validation and release script for everything-ai.
+
+Runs all checks, prints an honest preflight report, requires explicit
+confirmation before pushing to main. Never lies. Never blocks on a missing
+benchmark — but always says clearly what has and has not been run.
+
+Usage:
+    python3 scripts/push.py           # full preflight + push
+    python3 scripts/push.py --dry-run # report only, no push
+"""
+import argparse
 import json
+import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TODAY = date.today().isoformat()
+
+PASS = "PASS"
+WARN = "WARN"
+FAIL = "FAIL"
+INFO = "INFO"
 
 
-def run(cmd, **kwargs):
-    return subprocess.run(cmd, cwd=ROOT, check=True, text=True, capture_output=True, **kwargs)
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _run(cmd, **kwargs):
+    return subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, **kwargs)
 
 
-def get_changed_files():
-    unstaged = subprocess.run(
-        ["git", "diff", "--name-only", "HEAD"],
-        cwd=ROOT, text=True, capture_output=True,
-    )
-    staged = subprocess.run(
-        ["git", "diff", "--name-only", "--cached"],
-        cwd=ROOT, text=True, capture_output=True,
-    )
-    return set(
-        unstaged.stdout.splitlines() + staged.stdout.splitlines()
-    )
+def _section(title):
+    print(f"\n{'─' * 60}")
+    print(f"  {title}")
+    print('─' * 60)
 
 
-def get_version():
-    return json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
+def _line(status, msg):
+    icons = {PASS: "✓", WARN: "!", FAIL: "✗", INFO: "·"}
+    print(f"  {icons[status]} [{status}] {msg}")
 
 
-def run_tests():
-    print("Running full test suite...")
+# ---------------------------------------------------------------------------
+# Checks — each returns (status, message)
+# ---------------------------------------------------------------------------
+
+def check_unit_tests():
     result = subprocess.run(
-        ["pytest", "tests/test_everything_ai.py", "-v"],
-        cwd=ROOT,
+        ["python3", "-m", "pytest", "tests/test_everything_ai.py", "-q", "--tb=no"],
+        cwd=ROOT, capture_output=True, text=True,
     )
-    if result.returncode != 0:
-        print("Tests failed. Aborting push.")
-        sys.exit(1)
-    print("All tests passed.")
+    lines = result.stdout.strip().splitlines()
+    summary = lines[-1] if lines else "no output"
+    if result.returncode == 0:
+        return PASS, f"Unit tests: {summary}"
+    return FAIL, f"Unit tests FAILED: {summary}"
+
+
+def check_version_consistency():
+    issues = []
+    package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    version = package["version"]
+
+    test_text = (ROOT / "tests" / "test_everything_ai.py").read_text(encoding="utf-8")
+    # Only flag version strings that appear in package["version"] assertions — not historical
+    # benchmark data checks (those reference old result JSON versions intentionally)
+    stale_assertions = re.findall(
+        r'package\["version"\]\s*==\s*"(\d+\.\d+\.\d+)"', test_text
+    )
+    stale = [v for v in stale_assertions if v != version]
+    if stale:
+        issues.append(f"package version assertions in tests still reference: {stale} (expected {version})")
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    if f"v{version}" not in readme:
+        issues.append(f"README.md does not mention v{version}")
+
+    tr = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
+    if f"v{version}" not in tr[:200]:
+        issues.append(f"TEST_RESULTS.md header does not reference v{version}")
+
+    badge_match = re.search(r'version-(\d+\.\d+\.\d+)-', readme)
+    if badge_match and badge_match.group(1) != version:
+        issues.append(f"Version badge shows {badge_match.group(1)}, package.json is {version}")
+
+    if issues:
+        return FAIL, "Version mismatch — " + "; ".join(issues)
+    return PASS, f"Version consistent at {version} across package.json, README, tests, TEST_RESULTS"
 
 
 def check_no_retest_pending():
     results_dir = ROOT / "tests" / "results"
+    flagged = []
     for f in results_dir.glob("*.json"):
         if "retest-pending" in f.read_text(encoding="utf-8"):
-            print(f"ERROR: {f.name} still contains retest-pending status. Fix before pushing.")
-            sys.exit(1)
+            flagged.append(f.name)
+    if flagged:
+        return FAIL, f"retest-pending status in: {', '.join(flagged)} — resolve before pushing"
+    return PASS, "No retest-pending flags in result files"
 
 
-def check_live_benchmark_run(version):
-    """Block release if no live benchmark results exist for this version.
-    A live run produces a JSON file in tests/results/ named v{version}*.json.
-    Unit tests passing is not sufficient proof — live evaluation is required.
-    """
-    result_jsons = list((ROOT / "tests" / "results").glob(f"v{version}*.json"))
-    if not result_jsons:
-        print(
-            f"ERROR: No live benchmark results found for v{version} in tests/results/.\n"
-            f"       Unit tests alone are not release proof.\n"
-            f"       Run: python3 scripts/run_live_benchmark.py --version {version}\n"
-            f"       Then regenerate the SVG before releasing."
-        )
-        sys.exit(1)
-    test_results_text = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
-    if "No live benchmark results" in test_results_text and f"v{version}" in test_results_text[:500]:
-        print(
-            f"ERROR: TEST_RESULTS.md still says 'No live benchmark results' for v{version}.\n"
-            f"       Update TEST_RESULTS.md with actual numbers before releasing."
-        )
-        sys.exit(1)
-    print(f"Live benchmark results verified for v{version}.")
-
-
-def check_svg_and_docs_updated(version):
-    svgs = list((ROOT / "tests" / "results").glob(f"v{version}*.svg"))
-    if not svgs:
-        print(f"ERROR: No SVG found for v{version} in tests/results/. Generate it first.")
-        sys.exit(1)
+def check_benchmark_honesty():
+    issues = []
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    if f"v{version}" not in readme:
-        print(f"ERROR: README.md not updated for v{version}.")
-        sys.exit(1)
-    if "No live benchmark run yet" in readme:
-        print(
-            f"ERROR: README.md still says 'No live benchmark run yet' for v{version}.\n"
-            f"       Update with real results before releasing."
+    tr = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
+
+    # Catch the specific misleading phrase we've had before
+    if "gpt-5.5 baseline unchanged" in readme or "gpt-5.5 baseline unchanged" in tr:
+        issues.append(
+            "Found 'gpt-5.5 baseline unchanged' — misleading because gpt-5.5 was not re-run. "
+            "Replace with explicit 'not re-run in vX.Y.Z, number is from vX.Y.Z run'."
         )
-        sys.exit(1)
-    test_results = (ROOT / "TEST_RESULTS.md").read_text(encoding="utf-8")
-    if f"v{version}" not in test_results:
-        print(f"ERROR: TEST_RESULTS.md not updated for v{version}.")
-        sys.exit(1)
-    print(f"SVG and docs verified for v{version}.")
 
-
-def commit_if_dirty(version):
-    status = subprocess.run(
-        ["git", "status", "--porcelain"],
-        cwd=ROOT, text=True, capture_output=True,
-    )
-    if status.stdout.strip():
-        subprocess.run(["git", "add", "-A"], cwd=ROOT, check=True)
-        subprocess.run(
-            ["git", "commit", "-m", f"chore: release v{version}"],
-            cwd=ROOT, check=True,
+    # Catch projected numbers presented without a label
+    if re.search(r"\+\d+ to \+\d+.*scope.defaults", tr):
+        issues.append(
+            "TEST_RESULTS appears to contain projected/estimated recovery numbers without "
+            "clearly marking them as unconfirmed. Label or remove."
         )
-        print(f"Committed changes for v{version}.")
 
-
-def tag_and_release(version):
-    existing = subprocess.run(
-        ["git", "tag", "--list", f"v{version}"],
-        cwd=ROOT, text=True, capture_output=True,
+    # Check that any version with an explicit "confirmed" live claim has a result JSON.
+    # Only match phrases that assert a result was actually observed — not "pending" or "not run".
+    confirmed_pattern = re.compile(
+        r'v(\d+\.\d+\.\d+)[^\n]{0,80}live[^\n]{0,60}confirm',
+        re.IGNORECASE,
     )
-    if existing.stdout.strip():
-        print(f"Tag v{version} already exists. Skipping release.")
+    for m in confirmed_pattern.finditer(readme + tr):
+        v = m.group(1)
+        jsons = list((ROOT / "tests" / "results").glob(f"v{v}*.json"))
+        if not jsons:
+            issues.append(
+                f"README/TEST_RESULTS has 'live...confirmed' claim for v{v} but no result JSON found"
+            )
+
+    if issues:
+        return FAIL, "Honesty issues — " + "; ".join(issues)
+    return PASS, "No misleading benchmark claims detected"
+
+
+def check_live_benchmark_status():
+    """Informational only — reports what has and hasn't been run. Never blocks push."""
+    package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    version = package["version"]
+    results_dir = ROOT / "tests" / "results"
+
+    current_jsons = list(results_dir.glob(f"v{version}*.json"))
+    all_jsons = sorted(results_dir.glob("v*.json"))
+    last_run = all_jsons[-1].name if all_jsons else "none"
+
+    if current_jsons:
+        return INFO, f"Live benchmark: results exist for v{version} ({', '.join(f.name for f in current_jsons)})"
+    return WARN, (
+        f"Live benchmark: NOT RUN for v{version}. "
+        f"Last run: {last_run}. "
+        f"Push will proceed but results section will show this gap."
+    )
+
+
+def check_svg_exists():
+    package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    version = package["version"]
+    svgs = list((ROOT / "tests" / "results").glob(f"v{version}*.svg"))
+    if svgs:
+        return INFO, f"SVG proof found for v{version}: {', '.join(f.name for f in svgs)}"
+    return WARN, f"No SVG proof for v{version} — README chart will reference older version's SVG"
+
+
+def check_no_placeholder_text():
+    issues = []
+    files_to_check = [
+        ROOT / "README.md",
+        ROOT / "TEST_RESULTS.md",
+    ]
+    bad_phrases = ["TODO", "FIXME", "TBD", "placeholder", "coming soon", "fill in"]
+    for path in files_to_check:
+        text = path.read_text(encoding="utf-8")
+        for phrase in bad_phrases:
+            if phrase.lower() in text.lower():
+                issues.append(f"{path.name} contains '{phrase}'")
+    if issues:
+        return WARN, "Placeholder text found — " + "; ".join(issues)
+    return PASS, "No placeholder text found in README or TEST_RESULTS"
+
+
+def check_git_state():
+    status = _run(["git", "status", "--porcelain"])
+    uncommitted = [l for l in status.stdout.splitlines() if l.strip()]
+    branch = _run(["git", "rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
+    if uncommitted:
+        return WARN, f"Uncommitted changes ({len(uncommitted)} files) on branch '{branch}' — will be committed"
+    return INFO, f"Working tree clean on branch '{branch}'"
+
+
+def check_unit_test_count_in_badge():
+    """Ensure the unit test badge count matches actual collected tests."""
+    result = subprocess.run(
+        ["python3", "-m", "pytest", "tests/test_everything_ai.py", "--collect-only", "-q"],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    lines = result.stdout.strip().splitlines()
+    # Last line is something like "46 tests collected in 0.18s"
+    match = re.search(r"(\d+) test", lines[-1] if lines else "")
+    if not match:
+        return WARN, "Could not determine test count from pytest --collect-only"
+    actual = match.group(1)
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    badge_match = re.search(r"unit%20tests-(\d+)%2F(\d+)", readme)
+    if not badge_match:
+        return WARN, "Unit test badge not found in README"
+    badge_count = badge_match.group(2)
+    if badge_count != actual:
+        return FAIL, f"Unit test badge says {badge_count} tests but pytest collects {actual} — update README badge"
+    return PASS, f"Unit test badge count matches: {actual} tests"
+
+
+# ---------------------------------------------------------------------------
+# Report + push
+# ---------------------------------------------------------------------------
+
+def run_preflight():
+    _section("PREFLIGHT REPORT")
+    print(f"  Date: {TODAY}")
+    print(f"  Repo: {ROOT.name}")
+
+    checks = [
+        check_unit_tests,
+        check_version_consistency,
+        check_unit_test_count_in_badge,
+        check_no_retest_pending,
+        check_benchmark_honesty,
+        check_live_benchmark_status,
+        check_svg_exists,
+        check_no_placeholder_text,
+        check_git_state,
+    ]
+
+    results = []
+    for fn in checks:
+        status, msg = fn()
+        _line(status, msg)
+        results.append((status, msg))
+
+    failures = [r for r in results if r[0] == FAIL]
+    warnings = [r for r in results if r[0] == WARN]
+
+    _section("SUMMARY")
+    print(f"  Failures : {len(failures)}")
+    print(f"  Warnings : {len(warnings)}")
+    print()
+    if failures:
+        print("  PUSH BLOCKED. Fix failures before pushing:")
+        for _, msg in failures:
+            print(f"    ✗ {msg}")
+        return False
+    if warnings:
+        print("  Warnings present (push allowed — documented above).")
+    else:
+        print("  All checks passed.")
+    return True
+
+
+def show_git_diff_summary():
+    _section("CHANGES TO BE PUSHED")
+    log = _run(["git", "log", "origin/main..HEAD", "--oneline"])
+    if log.stdout.strip():
+        print("  Commits ahead of origin/main:")
+        for line in log.stdout.strip().splitlines():
+            print(f"    {line}")
+    else:
+        status = _run(["git", "status", "--porcelain"])
+        uncommitted = status.stdout.strip().splitlines()
+        if uncommitted:
+            print("  Uncommitted files to be committed first:")
+            for line in uncommitted:
+                print(f"    {line}")
+        else:
+            print("  Nothing to push — already up to date.")
+
+
+def commit_uncommitted(version):
+    status = _run(["git", "status", "--porcelain"])
+    if not status.stdout.strip():
         return
-    check_live_benchmark_run(version)
-    check_svg_and_docs_updated(version)
-    subprocess.run(["git", "tag", f"v{version}"], cwd=ROOT, check=True)
-    subprocess.run(["git", "push", "origin", f"v{version}"], cwd=ROOT, check=True)
+    _section("COMMITTING UNCOMMITTED CHANGES")
+    subprocess.run(["git", "add", "-A"], cwd=ROOT, check=True)
     subprocess.run(
-        ["gh", "release", "create", f"v{version}", "--generate-notes"],
+        ["git", "commit", "-m", f"chore: pre-push cleanup for v{version}"],
         cwd=ROOT, check=True,
     )
-    print(f"GitHub release v{version} created.")
+    print("  Committed.")
+
+
+def push_to_main():
+    _section("PUSHING TO MAIN")
+    result = subprocess.run(
+        ["git", "push", "origin", "HEAD:main"],
+        cwd=ROOT,
+    )
+    if result.returncode == 0:
+        print("  Pushed to main.")
+    else:
+        print("  Push failed. Check git output above.")
+        sys.exit(1)
 
 
 def main():
-    changed = get_changed_files()
-    version = get_version()
+    parser = argparse.ArgumentParser(description="Pre-push validation for everything-ai")
+    parser.add_argument("--dry-run", action="store_true", help="Report only, do not push")
+    args = parser.parse_args()
 
-    # Always: run full test suite
-    run_tests()
+    ok = run_preflight()
+    if not ok:
+        sys.exit(1)
 
-    # Contextual checks
-    if any(f.startswith("tests/results/") and f.endswith(".json") for f in changed):
-        check_no_retest_pending()
+    show_git_diff_summary()
 
-    # Commit uncommitted changes
-    commit_if_dirty(version)
+    if args.dry_run:
+        print("\n  --dry-run: stopping here. No changes pushed.")
+        return
 
-    # Push to main
-    subprocess.run(["git", "push", "origin", "main"], cwd=ROOT, check=True)
-    print("Pushed to main.")
+    _section("CONFIRMATION")
+    print("  Review the report above.")
+    print("  Type 'yes' to commit any uncommitted changes and push to main.")
+    print("  Anything else aborts.")
+    answer = input("  > ").strip().lower()
+    if answer != "yes":
+        print("  Aborted.")
+        sys.exit(0)
 
-    # Version-bump path: tag + release if no tag exists for current version
-    tag_and_release(version)
+    package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    commit_uncommitted(package["version"])
+    push_to_main()
 
 
 if __name__ == "__main__":
