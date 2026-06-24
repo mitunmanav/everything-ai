@@ -29,3 +29,16 @@ The user understands their current position (income vs expense vs debt). They ha
 Example 1: "Help me with my money — I have no idea where to start." Infer: no current budget, unclear on spending. Start with: track all expenses for 2 weeks (free app or spreadsheet). Then categorize and find biggest discretionary spend. Set one savings transfer per month. Action this week: download a free budgeting app and connect bank account.
 
 Example 2: "I want to pay off my debt." List all debts with interest rates. Avalanche method: minimum payments on all, extra money to highest-interest first. Calculate payoff date at current rate. Find one expense to cut to accelerate. Flag: if total debt is over 6 months income, recommend a credit counselor.
+
+## Frameworks
+
+- **Ramsey Baby Steps**: Emergency fund → debt snowball → 3–6 months expenses → invest 15% → kids' college → house payoff → build wealth.
+- **Index fund principle**: Low-cost broad index funds beat active management for most investors over time.
+- **Zero-based budgeting**: Every dollar gets a job. Income minus expenses equals zero each month.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current federal funds rate and high-yield savings rates
+- Current 401k/IRA contribution limits (IRS updates annually)
+- Current tax brackets and standard deduction amounts

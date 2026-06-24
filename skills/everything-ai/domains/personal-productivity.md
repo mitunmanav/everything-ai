@@ -30,3 +30,15 @@ The user has a short, credible plan for today and a clear view of the week. High
 Example 1: "Plan my week." Group commitments by deadline and importance, place fixed events first, choose three weekly outcomes, reserve focus blocks, and leave open capacity for surprises.
 
 Example 2: "Organize my notes and tasks." Turn notes into projects, next actions, waiting items, and references. Keep original notes intact unless the user approves cleanup or deletion.
+
+## Frameworks
+
+- **GTD (Getting Things Done)**: Capture everything. Clarify next actions. Organize by context. Review weekly.
+- **MIT (Most Important Task)**: Identify 1–3 MITs each morning before checking messages. Do them first.
+- **Time-blocking**: Assign work to specific calendar slots. Protect focus blocks from meetings.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current pricing or availability of productivity tools mentioned by user
+- App version or feature changes (Notion, Obsidian, Todoist, etc.)

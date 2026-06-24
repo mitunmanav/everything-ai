@@ -30,3 +30,16 @@ The founder has a clear customer, a sharp promise, a small MVP, and a test that 
 Example 1: "Launch my AI study app." Infer students preparing for exams as the first segment, draft a landing page promise, define a manual quiz-generation MVP, create a 10-interview script, and set a one-week success target before recommending a build.
 
 Example 2: "Do everything for my founder idea." Start with problem, customer, offer, risks, and a first validation sprint. Ask at most one blocker question if the target customer is completely unknowable from available context.
+
+## Frameworks
+
+- **Sam Altman Startup Playbook** (playbook.samaltman.com): Build something people want. Launch early, talk to users, iterate fast. Do things that don't scale first.
+- **YC Pillars**: Product, users, growth. Weekly metrics: active users, revenue, user conversations.
+- **First-principles scope**: Narrow to one user, one problem, one channel before expanding.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current YC batch name and focus areas
+- Current fundraising climate (typical seed/Series A amounts and valuation norms)
+- Current AI investor appetite and check sizes

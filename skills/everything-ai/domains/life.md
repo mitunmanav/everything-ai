@@ -28,3 +28,15 @@ The user has a clear, concrete, achievable next step that they can take today. T
 Example 1: "Help me organize my home — it's a mess." Infer: clutter, overwhelm. Start with one room, one hour. Declutter method: three piles (keep, donate, trash). Start with the room used most. Set one 1-hour session this week. Result is measurable: one drawer done, one surface cleared.
 
 Example 2: "Plan my move to a new city." Build a 6-week moving checklist: week 1 (housing search), week 2 (notify landlord, start packing non-essentials), week 3 (utilities, address changes), week 4 (moving company or truck), week 5 (pack everything, handover keys), week 6 (arrive, set up essentials first). Flag: housing contract review by a local tenant advisor.
+
+## Frameworks
+
+- **Essentialism (Greg McKeown)**: Do less, but better. The disciplined pursuit of less. Ask "what is the most essential?" not "how do I fit it all in?"
+- **Stoic decision framework**: Dichotomy of control — focus on what you can influence, release what you cannot. Memento mori.
+- **Reversibility lens**: Before big decisions, ask: is this reversible? Prefer reversible moves. For irreversible ones, slow down and check twice.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Local regulations for legal or financial life decisions (jurisdiction-specific)
+- (Core principles are stable — live facts are minimal for this domain)

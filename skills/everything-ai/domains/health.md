@@ -28,3 +28,16 @@ The user has a realistic, safe, evidence-based plan they can start this week. Th
 Example 1: "Help me get fit — I'm a complete beginner." Infer: no current routine, low baseline. Suggest a 3-day/week beginner bodyweight program. Set 4-week goal: complete all 12 sessions. Safety note: stop if joint pain. Doctor flag: check in before starting if sedentary for over a year.
 
 Example 2: "Improve my sleep." Evidence-based sleep hygiene: fixed wake time, no screens 1 hour before bed, cool room, no caffeine after 2pm. Set 2-week trial. Flag: see a doctor if sleeplessness persists despite hygiene changes (may be a sleep disorder).
+
+## Frameworks
+
+- **Habit stacking (Atomic Habits)**: Attach new habits to existing ones. Identity-based change: "I am someone who..."
+- **First-principles nutrition**: Whole foods over processed. Protein target: 0.7–1g per pound of bodyweight. Sleep is non-negotiable.
+- **Progressive overload**: Increase stimulus gradually. Recovery is part of training, not optional.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current clinical guidelines for specific conditions (blood pressure thresholds, etc.)
+- Current supplement evidence base (creatine, vitamin D dosing recommendations)
+- Current physical activity guidelines (WHO, CDC)

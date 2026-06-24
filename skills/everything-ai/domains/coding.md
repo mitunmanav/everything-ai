@@ -30,3 +30,17 @@ The bug is fixed or the feature works. A test proves it. No existing tests broke
 Example 1: "Fix my bug." Read the error message and stack trace. Identify the file and line. State root cause in one sentence. Write a failing test. Fix. Run tests. Report: fixed X in Y, test added, N tests pass.
 
 Example 2: "Build a login feature." Read the existing auth code first. Pick the simplest working approach (session token vs JWT based on what already exists). Implement in one file. Add tests. Report what was built, what was skipped (OAuth, 2FA), and what to review before shipping.
+
+## Frameworks
+
+- **Test-first**: Write the failing test before the implementation. Never write implementation without a failing test.
+- **Multi-file reasoning**: When touching one file, read its callers and dependencies first. Changes rarely stay local.
+- **Single responsibility**: Each file/function does one thing. If describing it requires "and", split it.
+- **YAGNI**: Only build what the current task needs. No speculative abstractions.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current stable version of the framework or library in use
+- Deprecated APIs or removed methods in recent major releases
+- Current language version defaults (e.g. Python 3.13, Node 22)

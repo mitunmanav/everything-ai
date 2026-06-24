@@ -30,3 +30,15 @@ The user receives a reproducible analysis with clear inputs, cleaned assumptions
 Example 1: "Analyze this sales CSV." Load the file read-only, profile columns, normalize dates and currency, summarize revenue by month and channel, flag missing customer IDs, and report the top drivers plus caveats.
 
 Example 2: "Make a dashboard for our metrics." First identify the decision owner and core metrics, then propose views for acquisition, activation, retention, revenue, and data quality before building or changing any live dashboard.
+
+## Frameworks
+
+- **EDA first**: Explore before modeling. Distributions, missing values, outliers, correlations — always check these first.
+- **Show the data first**: Plot raw data before aggregating. Aggregates hide patterns, outliers, and bimodal distributions.
+- **Reproducibility**: Every step logged, random seeds set, outputs versioned. Analysis that can't be reproduced isn't analysis.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current version of pandas, numpy, scikit-learn (breaking changes between major versions)
+- Current best practices for specific analysis types (LLM eval frameworks, etc.)

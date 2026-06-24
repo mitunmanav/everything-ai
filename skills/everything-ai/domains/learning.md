@@ -28,3 +28,16 @@ The user has a clear week-by-week plan, each week ending in something they can d
 Example 1: "Learn Python." Assess level (assume beginner). Goal: build a small working project in 8 weeks at 5 hrs/week. Week 1-2: Python basics (Automate the Boring Stuff, free). Week 3-4: functions, files, error handling. Week 5-6: simple CLI project. Week 7-8: refine and add one feature. Milestone check: can you write a script that reads a file and outputs a summary?
 
 Example 2: "Understand machine learning." Assess level (assume technical, no ML experience). Goal: understand supervised learning and run a real model. Week 1: what is ML + linear regression (fast.ai lesson 1). Week 2: train a model on tabular data. Week 3: understand what went wrong and fix it. Milestone: working Kaggle submission.
+
+## Frameworks
+
+- **Feynman Technique**: Explain the concept in plain language as if teaching a child. Gaps in explanation reveal gaps in understanding.
+- **Spaced repetition**: Review material at increasing intervals. Use Anki or equivalent flashcard system.
+- **Active recall**: Test yourself — don't reread. Retrieval practice beats passive review every time.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current availability and pricing of learning platforms (Coursera, Udemy, etc.)
+- Current version of the software or tool being learned
+- Current certification requirements or exam formats

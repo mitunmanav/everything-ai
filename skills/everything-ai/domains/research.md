@@ -28,3 +28,16 @@ The user has a structured, honest answer to their question. Key findings are cle
 Example 1: "Research the best budget smartphones under $300." Criteria: camera, battery, software support, build quality, value. List 3 candidates with a score per criterion. Recommendation: X for most users because of Y. Caveat: prices change; verify before buying. Confidence: medium (based on current public reviews, not personal testing).
 
 Example 2: "Compare remote vs in-office work for productivity." Structure: what evidence says about focus, collaboration, mental health, and output quality. Note: contradictory findings exist; effect varies by role type. Recommendation: hybrid for most knowledge workers based on evidence. Confidence: medium — individual variation is high.
+
+## Frameworks
+
+- **CRAAP test**: Currency, Relevance, Authority, Accuracy, Purpose. Apply to every source before citing.
+- **Systematic synthesis**: State the question, search systematically, extract data, synthesize across sources, state confidence.
+- **Triangulation**: Never cite one source as fact. Find 2–3 independent sources that agree before asserting.
+
+## Live Facts
+
+The following facts go stale — search before using:
+- Current access status of databases or paywalled journals
+- Publication dates and citation counts of primary sources being used
+- Current consensus position on contested empirical questions

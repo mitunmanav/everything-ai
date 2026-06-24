@@ -890,3 +890,16 @@ def test_v042_review_agent_has_consistency_check():
         "episodic.md",
         "prior sessions",
     ])
+
+
+def test_v042_all_domains_have_frameworks_and_live_facts():
+    domain_names = [
+        "startup", "coding", "personal-productivity", "health",
+        "finance", "learning", "writing", "research", "data-analysis", "life",
+    ]
+    for name in domain_names:
+        path = DOMAINS / f"{name}.md"
+        assert path.exists(), f"Missing domain: {name}"
+        text = path.read_text(encoding="utf-8")
+        assert "## Frameworks" in text, f"Missing ## Frameworks in {name}.md"
+        assert "## Live Facts" in text, f"Missing ## Live Facts in {name}.md"
