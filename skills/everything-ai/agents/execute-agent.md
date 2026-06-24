@@ -35,7 +35,8 @@ Produce a structured execution handoff:
   ],
   "blocked_items": [],
   "unknowns": [],
-  "approval_needed": []
+  "approval_needed": [],
+  "next_agent": "review-agent"
 }
 ```
 

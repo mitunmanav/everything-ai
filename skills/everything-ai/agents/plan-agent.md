@@ -34,7 +34,9 @@ Produce a structured plan handoff:
     }
   ],
   "approval_stops": [],
-  "success_criteria": []
+  "success_criteria": [],
+  "safety_labels": {},
+  "next_agent": "execute-agent"
 }
 ```
 

@@ -27,7 +27,8 @@ Produce a structured scope handoff:
   "evidence_missing": [],
   "risk": "",
   "blocker_question": "",
-  "first_safe_slice": ""
+  "first_safe_slice": "",
+  "next_agent": "plan-agent"
 }
 ```
 

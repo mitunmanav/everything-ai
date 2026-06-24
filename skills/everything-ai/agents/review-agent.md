@@ -33,9 +33,18 @@ The final report must include all required trace fields:
   "confidence": {},
   "corrections": [],
   "feedback": [],
-  "learnings": []
+  "learnings": [],
+  "next_agent": null
 }
 ```
+
+## Consistency Check
+
+Load `episodic.md` from the memory directory. Find prior sessions with the same domain and task type.
+
+- If this session's approach matches prior sessions → note "consistent with prior sessions" in review output
+- If this session's approach diverged without explanation → flag in review output as "approach drift detected"
+- If no prior sessions found for this domain → note "first session for this domain"
 
 ## Handoff
 

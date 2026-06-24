@@ -875,3 +875,18 @@ if __name__ == "__main__":
             else:
                 fn()
             print(f"ok {name}")
+
+
+def test_v042_all_agents_have_next_agent_in_output():
+    for filename in ["scope-agent.md", "plan-agent.md", "execute-agent.md", "review-agent.md"]:
+        text = (AGENTS / filename).read_text(encoding="utf-8")
+        assert "next_agent" in text, f"Missing next_agent field in {filename}"
+
+
+def test_v042_review_agent_has_consistency_check():
+    text = (AGENTS / "review-agent.md").read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Consistency Check",
+        "episodic.md",
+        "prior sessions",
+    ])
