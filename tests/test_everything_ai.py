@@ -892,6 +892,15 @@ def test_v042_review_agent_has_consistency_check():
     ])
 
 
+def test_v042_evidence_gap_search_rule_in_skill():
+    text = read(SKILL)
+    assert_contains(text, [
+        "## Evidence-Gap Search",
+        "Live Facts",
+        "search before acting",
+    ])
+
+
 def test_v042_all_domains_have_frameworks_and_live_facts():
     domain_names = [
         "startup", "coding", "personal-productivity", "health",
