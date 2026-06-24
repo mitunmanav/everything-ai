@@ -34,3 +34,13 @@ Produce a structured scope handoff:
 ## Handoff
 
 When scope is clear, hand off to plan-agent with the full structured scope handoff. If one blocker question is required, ask it first and hand off to plan-agent only after the answer resolves the blocker.
+
+## Ambiguity Gate
+
+Before routing to plan-agent, classify the request:
+
+- Request is clear → proceed immediately
+- Request is ambiguous AND most likely interpretation is **reversible** → proceed, state the assumption in one sentence
+- Request is ambiguous AND most likely interpretation is **irreversible** AND expands beyond what was literally asked → HALT, ask one clarifying question
+
+Never halt for reversible actions even if ambiguous. State the assumption and continue.

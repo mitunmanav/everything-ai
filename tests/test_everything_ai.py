@@ -775,6 +775,28 @@ def test_phase_b_plugin_data_not_used_as_memory_dir():
         assert "DECOY" not in ctx, "PLUGIN_DATA must never be used as memory dir"
 
 
+def test_v042_halt_vs_guess_gate_in_scope_agent():
+    text = (AGENTS / "scope-agent.md").read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Ambiguity Gate",
+        "irreversible",
+        "proceed",
+        "state the assumption",
+        "HALT",
+    ])
+
+
+def test_v042_halt_vs_guess_gate_in_execute_agent():
+    text = (AGENTS / "execute-agent.md").read_text(encoding="utf-8")
+    assert_contains(text, [
+        "## Execution Gate",
+        "irreversible",
+        "reversible",
+        "HALT",
+        "explicitly requested",
+    ])
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):

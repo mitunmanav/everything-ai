@@ -42,3 +42,13 @@ Produce a structured execution handoff:
 ## Handoff
 
 Hand off to review-agent when all executable safe steps are done or when blocked. Include skipped approval-needed steps so review-agent can report the exact remaining safe next action.
+
+## Execution Gate
+
+Before each action, classify it:
+
+- Action is **reversible** (edit, draft, analyze, plan, read) → execute; note assumption if any
+- Action is **irreversible** AND was **explicitly requested** → execute
+- Action is **irreversible** AND was **NOT explicitly requested** (delete, publish, send, overwrite permanent state) → HALT, confirm first
+
+Hard floor: always halt before irreversible out-of-scope actions, even if they seem helpful.
