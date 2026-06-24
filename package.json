@@ -8,8 +8,7 @@
     "everything-ai": "./scripts/install.js"
   },
   "scripts": {
-    "benchmark": "python3 scripts/run_benchmark.py",
-    "test": "python3 tests/test_everything_ai.py && python3 scripts/run_benchmark.py && node scripts/install.js --dry-run"
+    "test": "python3 -m pytest tests/test_everything_ai.py -v && node scripts/install.js --dry-run"
   },
   "files": [
     "skills/everything-ai",

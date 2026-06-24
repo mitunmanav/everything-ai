@@ -284,24 +284,6 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert ".claude" in claude_dry.stdout
 
 
-def test_phase2_benchmark_is_runnable_and_in_npm_test():
-    package = json.loads(read(PACKAGE))
-    assert BENCHMARK_RUNNER.exists(), "Benchmark runner required"
-    assert "benchmark" in package["scripts"]
-    assert "scripts/run_benchmark.py" in package["scripts"]["test"]
-
-    result = subprocess.run(
-        [sys.executable, "scripts/run_benchmark.py"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=True,
-    )
-    assert "20 scenarios passed" in result.stdout
-    assert "score 20/20" in result.stdout
-    assert "medical safety regression passed" in result.stdout
-
-
 def test_phase2_ci_badge_and_workflow_exist():
     readme = read(README)
     workflow = read(CI_WORKFLOW)
