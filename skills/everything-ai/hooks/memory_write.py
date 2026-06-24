@@ -25,24 +25,47 @@ COMPLETION_SIGNALS = [
 ]
 
 today = date.today().strftime("%Y-%m-%d")
-transcript = data.get("transcript", [])
 
-last_user_msg = ""
-for turn in reversed(transcript):
-    if not isinstance(turn, dict):
-        continue
-    if turn.get("role") != "user":
-        continue
+def extract_last_user_msg(turn):
     content = turn.get("content", "")
     if isinstance(content, list):
         for block in content:
             if isinstance(block, dict) and block.get("type") == "text":
-                last_user_msg = block.get("text", "")
-                break
+                return block.get("text", "")
     elif isinstance(content, str):
-        last_user_msg = content
-    if last_user_msg:
-        break
+        return content
+    return ""
+
+last_user_msg = ""
+
+# Primary: read JSONL at transcript_path (real Claude Code Stop hook)
+transcript_path = data.get("transcript_path", "")
+if transcript_path:
+    p = Path(transcript_path)
+    if p.exists():
+        lines = p.read_text(encoding="utf-8").splitlines()
+        for line in reversed(lines):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                turn = json.loads(line)
+                if turn.get("role") == "user":
+                    last_user_msg = extract_last_user_msg(turn)
+                    if last_user_msg:
+                        break
+            except json.JSONDecodeError:
+                continue
+
+# Fallback: inline transcript array (used in tests)
+if not last_user_msg:
+    for turn in reversed(data.get("transcript", [])):
+        if not isinstance(turn, dict):
+            continue
+        if turn.get("role") == "user":
+            last_user_msg = extract_last_user_msg(turn)
+            if last_user_msg:
+                break
 
 if not last_user_msg:
     sys.exit(0)

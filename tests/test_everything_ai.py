@@ -842,6 +842,30 @@ def test_v042_memory_write_silent_on_non_correction(tmp_path):
         assert "help me plan" not in procedural.read_text(encoding="utf-8")
 
 
+def test_v042_memory_write_uses_transcript_path_when_present(tmp_path):
+    import tempfile, json as _json
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
+    # Write a JSONL transcript file
+    transcript_file = tmp_path / "transcript.jsonl"
+    transcript_file.write_text(
+        _json.dumps({"role": "assistant", "content": "Here is my answer."}) + "\n" +
+        _json.dumps({"role": "user", "content": "no, that's wrong"}) + "\n",
+        encoding="utf-8",
+    )
+    mem_dir = tmp_path / "mem"
+    mem_dir.mkdir()
+    payload = _json.dumps({"transcript_path": str(transcript_file)})
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload, capture_output=True, text=True,
+        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(mem_dir)},
+    )
+    assert result.returncode == 0, result.stderr
+    procedural = mem_dir / "procedural.md"
+    assert procedural.exists(), "procedural.md must be written when correction found via transcript_path"
+    assert "wrong" in procedural.read_text(encoding="utf-8")
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
