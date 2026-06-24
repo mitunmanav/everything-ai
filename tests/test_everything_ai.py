@@ -230,8 +230,8 @@ def test_v041_release_proof_files_are_current():
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
-    assert package["version"] == "0.4.1"
-    assert 'src="tests/results/v0.4.1-fixed.svg"' in readme
+    assert package["version"] == "0.4.2"
+    assert "v0.4.2" in readme
     assert "## v0.4.1 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme
@@ -264,7 +264,7 @@ def test_phase1_claude_agent_and_install_targets_exist():
     assert "default_prompt:" in claude
 
     package = json.loads(read(PACKAGE))
-    assert package["version"] == "0.4.1"
+    assert package["version"] == "0.4.2"
 
     openai_dry = subprocess.run(
         ["node", "scripts/install.js", "--dry-run", "--agent", "openai"],

@@ -59,6 +59,10 @@ The installer copies only `skills/everything-ai`, sends no telemetry, reads no s
 
 Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
+## v0.4.2 Status
+
+10 domains · 46/46 unit tests green · halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script.
+
 ## v0.4.1 Status
 
 10 domains · 20 benchmark scenarios · 35/35 unit tests green · PLUGIN_DATA memory-injection bug found in v0.4.0 and patched in v0.4.1 · **live retest confirmed: gpt-5.4-mini recovers from -10.5 to +2.6 pts** · gpt-5.5 baseline unchanged at +3.9 pts.
