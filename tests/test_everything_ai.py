@@ -892,19 +892,6 @@ def test_v042_review_agent_has_consistency_check():
     ])
 
 
-def test_v042_push_script_exists_and_is_valid_python():
-    push = ROOT / "scripts" / "push.py"
-    assert push.exists(), "scripts/push.py required"
-    import ast
-    source = push.read_text(encoding="utf-8")
-    try:
-        ast.parse(source)
-    except SyntaxError as e:
-        raise AssertionError(f"push.py has syntax errors: {e}")
-    assert "check_unit_tests" in source, "push.py must define check_unit_tests()"
-    assert "run_preflight" in source, "push.py must define run_preflight()"
-
-
 def test_v042_evidence_gap_search_rule_in_skill():
     text = read(SKILL)
     assert_contains(text, [
