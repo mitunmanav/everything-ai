@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import os
 import re
 import subprocess
 import sys
@@ -795,6 +796,50 @@ def test_v042_halt_vs_guess_gate_in_execute_agent():
         "HALT",
         "explicitly requested",
     ])
+
+
+def test_v042_memory_write_hook_exists_and_registered():
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
+    assert hook.exists(), "memory_write.py required"
+    cfg = json.loads((ROOT / "skills" / "everything-ai" / "hooks" / "hooks.json").read_text())
+    assert "Stop" in cfg["hooks"], "Stop hook must be registered in hooks.json"
+
+
+def test_v042_memory_write_writes_correction_to_procedural(tmp_path):
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
+    payload = json.dumps({
+        "transcript": [
+            {"role": "user", "content": "no, that's wrong, do it differently"}
+        ]
+    })
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload, capture_output=True, text=True,
+        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(tmp_path)},
+    )
+    assert result.returncode == 0, result.stderr
+    procedural = tmp_path / "procedural.md"
+    assert procedural.exists(), "procedural.md must be created on correction"
+    assert "wrong" in procedural.read_text(encoding="utf-8")
+
+
+def test_v042_memory_write_silent_on_non_correction(tmp_path):
+    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
+    payload = json.dumps({
+        "transcript": [
+            {"role": "user", "content": "help me plan my week"}
+        ]
+    })
+    result = subprocess.run(
+        [sys.executable, str(hook)],
+        input=payload, capture_output=True, text=True,
+        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(tmp_path)},
+    )
+    assert result.returncode == 0, result.stderr
+    procedural = tmp_path / "procedural.md"
+    # Non-correction must not write to procedural
+    if procedural.exists():
+        assert "help me plan" not in procedural.read_text(encoding="utf-8")
 
 
 if __name__ == "__main__":
