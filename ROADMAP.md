@@ -188,13 +188,23 @@ Done when:
 |---|---|---|---|
 | v0.3.0 | 2026-06-18 | feature | Five-phase skill, 19/19 tests green |
 | v0.4.0 | 2026-06-19 | feature | 10 domain packs, live benchmark, +3.9 on gpt-5.5, -10.5 on gpt-5.4-mini (PLUGIN_DATA bug) |
-| v0.4.1 | 2026-06-20 | bugfix | Remove PLUGIN_DATA memory-dir hijack; add Safe Defaults to SKILL.md; 35/35 tests green |
+| v0.4.1 | 2026-06-20 | bugfix | Remove PLUGIN_DATA memory-dir hijack; add Safe Defaults to SKILL.md; 40/40 tests green |
+| v0.4.2 | 2026-07-07 | targeted skill fix | Launch proof, repo/product shipping, repo-scope inference, business-ops routing, research/buying safety, architecture default, contradiction read-only trace, empty-evidence no-stall trace, paid-action useful prework, destructive-action proof trace, community prompt lanes, high-stakes proof, empty-evidence scope boundary, and architecture proof shape for Codex and Claude; WSL gpt-5.5 targeted rerun captured live proof; full Codex blind judge: skill off 52.6%, skill on 96.1%, delta +43.5; 60/60 tests green |
 
 ## Immediate Next Build Tasks
 
 1. ~~Live retest v0.4.1~~ ✓ **Done** — gpt-5.4-mini confirmed +2.6 pts after PLUGIN_DATA fix (+13.1 pt recovery).
-2. Add trace schema and example trace (Phase 3).
-3. Create release checklist (Phase 7).
+2. ~~Add trace schema and example trace (Phase 3).~~ ✓ **Done** — portable schema, example trace, and Codex/Claude compatibility brief.
+3. ~~Create release checklist (Phase 7).~~ ✓ **Done** — release gate covers tests, package contents, Codex install, Claude install, and explicit publish approval.
+
+4. ~~Add failed-prompt contribution loop.~~ Done - prompt bank requires every accepted failed prompt to become a benchmark or domain example.
+5. ~~Fix empty-evidence stall from v0.4.0 EAI-010.~~ Done - skill now returns trace and next action instead of stopping at empty workspace.
+6. ~~Fix paid-action partial stop from v0.4.0 EAI-005.~~ Done - skill now compares safe options and reports proof before asking approval to buy.
+7. ~~Fix high-stakes proof gap from v0.4.0 EAI-006.~~ Done - skill now gives emergency guidance first, then one-line proof.
+8. ~~Fix repo-scope partial inference from v0.4.0 EAI-002.~~ Done - skill now checks setup, tests, lint, build, security, docs, and release readiness before asking.
+9. ~~Fix contradiction trace weakness from v0.4.0 EAI-003.~~ Done - skill now uses read-only diagnosis with zero setup questions and proof trace.
+10. ~~Fix architecture bait weakness from v0.4.0 EAI-007.~~ Done - skill now chooses SQL by default for ordinary app data and says what evidence would change that choice.
+11. ~~Fix launch proof weakness from v0.4.0 EAI-001.~~ Done - skill now reports launch assumption and first safe action.
 
 ## Guardrails
 

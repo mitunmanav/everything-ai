@@ -5,6 +5,8 @@ Treat startup, founder, launch, and MVP requests as a move from uncertain idea t
 
 Default scope includes problem framing, ideal customer profile, positioning, MVP slice, risk list, launch checklist, evidence plan, and a simple operating cadence. Exclude fundraising, legal formation, paid ads, or production engineering until there is explicit context or approval.
 
+Launch Everything: infer launch readiness scope, then report `Assumption:` and `First safe action:` before asking anything else.
+
 ## Checklist
 - State the assumed customer, problem, and outcome in one plain sentence.
 - Identify the riskiest assumption: demand, willingness to pay, delivery feasibility, distribution, or retention.

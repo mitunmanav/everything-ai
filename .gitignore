@@ -14,7 +14,6 @@ AGENTS.md
 # Live-run raw model transcripts: contain local absolute paths and unrelated
 # project references. Keep local; aggregated scores ship as proof instead.
 tests/results/*/raw/
-
 # Internal dev tools — not for public consumption
 scripts/push.py
 scripts/run_benchmark.py
@@ -22,3 +21,5 @@ scripts/run_live_benchmark.py
 scripts/rerun_failures.py
 scripts/generate_proof_svg.py
 
+.tmp/
+node-write-test.txt

@@ -58,7 +58,7 @@ function ask(rl, question) {
 async function promptForInstall() {
   console.log("");
   console.log("╔══════════════════════════════════════════════╗");
-  console.log("║     Everything AI — Skill Installer v0.4.0   ║");
+  console.log("║     Everything AI - Skill Installer v0.4.2   ║");
   console.log("╠══════════════════════════════════════════════╣");
   console.log("║  Installs the everything-ai skill so your    ║");
   console.log("║  AI agent handles full tasks with safe       ║");

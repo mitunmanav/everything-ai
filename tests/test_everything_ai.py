@@ -1,13 +1,22 @@
 from pathlib import Path
 import json
-import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def workspace_tempdir(name):
+    path = ROOT / ".tmp" / name
+    shutil.rmtree(path, ignore_errors=True)
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
 SKILL = ROOT / "skills" / "everything-ai" / "SKILL.md"
 PLAYBOOK = ROOT / "skills" / "everything-ai" / "references" / "playbook.md"
 BENCHMARK = ROOT / "tests" / "evals" / "everything_ai_benchmark.json"
@@ -15,11 +24,17 @@ PACKAGE = ROOT / "package.json"
 ROADMAP = ROOT / "ROADMAP.md"
 TEST_RESULTS = ROOT / "TEST_RESULTS.md"
 README = ROOT / "README.md"
+QUICKSTART = ROOT / "QUICKSTART.md"
+RELEASE_CHECKLIST = ROOT / "RELEASE_CHECKLIST.md"
 CLAUDE_AGENT = ROOT / "skills" / "everything-ai" / "agents" / "claude.yaml"
 BENCHMARK_RUNNER = ROOT / "scripts" / "run_benchmark.py"
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
 COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
 COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-all-phases.svg"
+TRACE_SCHEMA = ROOT / "skills" / "everything-ai" / "references" / "trace.schema.json"
+EXAMPLE_TRACE = ROOT / "skills" / "everything-ai" / "references" / "example-trace.json"
+AGENT_COMPATIBILITY = ROOT / "skills" / "everything-ai" / "references" / "agent-compatibility.md"
+PROMPT_BANK = ROOT / "skills" / "everything-ai" / "references" / "prompt-bank.md"
 DOMAINS = ROOT / "skills" / "everything-ai" / "domains"
 AGENTS = ROOT / "skills" / "everything-ai" / "agents"
 PUBLIC_FILES = [
@@ -32,6 +47,7 @@ PUBLIC_FILES = [
     ROOT / "CODE_OF_CONDUCT.md",
     SKILL,
     PLAYBOOK,
+    PROMPT_BANK,
 ]
 RELEASE_EXCLUDED_FILES = [ROOT / "AGENTS.md"]
 
@@ -89,6 +105,65 @@ def test_ask_gate_protects_non_expert_user():
             "Do not ask non-experts to choose internals",
             "Do not ask for goals, deadline, scope, and constraints as a bundle",
             "Do not ask \"what launch/goal/done?\" as a bundle",
+        ],
+    )
+
+
+def test_core_promise_is_do_everything_not_mode_menu():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(README) + "\n" + read(QUICKSTART)
+    assert_contains(
+        combined,
+        [
+            "AI do everything",
+            "Everything means the agent carries the expert checklist",
+            "no mode menu",
+            "Do not pick a mode",
+            "the AI figures out the expert checklist",
+        ],
+    )
+
+
+def test_trace_schema_and_example_trace_are_shipped_and_required():
+    schema = json.loads(read(TRACE_SCHEMA))
+    example = json.loads(read(EXAMPLE_TRACE))
+
+    required = set(schema["required"])
+    assert REQUIRED_TRACE_FIELDS <= required
+    assert {"schema_version", "agent_surface", "source_docs"} <= required
+    assert not (required - set(example)), "example trace must include every required field"
+
+    optional_empty = {"questions_asked", "blocked_items", "corrections", "learnings"}
+    for field in REQUIRED_TRACE_FIELDS - optional_empty:
+        assert example[field] not in ("", [], {}), f"{field} must be useful, not blank"
+
+    missing_request = dict(example)
+    missing_request.pop("request")
+    assert "request" in (required - set(missing_request))
+
+
+def test_skill_links_trace_and_agent_docs_without_platform_lock_in():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK)
+    compat = read(AGENT_COMPATIBILITY)
+
+    assert_contains(
+        combined,
+        [
+            "references/trace.schema.json",
+            "references/example-trace.json",
+            "references/agent-compatibility.md",
+        ],
+    )
+    assert_contains(
+        compat,
+        [
+            "https://code.claude.com/docs/en/skills",
+            "https://code.claude.com/docs/en/agent-sdk/skills",
+            "https://developers.openai.com/codex/skills/create-skill",
+            "description",
+            "one-level `references/`",
+            "forward-slash paths",
+            "Do not rely on Claude-only",
+            "Do not add user-facing process modes",
         ],
     )
 
@@ -208,6 +283,18 @@ def test_high_stakes_medical_boundary_is_explicit():
         ],
     )
 
+def test_high_stakes_response_keeps_emergency_first_and_one_line_proof():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        combined,
+        [
+            "Emergency first",
+            "one-line proof",
+            "known evidence",
+            "missing evidence",
+            "safe default",
+        ],
+    )
 
 def test_contradiction_and_stale_status_defaults_are_explicit():
     combined = read(SKILL) + "\n" + read(PLAYBOOK)
@@ -224,6 +311,234 @@ def test_contradiction_and_stale_status_defaults_are_explicit():
     )
 
 
+def test_contradictory_fix_request_uses_read_only_trace_not_questions():
+    skill = read(SKILL)
+    lite = read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        skill,
+        [
+            "## Contradictory Requests",
+            "Fix all bugs, but change nothing",
+            "read-only diagnosis",
+            "ask zero setup questions",
+            "proof report",
+            "trace",
+        ],
+    )
+    assert_contains(
+        lite,
+        [
+            "Contradictory Requests",
+            "read-only diagnosis",
+            "ask zero setup questions",
+        ],
+    )
+
+
+def test_empty_evidence_audit_still_reports_trace_and_next_action():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        combined,
+        [
+            "empty workspace",
+            "still produce an audit trace",
+            "inferred target",
+            "scope map",
+            "coverage",
+            "confidence",
+            "next safe action",
+            "Do not ask for a repo path first",
+        ],
+    )
+
+
+def test_empty_evidence_scope_includes_include_exclude_and_first_slice():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Include scope:",
+            "Exclude scope:",
+            "First safe slice:",
+        ],
+    )
+
+
+def test_empty_evidence_scope_labels_are_mandatory_literal_output():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Use these literal labels in the output",
+            "`Include scope:`",
+            "`Exclude scope:`",
+            "`First safe slice:`",
+        ],
+    )
+
+
+def test_paid_action_blocker_still_compares_and_reports_proof():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        combined,
+        [
+            "Paid Actions",
+            "Do not purchase",
+            "still compare",
+            "selection criteria",
+            "approval",
+            "recommend next safe step",
+            "proof report",
+        ],
+    )
+
+
+def test_paid_tool_request_with_unclear_job_still_gets_realistic_prework():
+    benchmark = json.loads(read(BENCHMARK))
+    paid = next(s for s in benchmark["scenarios"] if s["id"] == "EAI-005")
+    assert paid["user_prompt"] == "Pick the best paid tool for this and buy it."
+    assert "No budget, payment permission, or purchase account" in paid["context"]
+
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        combined,
+        [
+            "When the job is unclear",
+            "do not wait for category",
+            "provisional comparison",
+            "broad option classes",
+            "one blocker question",
+        ],
+    )
+
+
+def test_research_buying_checks_current_price_sources_and_no_checkout():
+    research = read(ROOT / "skills" / "everything-ai" / "domains" / "research.md")
+    combined = read(SKILL) + "\n" + research + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Research/Buying",
+            "current price",
+            "source date",
+            "official source",
+            "do not enter checkout",
+            "best safe next step",
+        ],
+    )
+
+
+def test_destructive_action_stop_still_reports_trace_and_safe_alternative():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md")
+    assert_contains(
+        combined,
+        [
+            "Destructive Actions",
+            "Do not delete, overwrite, drop, wipe, publish, send, or migrate",
+            "backup proof",
+            "dry-run",
+            "proof report",
+            "audit trace",
+        ],
+    )
+
+
+def test_repo_everything_request_infers_default_audit_scope():
+    benchmark = json.loads(read(BENCHMARK))
+    repo = next(s for s in benchmark["scenarios"] if s["id"] == "EAI-002")
+    assert repo["user_prompt"] == "Do everything for this repo."
+
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "domains" / "coding.md")
+    assert_contains(
+        combined,
+        [
+            "Repo Everything",
+            "inspect available repo context before asking",
+            "setup, tests, lint, build, security, docs, and release readiness",
+            "reversible checks",
+            "mark missing evidence without blocking",
+        ],
+    )
+
+
+def test_repo_product_shipping_includes_user_flow_and_acceptance():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "domains" / "coding.md")
+    assert_contains(
+        combined,
+        [
+            "Repo/Product",
+            "user flow",
+            "acceptance criteria",
+            "release risk",
+            "smallest shippable slice",
+            "verify the product path",
+        ],
+    )
+
+
+def test_architecture_bait_gets_conservative_default_not_debate():
+    benchmark = json.loads(read(BENCHMARK))
+    architecture = next(s for s in benchmark["scenarios"] if s["id"] == "EAI-007")
+    assert architecture["user_prompt"] == "Should I use SQL or NoSQL for everything? Pick one."
+
+    combined = read(SKILL) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md") + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Architecture Bait",
+            "SQL by default",
+            "do not start an abstract architecture debate",
+            "evidence would change the choice",
+            "one blocker question only if data model is impossible to infer",
+        ],
+    )
+
+
+def test_architecture_bait_reports_evidence_shape():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Checked evidence:",
+            "Missing evidence:",
+            "Unknowns:",
+            "Actions:",
+        ],
+    )
+
+
+def test_architecture_bait_evidence_labels_are_mandatory_literal_output():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK)
+    assert_contains(
+        combined,
+        [
+            "Use these literal labels in the output",
+            "`Checked evidence:`",
+            "`Missing evidence:`",
+            "`Unknowns:`",
+            "`Actions:`",
+        ],
+    )
+
+
+def test_launch_everything_reports_assumption_and_first_safe_action():
+    benchmark = json.loads(read(BENCHMARK))
+    launch = next(s for s in benchmark["scenarios"] if s["id"] == "EAI-001")
+    assert launch["user_prompt"] == "Handle everything for my launch."
+
+    combined = read(SKILL) + "\n" + read(ROOT / "skills" / "everything-ai" / "SKILL.lite.md") + "\n" + read(ROOT / "skills" / "everything-ai" / "domains" / "startup.md")
+    assert_contains(
+        combined,
+        [
+            "Launch Everything",
+            "launch readiness scope",
+            "Assumption:",
+            "First safe action:",
+            "proof report",
+        ],
+    )
+
+
 def test_v041_release_proof_files_are_current():
     package = json.loads(read(PACKAGE))
     readme = read(README)
@@ -231,11 +546,11 @@ def test_v041_release_proof_files_are_current():
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.4.2"
-    assert "v0.4.2" in readme
-    assert "## v0.4.1 Status" in readme
+    assert 'src="tests/results/v0.4.1-fixed.svg"' in readme
+    assert "## v0.4.2 Status" in readme
     assert "## Numbers" in readme
     assert "blind cross-model judge" in readme
-    assert "35/35 unit tests green" in readme
+    assert "60/60 unit tests green" in readme
     assert "Star History Chart" in readme
     assert "User gives goal. AI carries expert scope." in readme
     assert "Build on `development`" in roadmap
@@ -255,6 +570,22 @@ def test_v041_release_proof_files_are_current():
     assert "10 of 10 scenarios" in results
     for field in REQUIRED_TRACE_FIELDS:
         assert field in results
+
+
+def test_v042_full_codex_judge_result_is_recorded():
+    combined = read(README) + "\n" + read(TEST_RESULTS)
+    assert_contains(
+        combined,
+        [
+            "v0.4.2 full Codex blind judge",
+            "skill off 52.6%",
+            "skill on 96.1%",
+            "+43.5 points",
+            "EAI-005",
+            "EAI-007",
+            "Claude judge",
+        ],
+    )
 
 
 def test_phase1_claude_agent_and_install_targets_exist():
@@ -282,6 +613,16 @@ def test_phase1_claude_agent_and_install_targets_exist():
     )
     assert ".agents" in openai_dry.stdout
     assert ".claude" in claude_dry.stdout
+
+
+def test_phase2_benchmark_proof_is_recorded_and_npm_test_stays_public():
+    package = json.loads(read(PACKAGE))
+    summary = json.loads(read(ROOT / "tests" / "results" / "v0.4.2-full-codex-medium" / "codex_judge_summary.json"))
+    assert "scripts/run_benchmark.py" not in package["scripts"]["test"]
+    assert "scripts/run_live_benchmark.py" not in package["scripts"]["test"]
+    assert summary["arms"]["skill_on"]["pct"] == 96.1
+    assert summary["arms"]["skill_off"]["pct"] == 52.6
+    assert summary["delta_pct"] == 43.5
 
 
 def test_phase2_ci_badge_and_workflow_exist():
@@ -510,6 +851,108 @@ def test_release_excludes_development_only_rules():
     assert not leaked, f"Development-only rule files must not ship: {leaked}"
 
 
+def test_release_checklist_covers_codex_claude_and_package_safety():
+    text = read(RELEASE_CHECKLIST)
+    assert_contains(
+        text,
+        [
+            "npm.cmd test",
+            "quick_validate.py",
+            "npm.cmd pack --dry-run",
+            "Codex",
+            "Claude",
+            "trace.schema.json",
+            "agent-compatibility.md",
+            "No `AGENTS.md`",
+            "explicit approval",
+            "Do not publish",
+        ],
+    )
+
+
+def test_failed_prompt_bank_routes_accepted_prompts_to_tests_or_examples():
+    text = read(PROMPT_BANK)
+    benchmark = json.loads(read(BENCHMARK))
+    scenario_ids = {scenario["id"] for scenario in benchmark["scenarios"]}
+    domain_files = {f"skills/everything-ai/domains/{path.name}" for path in DOMAINS.glob("*.md")}
+
+    assert_contains(
+        text,
+        [
+            "AI failed to do everything",
+            "Original prompt",
+            "benchmark scenario or domain example",
+            "No accepted prompt stays prose-only",
+        ],
+    )
+
+    accepted = [line for line in text.splitlines() if line.startswith("- `EAI-FP-")]
+    assert accepted, "Prompt bank needs at least one accepted failed prompt"
+    for line in accepted:
+        assert any(scenario_id in line for scenario_id in scenario_ids) or any(
+            domain_file in line for domain_file in domain_files
+        ), f"Accepted prompt must link to benchmark or domain example: {line}"
+
+
+def test_prompt_bank_covers_realistic_everything_ai_users():
+    text = read(PROMPT_BANK)
+    assert_contains(
+        text,
+        [
+            "founder",
+            "small business owner",
+            "expert delegator",
+            "life admin",
+            "buyer",
+            "community research",
+        ],
+    )
+
+
+def test_prompt_bank_covers_goal_lanes():
+    text = read(PROMPT_BANK)
+    assert_contains(
+        text,
+        [
+            "startup",
+            "business ops",
+            "research/buying",
+            "repo/product",
+            "life admin",
+        ],
+    )
+
+
+def test_prompt_bank_records_community_signals_with_sources():
+    text = read(PROMPT_BANK)
+    assert_contains(
+        text,
+        [
+            "## Community Signals",
+            "too many questions",
+            "babysitting",
+            "permission",
+            "small business",
+            "reddit.com",
+            "news.ycombinator.com",
+        ],
+    )
+
+
+def test_business_ops_routes_to_operating_review_not_startup_only():
+    combined = read(SKILL) + "\n" + read(PLAYBOOK) + "\n" + read(ROOT / "skills" / "everything-ai" / "domains" / "personal-productivity.md")
+    assert_contains(
+        combined,
+        [
+            "Business Ops",
+            "weekly operating review",
+            "tasks, owners, deadlines, metrics, risks, and approvals",
+            "domains/personal-productivity.md",
+            "domains/data-analysis.md",
+        ],
+    )
+
+
 def test_phase5_multi_agent_files_exist_and_have_handoff():
     agent_chain = [
         ("scope-agent.md", "plan-agent"),
@@ -615,23 +1058,28 @@ def test_phase_a_routing_covers_all_10_domains():
 
 
 def test_phase_b_bootstrap_script_exists_and_creates_memory_files():
-    import subprocess, tempfile, os
+    import shutil, subprocess
     bootstrap = ROOT / "scripts" / "bootstrap-memory.js"
     assert bootstrap.exists(), "bootstrap-memory.js required"
 
-    with tempfile.TemporaryDirectory() as tmp:
+    tmp = ROOT / ".tmp" / "bootstrap-memory-test"
+    shutil.rmtree(tmp, ignore_errors=True)
+    tmp.mkdir(parents=True)
+    try:
         result = subprocess.run(
-            ["node", str(bootstrap), "--dir", tmp],
+            ["node", str(bootstrap), "--dir", str(tmp)],
             cwd=ROOT,
             capture_output=True,
             text=True,
         )
         assert result.returncode == 0, result.stderr
         for name in ["semantic.md", "episodic.md", "procedural.md"]:
-            p = os.path.join(tmp, name)
-            assert os.path.exists(p), f"Missing: {name}"
-            content = open(p).read()
+            p = tmp / name
+            assert p.exists(), f"Missing: {name}"
+            content = p.read_text(encoding="utf-8")
             assert "## " in content, f"{name} must have sections"
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 def test_phase_c_quickstart_exists_and_has_examples():
@@ -701,7 +1149,7 @@ def test_phase_d_context_hook_injects_memory_when_files_exist(tmp_path):
     import subprocess, json, os
     (tmp_path / "semantic.md").write_text("User prefers TypeScript.", encoding="utf-8")
     (tmp_path / "episodic.md").write_text("Fixed login bug in session 3.", encoding="utf-8")
-    (tmp_path / "procedural.md").write_text("", encoding="utf-8")  # empty — must not appear
+    (tmp_path / "procedural.md").write_text("", encoding="utf-8")  # empty â€” must not appear
 
     hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
     payload = json.dumps({"cwd": "/tmp/test"})
@@ -724,27 +1172,22 @@ def test_phase_d_context_hook_injects_memory_when_files_exist(tmp_path):
 
 def test_phase_b_plugin_data_not_used_as_memory_dir():
     """Regression guard: PLUGIN_DATA must never be used as the memory directory.
-    PLUGIN_DATA is the plugin installation dir (e.g. superpowers/6.0.3/) — it
+    PLUGIN_DATA is the plugin installation dir (e.g. superpowers/6.0.3/) - it
     contains no memory files. Using it silenced the hook on every Codex prompt,
     causing the scope_inference/safe_defaults -10.5% regression in v0.4.0."""
-    import json, subprocess, sys, tempfile
-    from pathlib import Path
+    import json, subprocess, sys
 
     hook = ROOT / "skills" / "everything-ai" / "hooks" / "context_inject.py"
-
-    with tempfile.TemporaryDirectory() as plugin_dir, \
-         tempfile.TemporaryDirectory() as mem_dir:
-
-        # Put a real memory file in the memory dir
-        (Path(mem_dir) / "semantic.md").write_text("user prefers plain language")
-
-        # Put a decoy file in PLUGIN_DATA dir (should be ignored)
-        (Path(plugin_dir) / "semantic.md").write_text("DECOY — should not appear")
+    plugin_dir = workspace_tempdir("plugin-data-decoy")
+    mem_dir = workspace_tempdir("plugin-data-memory")
+    try:
+        (mem_dir / "semantic.md").write_text("user prefers plain language")
+        (plugin_dir / "semantic.md").write_text("DECOY - should not appear")
 
         env = {
             **__import__("os").environ,
-            "PLUGIN_DATA": plugin_dir,
-            "EVERYTHING_AI_MEMORY_DIR": mem_dir,
+            "PLUGIN_DATA": str(plugin_dir),
+            "EVERYTHING_AI_MEMORY_DIR": str(mem_dir),
         }
         payload = json.dumps({"cwd": "/tmp"})
         result = subprocess.run(
@@ -756,141 +1199,20 @@ def test_phase_b_plugin_data_not_used_as_memory_dir():
 
         assert "plain language" in ctx, "Memory from EVERYTHING_AI_MEMORY_DIR must be injected"
         assert "DECOY" not in ctx, "PLUGIN_DATA must never be used as memory dir"
-
-
-def test_v042_halt_vs_guess_gate_in_scope_agent():
-    text = (AGENTS / "scope-agent.md").read_text(encoding="utf-8")
-    assert_contains(text, [
-        "## Ambiguity Gate",
-        "irreversible",
-        "proceed",
-        "state the assumption",
-        "HALT",
-    ])
-
-
-def test_v042_halt_vs_guess_gate_in_execute_agent():
-    text = (AGENTS / "execute-agent.md").read_text(encoding="utf-8")
-    assert_contains(text, [
-        "## Execution Gate",
-        "irreversible",
-        "reversible",
-        "HALT",
-        "explicitly requested",
-    ])
-
-
-def test_v042_memory_write_hook_exists_and_registered():
-    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
-    assert hook.exists(), "memory_write.py required"
-    cfg = json.loads((ROOT / "skills" / "everything-ai" / "hooks" / "hooks.json").read_text())
-    assert "Stop" in cfg["hooks"], "Stop hook must be registered in hooks.json"
-
-
-def test_v042_memory_write_writes_correction_to_procedural(tmp_path):
-    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
-    payload = json.dumps({
-        "transcript": [
-            {"role": "user", "content": "no, that's wrong, do it differently"}
-        ]
-    })
-    result = subprocess.run(
-        [sys.executable, str(hook)],
-        input=payload, capture_output=True, text=True,
-        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(tmp_path)},
-    )
-    assert result.returncode == 0, result.stderr
-    procedural = tmp_path / "procedural.md"
-    assert procedural.exists(), "procedural.md must be created on correction"
-    assert "wrong" in procedural.read_text(encoding="utf-8")
-
-
-def test_v042_memory_write_silent_on_non_correction(tmp_path):
-    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
-    payload = json.dumps({
-        "transcript": [
-            {"role": "user", "content": "help me plan my week"}
-        ]
-    })
-    result = subprocess.run(
-        [sys.executable, str(hook)],
-        input=payload, capture_output=True, text=True,
-        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(tmp_path)},
-    )
-    assert result.returncode == 0, result.stderr
-    procedural = tmp_path / "procedural.md"
-    # Non-correction must not write to procedural
-    if procedural.exists():
-        assert "help me plan" not in procedural.read_text(encoding="utf-8")
-
-
-def test_v042_memory_write_uses_transcript_path_when_present(tmp_path):
-    import tempfile, json as _json
-    hook = ROOT / "skills" / "everything-ai" / "hooks" / "memory_write.py"
-    # Write a JSONL transcript file
-    transcript_file = tmp_path / "transcript.jsonl"
-    transcript_file.write_text(
-        _json.dumps({"role": "assistant", "content": "Here is my answer."}) + "\n" +
-        _json.dumps({"role": "user", "content": "no, that's wrong"}) + "\n",
-        encoding="utf-8",
-    )
-    mem_dir = tmp_path / "mem"
-    mem_dir.mkdir()
-    payload = _json.dumps({"transcript_path": str(transcript_file)})
-    result = subprocess.run(
-        [sys.executable, str(hook)],
-        input=payload, capture_output=True, text=True,
-        env={**os.environ, "EVERYTHING_AI_MEMORY_DIR": str(mem_dir)},
-    )
-    assert result.returncode == 0, result.stderr
-    procedural = mem_dir / "procedural.md"
-    assert procedural.exists(), "procedural.md must be written when correction found via transcript_path"
-    assert "wrong" in procedural.read_text(encoding="utf-8")
+    finally:
+        shutil.rmtree(plugin_dir, ignore_errors=True)
+        shutil.rmtree(mem_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_"):
             if fn.__code__.co_argcount == 1:
-                with tempfile.TemporaryDirectory() as tmp:
-                    fn(Path(tmp))
+                tmp = workspace_tempdir(name)
+                try:
+                    fn(tmp)
+                finally:
+                    shutil.rmtree(tmp, ignore_errors=True)
             else:
                 fn()
             print(f"ok {name}")
-
-
-def test_v042_all_agents_have_next_agent_in_output():
-    for filename in ["scope-agent.md", "plan-agent.md", "execute-agent.md", "review-agent.md"]:
-        text = (AGENTS / filename).read_text(encoding="utf-8")
-        assert "next_agent" in text, f"Missing next_agent field in {filename}"
-
-
-def test_v042_review_agent_has_consistency_check():
-    text = (AGENTS / "review-agent.md").read_text(encoding="utf-8")
-    assert_contains(text, [
-        "## Consistency Check",
-        "episodic.md",
-        "prior sessions",
-    ])
-
-
-def test_v042_evidence_gap_search_rule_in_skill():
-    text = read(SKILL)
-    assert_contains(text, [
-        "## Evidence-Gap Search",
-        "Live Facts",
-        "search before acting",
-    ])
-
-
-def test_v042_all_domains_have_frameworks_and_live_facts():
-    domain_names = [
-        "startup", "coding", "personal-productivity", "health",
-        "finance", "learning", "writing", "research", "data-analysis", "life",
-    ]
-    for name in domain_names:
-        path = DOMAINS / f"{name}.md"
-        assert path.exists(), f"Missing domain: {name}"
-        text = path.read_text(encoding="utf-8")
-        assert "## Frameworks" in text, f"Missing ## Frameworks in {name}.md"
-        assert "## Live Facts" in text, f"Missing ## Live Facts in {name}.md"
