@@ -2,9 +2,9 @@
 
 ## What it does
 
-Tell it anything. It figures out what you need, makes sensible choices, and gets to work.
+Tell it what you want done. It figures out the expert checklist, makes sensible choices, and gets to work.
 
-You do not need to know what kind of AI task this is. Just say what you want in plain language.
+You do not need to know what kind of AI task this is. Just say the goal in plain language.
 
 ## How to use it
 
@@ -13,6 +13,8 @@ You do not need to know what kind of AI task this is. Just say what you want in 
 **In Claude:** Type `/everything-ai` then describe what you want.
 
 **Or just say:** "Do everything for [your task]" or "Handle everything" or "I need help with everything related to [topic]."
+
+Do not pick a mode. Do not write a checklist. The skill exists so AI carries that work.
 
 ## Examples
 
@@ -44,13 +46,12 @@ It will never ask you to choose between technical options you don't understand.
 
 ## Install
 
-```bash
-npm install -g everything-ai
-node -e "require('everything-ai/scripts/install.js')" -- --agent codex
+```powershell
+npx --yes github:mitunmanav/everything-ai
 ```
 
 Or for Claude:
 
-```bash
-node -e "require('everything-ai/scripts/install.js')" -- --agent claude
+```powershell
+npx --yes github:mitunmanav/everything-ai -- --agent claude
 ```

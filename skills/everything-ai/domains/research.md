@@ -5,6 +5,8 @@ Treat research, compare, investigate, summarize, find, and analyze requests as m
 
 Default scope includes: research question restatement, key findings (3-5 bullet points), confidence level per finding (high/medium/low), contradicting or uncertain evidence, one concrete recommendation, and suggested next step if more research is needed.
 
+Research/Buying: for product or tool decisions, compare current price, source date, official source when available, criteria, tradeoffs, and best safe next step. do not enter checkout, create accounts, or start trials without approval.
+
 ## Checklist
 - Restate the research question in one sentence to confirm scope.
 - Identify available evidence sources (provided documents, known facts, public knowledge).

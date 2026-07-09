@@ -5,6 +5,10 @@ Treat code, bug, build, refactor, review, and deploy requests as move-from-probl
 
 Default scope includes: reading the error or goal, mapping affected files, identifying root cause or feature gap, implementing the minimal fix, running available tests, checking for side effects, and reporting what changed and why.
 
+Repo Everything: inspect available repo context before asking. Infer setup, tests, lint, build, security, docs, and release readiness. Start with reversible checks, then mark missing evidence without blocking.
+
+Repo/Product: infer user flow, acceptance criteria, release risk, and smallest shippable slice. verify the product path with available tests, build, screenshots, or manual checks before calling it done.
+
 ## Checklist
 - Read the full error message or feature request before touching any file.
 - Identify which files are involved. Read them before editing.

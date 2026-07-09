@@ -1,12 +1,12 @@
 # Everything AI
 
-[![CI](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml)
-[![Version](https://img.shields.io/badge/version-0.4.2-blue)](package.json)
-[![Unit Tests](https://img.shields.io/badge/unit%20tests-44%2F44-brightgreen)](tests/test_everything_ai.py)
-[![Live Benchmark](https://img.shields.io/badge/live%20benchmark-not%20run%20for%20v0.4.2-yellow)](TEST_RESULTS.md)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![test](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/test.yml)
+[![CodeQL](https://github.com/mitunmanav/everything-ai/actions/workflows/codeql.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/codeql.yml)
+[![Scorecard](https://github.com/mitunmanav/everything-ai/actions/workflows/scorecard.yml/badge.svg)](https://github.com/mitunmanav/everything-ai/actions/workflows/scorecard.yml)
 
-Everything AI is an agent skill for people who ask AI to handle the whole task.
+Everything AI is an agent skill for people who want AI to do everything.
+
+The promise is simple: the user gives the goal; the AI figures out the expert checklist, gets to work, and reports proof.
 
 It is built for non-technical users, vibe coders, and broad requests like:
 
@@ -17,6 +17,8 @@ It is built for non-technical users, vibe coders, and broad requests like:
 - `whatever is needed`
 
 Most agents ask expert questions too early. Everything AI tells the agent to infer scope, choose safe defaults, act where safe, and ask only real blocker questions.
+
+It is also useful for experts who want delegation instead of babysitting. Experts can still review the proof report, but the agent carries the process.
 
 ## What It Does
 
@@ -32,6 +34,20 @@ When triggered, the skill pushes the agent to:
 Short version:
 
 > User gives goal. AI carries expert scope.
+
+## Guarantee
+
+Everything AI does not promise impossible outcomes. It promises the process that gets better outcomes:
+
+- no "what do you mean by everything?" stall
+- no expert setup questionnaire before action
+- no mode menu for the user to manage
+- no destructive, paid, irreversible, or high-stakes action without approval
+- clear proof of what was checked, done, assumed, blocked, and still unknown
+
+## Community
+
+The best improvements are real "do everything" prompts that failed or felt painful. Add them to `skills/everything-ai/references/prompt-bank.md`, then turn every accepted prompt into a benchmark scenario or domain example so the next user gets a better result.
 
 ## Install
 
@@ -65,17 +81,46 @@ Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
 ## v0.4.2 Status
 
-**No live benchmark run yet.** Unit tests pass (46/46) but v0.4.2 has not been evaluated against the benchmark suite. Features shipped: halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script. Live results pending.
+10 domains / 20 benchmark scenarios / 60/60 unit tests green / v0.4.2 targeted fixes: launch proof, repo/product shipping, repo-scope inference, business-ops routing, research/buying safety, architecture default, contradiction read-only trace, empty-evidence no-stall trace, paid-action useful prework, destructive-action proof trace, community prompt lanes, high-stakes proof, empty-evidence scope boundary, and architecture proof shape / v0.4.1 live retest confirmed gpt-5.4-mini recovery / gpt-5.5 baseline unchanged at +3.9 pts.
 
-## v0.4.1 Status
-
-10 domains · 20 benchmark scenarios · 35/35 unit tests green · PLUGIN_DATA memory-injection bug found in v0.4.0 and patched in v0.4.1 · **live retest confirmed: gpt-5.4-mini recovers from -10.5 to +2.6 pts (n=40)** · gpt-5.5 at +3.9 pts from v0.4.0 run — **not re-run in v0.4.1**.
+v0.4.2 targets gaps found in the v0.4.0 live run: launch prompts could lose proof detail; repo requests needed stronger default audit scope; broad architecture prompts could turn into debate; contradictory requests could ask or lose trace shape; empty workspaces could stop with no scope, coverage, confidence, or next action; paid and high-stakes requests could lose proof detail. The skill now tells Codex and Claude to show launch assumptions and first safe action, inspect repo context before asking, choose SQL by default for ordinary app data, use read-only diagnosis for fix/change-nothing conflicts, return audit traces for missing evidence, compare paid options without buying, and keep emergency guidance first with proof. Targeted WSL reruns captured behavior for those gaps. The full v0.4.2 Codex judge below is extra proof, not a replacement for the original Claude judge method.
 
 ## Numbers
 
-**v0.4.0 live-run (gpt-5.5) + v0.4.1 retest (gpt-5.4-mini).** gpt-5.5 numbers are from the v0.4.0 run; not re-run in v0.4.1. gpt-5.4-mini was retested (n=40) after the PLUGIN_DATA patch and recovered to +2.6 pts overall. First retest run failed transiently; second run produced the confirmed result.
+**v0.4.0 live-run (gpt-5.5) + v0.4.1 retest (gpt-5.4-mini).** v0.4.2 uses those results as the baseline and adds targeted local guards for empty-evidence stalls, paid-action partial stops, and high-stakes proof gaps. gpt-5.5 numbers are from the v0.4.0 run; not re-run in v0.4.1. gpt-5.4-mini was retested (n=40) after the PLUGIN_DATA patch and recovered to +2.6 pts overall. First retest run failed transiently; second run produced the confirmed result.
+
+The unbiased full benchmark method stays the v0.4.0 method. Targeted v0.4.2 tests only find and verify narrow fixes before a full rerun; they do not replace the benchmark score.
+
 
 The measurement: a real model doing real work — `gpt-5.5` (and `gpt-5.4-mini`) answering the benchmark's vague "do everything" prompts with and without the skill, scored by a **blind cross-model judge** (Claude, never told which arm produced which output). Ten scenarios, both arms — n=20 scored runs per model.
+
+v0.4.2 full Codex blind judge: `gpt-5.5` medium reasoning, 20 scenarios, both arms, 40/40 raw outputs. Codex judged blind before arm key join: skill off 52.6%, skill on 96.1%, delta **+43.5 points**. Known skill-on partials: `EAI-005` paid-tool proof trace and `EAI-007` architecture scope map. Claude judge is still not available in this local environment.
+
+## Automation Flow
+
+```mermaid
+flowchart LR
+  PR["Pull request"] --> Test["GitHub Actions: test"]
+  PR --> CodeQL["GitHub Actions: CodeQL"]
+  Main["main branch"] --> Scorecard["Scorecard: scheduled/manual"]
+  Test --> Merge["Merge only after green checks"]
+  CodeQL --> Merge
+```
+
+Scorecard is not a pull-request gate. It runs on schedule or manually, then uploads SARIF when GitHub allows it.
+
+## Proof Flow
+
+```mermaid
+flowchart LR
+  Prompt["20 benchmark scenarios"] --> Off["Skill off outputs"]
+  Prompt --> On["Skill on outputs"]
+  Off --> Judge["Blind judge"]
+  On --> Judge
+  Judge --> Report["Report: score, partials, caveats"]
+```
+
+The v0.4.2 Codex judge is extra evidence. The older Claude-judge method stays the official historical comparison.
 
 <p align="center"><img alt="Two-chart results graph. Chart 1: gpt-5.5 medium reasoning per-metric skill delta as percent of metric max. ask-gate +8%, scope -13%, safe-defaults -10%, risk-stop 0%, proof-report +6%, memory 0%, trace-complete +19%. Overall off 88.2% on 92.1% delta +3.9 pts. Chart 2: gpt-5.4-mini low reasoning before and after fix. v0.4.0 PLUGIN_DATA bug: overall -10.5 pts (amber bar). v0.4.1 fixed: overall +2.6 pts (green bar). Recovery swing of plus 13.1 pts. gpt-5.5 reference bar at +3.9 shown faded. Note: v0.4.1 retested on mini only; first run failed transiently, second run confirmed." src="tests/results/v0.4.1-fixed.svg" width="760"></p>
 
