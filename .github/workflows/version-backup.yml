@@ -1,0 +1,62 @@
+name: Version Backup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to back up (branch, tag, or SHA). Default: main"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ inputs.ref || github.ref }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+
+      - name: Read version
+        id: version
+        run: |
+          echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Build backup names
+        id: names
+        run: |
+          ts="$(date -u +'%Y%m%d-%H%M%S')"
+          echo "tag=backup-v${{ steps.version.outputs.value }}-${ts}" >> "$GITHUB_OUTPUT"
+          echo "bundle=everything-ai-backup-v${{ steps.version.outputs.value }}-${ts}.bundle" >> "$GITHUB_OUTPUT"
+
+      - name: Create immutable backup tag
+        env:
+          TAG_NAME: ${{ steps.names.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG_NAME" -m "Automated backup for version ${{ steps.version.outputs.value }}"
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" "$TAG_NAME"
+
+      - name: Build full repository bundle
+        env:
+          BUNDLE_FILE: ${{ steps.names.outputs.bundle }}
+        run: |
+          git bundle create "$BUNDLE_FILE" --all
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ steps.names.outputs.bundle }}
+          path: ${{ steps.names.outputs.bundle }}
+          retention-days: 90

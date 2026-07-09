@@ -63,9 +63,36 @@ The installer copies only `skills/everything-ai`, sends no telemetry, reads no s
 
 Default install target is Codex/OpenAI. Use `--agent claude` for Claude.
 
+## Version Backups and Rollback
+
+Every `package.json` version update on `main` now triggers automatic backup:
+
+- immutable tag: `backup-v<version>-<UTC timestamp>`
+- full repo bundle artifact from workflow: `.github/workflows/version-backup.yml`
+
+Rollback flow:
+
+```powershell
+git fetch origin --tags
+git tag --list "backup-v*"
+.\scripts\rollback-from-backup.ps1 -BackupTag "<backup-tag>"
+```
+
+Then open PR from generated `rollback/<backup-tag>` branch into `main`.
+
+## Public Launch Guard
+
+Dev/internal files are blocked from public package by CI.
+
+- check command: `npm run check:public-package`
+- runs automatically in `.github/workflows/test.yml`
+- release fails if anything outside public allowlist is included
+
 ## v0.4.2 Status
 
-**No live benchmark run yet.** Unit tests pass (46/46) but v0.4.2 has not been evaluated against the benchmark suite. Features shipped: halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script. Live results pending.
+**No live benchmark run yet.** Unit tests pass (44/44) but v0.4.2 has not been evaluated against live benchmark suite. Features shipped: halt-vs-guess safety gate · memory write-back hook · handoff contract tightening · authoritative domain frameworks · evidence-gap search · smart push script. Live results pending.
+
+<p align="center"><img alt="Version history chart. v0.3.0 +6 saved-output lift, v0.4.0 live run: gpt-5.5 +3.9 and gpt-5.4-mini -10.5 due to bug, v0.4.1 mini fixed to +2.6, v0.4.2 no live benchmark yet and 44/44 unit tests pass." src="tests/results/v0.4.2-status.svg" width="760"></p>
 
 ## v0.4.1 Status
 

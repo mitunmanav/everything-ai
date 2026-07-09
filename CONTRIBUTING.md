@@ -23,8 +23,21 @@ This project is for non-technical users who say "do everything" because they do 
 - Run tests before opening a PR:
 
 ```powershell
-python .\tests\test_everything_ai.py
-node .\scripts\install.js --dry-run
+npm test
+```
+
+- For maintainer repo-hardening setup (labels/settings), run:
+
+```powershell
+.\scripts\bootstrap-github.ps1 -Owner mitunmanav -Repo everything-ai
+```
+
+- For version backup + rollback safety:
+
+```powershell
+git fetch origin --tags
+git tag --list "backup-v*"
+.\scripts\rollback-from-backup.ps1 -BackupTag "<backup-tag>"
 ```
 
 ## Review Style

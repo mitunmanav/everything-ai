@@ -20,3 +20,4 @@ jobs:
           python-version: "3.12"
       - run: pip install pytest
       - run: npm test
+      - run: npm run check:public-package

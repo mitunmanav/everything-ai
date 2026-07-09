@@ -2,7 +2,9 @@
 
 Version: v0.4.2
 
-**v0.4.2 has no live benchmark results.** Unit tests pass (46/46). No evaluation run has been conducted against the benchmark suite for v0.4.2 features. The results below are from v0.4.1 and earlier.
+**v0.4.2 has no live benchmark results.** Unit tests pass (44/44). No evaluation run has been conducted against live benchmark suite for v0.4.2 features. The results below are from v0.4.1 and earlier.
+
+<p align="center"><img alt="Version history chart with honest benchmark status and improvements across releases." src="tests/results/v0.4.2-status.svg" width="760"></p>
 
 ---
 
