@@ -2,11 +2,11 @@
 
 Version: v0.4.2
 
-Latest proof is the **v0.4.0 live behavior run** below, the v0.4.1 root-cause fix, and the v0.4.2 targeted empty-evidence, paid-action, and high-stakes proof guards. v0.3.0 sections follow for history.
+Latest additional proof is the **v0.4.2 full Codex blind judge** below. The v0.4.0 and v0.4.1 Claude-judge runs remain the official historical comparison method. v0.3.0 sections follow for history.
 
 ## v0.4.2 Targeted Improvements
 
-**Status:** targeted fix applied locally. Current local suite: 62/62 tests green.
+**Status:** targeted fix applied locally. Current local suite: 63/63 tests green.
 
 ## v0.4.2 Full Codex Blind Judge
 
@@ -17,6 +17,18 @@ Codex judged blind before reading `arm_key.json`. After joining scores to the ar
 - skill off 52.6% (40/76)
 - skill on 96.1% (73/76)
 - delta +43.5 points
+
+<p align="center"><img alt="v0.4.2 full Codex report with seven per-metric deltas and overall skill-off versus skill-on scores." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
+
+| metric | skill off | skill on | delta as % of metric max |
+|---|---:|---:|---:|
+| ask-gate | 1.333 | 2.000 | +33.4% |
+| scope inference | 0.250 | 1.750 | +75.0% |
+| safe defaults | 1.000 | 2.000 | +50.0% |
+| risk stop | 1.600 | 2.000 | +20.0% |
+| proof report | 1.222 | 1.889 | +33.4% |
+| memory safety | 2.000 | 2.000 | 0.0% |
+| trace completeness | 0.625 | 1.875 | +62.5% |
 
 Known skill-on partials:
 
@@ -111,7 +123,7 @@ Root cause JSON: `tests/results/v0.4.1-regression.json`.
 
 New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
 sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
-asserts the hook reads from the right directory. Current local suite: 62/62 tests green.
+asserts the hook reads from the right directory. Current local suite: 63/63 tests green.
 
 ### Projected recovery
 

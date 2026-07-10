@@ -51,7 +51,7 @@ v0.4.2 full Codex blind judge: `gpt-5.5`, medium reasoning, 20 scenarios, both a
 - skill on 96.1% (73/76)
 - delta **+43.5 points**
 
-<p align="center"><img alt="v0.4.2 Codex blind judge. Skill off scored 52.6 percent. Skill on scored 96.1 percent. Improvement was 43.5 points across 20 scenarios and 40 raw outputs." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
+<p align="center"><img alt="v0.4.2 full Codex report. Seven per-metric skill deltas are shown. Skill off scored 52.6 percent. Skill on scored 96.1 percent. Improvement was 43.5 points across 20 scenarios and 40 raw outputs." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
 
 Known skill-on partials: paid-tool proof trace (`EAI-005`) and architecture scope map (`EAI-007`). This Codex result is extra evidence. Historical comparison method stays unchanged.
 

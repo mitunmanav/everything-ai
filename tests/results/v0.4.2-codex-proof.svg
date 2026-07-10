@@ -1,24 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
-  <title id="title">Everything AI v0.4.2 Codex blind judge result</title>
-  <desc id="desc">Skill off scored 52.6 percent. Skill on scored 96.1 percent. The skill improved the result by 43.5 points across 20 scenarios and 40 raw outputs.</desc>
-  <rect width="900" height="430" rx="18" fill="#0d1117"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="625" viewBox="0 0 900 625" role="img" aria-labelledby="chart-title chart-desc">
+  <title id="chart-title">Everything AI v0.4.2 full Codex test report</title>
+  <desc id="chart-desc">Two charts based on the v0.4.2 full Codex blind judge. Chart one shows per-metric skill delta as percent of metric max: ask-gate plus 33.4 percent, scope plus 75 percent, safe-defaults plus 50 percent, risk-stop plus 20 percent, proof-report plus 33.4 percent, memory zero percent, and trace-complete plus 62.5 percent. Chart two shows skill off 52.6 percent and skill on 96.1 percent, an improvement of 43.5 points. The test used Codex CLI, gpt-5.5 medium reasoning, 20 scenarios, and 40 raw outputs. Known partials were EAI-005 and EAI-007.</desc>
 
-  <text x="450" y="48" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Everything AI v0.4.2 proof</text>
-  <text x="450" y="76" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#8b949e">Blind Codex judge · gpt-5.5 medium · 20 scenarios · 40 raw outputs</text>
+  <rect width="900" height="625" fill="#0d1117"/>
 
-  <text x="70" y="142" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#c9d1d9">Skill off</text>
-  <rect x="220" y="115" width="520" height="42" rx="8" fill="#21262d"/>
-  <rect x="220" y="115" width="274" height="42" rx="8" fill="#8b949e"/>
-  <text x="760" y="143" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#c9d1d9">52.6%</text>
+  <text x="450" y="30" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700" fill="#f0f6fc">Everything AI - v0.4.2 full Codex test report</text>
+  <text x="450" y="52" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#8b949e">Codex CLI - gpt-5.5 - medium reasoning - blind judge - 20 scenarios - 40 raw outputs</text>
 
-  <text x="70" y="222" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#c9d1d9">Skill on</text>
-  <rect x="220" y="195" width="520" height="42" rx="8" fill="#21262d"/>
-  <rect x="220" y="195" width="500" height="42" rx="8" fill="#2da44e"/>
-  <text x="760" y="223" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#56d364">96.1%</text>
+  <rect x="318" y="65" width="11" height="11" rx="2" fill="#2da44e"/>
+  <text x="334" y="75" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" fill="#8b949e">skill helps</text>
+  <rect x="425" y="65" width="11" height="11" rx="2" fill="#6e7681"/>
+  <text x="441" y="75" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" fill="#8b949e">no change</text>
 
-  <rect x="220" y="276" width="520" height="72" rx="12" fill="#132b1b" stroke="#2da44e" stroke-width="2"/>
-  <text x="480" y="307" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#8b949e">Improvement with Everything AI</text>
-  <text x="480" y="334" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="700" fill="#56d364">+43.5 points</text>
+  <text x="70" y="104" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">Per-metric skill delta</text>
+  <text x="70" y="121" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#6e7681">Bars show skill-on minus skill-off as percent of metric max (0-2 scale)</text>
 
-  <text x="450" y="392" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#8b949e">Off 40/76 · On 73/76 · Known partials: EAI-005 and EAI-007</text>
+  <text x="62" y="147" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+80%</text>
+  <line x1="70" y1="144" x2="830" y2="144" stroke="#21262d"/>
+  <text x="62" y="175" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+60%</text>
+  <line x1="70" y1="172" x2="830" y2="172" stroke="#30363d" stroke-dasharray="4 3"/>
+  <text x="62" y="203" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+40%</text>
+  <line x1="70" y1="200" x2="830" y2="200" stroke="#30363d" stroke-dasharray="4 3"/>
+  <text x="62" y="231" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+20%</text>
+  <line x1="70" y1="228" x2="830" y2="228" stroke="#30363d" stroke-dasharray="4 3"/>
+  <text x="62" y="259" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">0%</text>
+  <line x1="70" y1="255" x2="830" y2="255" stroke="#6e7681" stroke-width="1.5"/>
+
+  <rect x="102" y="208" width="54" height="47" rx="3" fill="#2da44e"/>
+  <text x="129" y="201" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+33.4%</text>
+  <text x="129" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">ask-gate</text>
+
+  <rect x="208" y="150" width="54" height="105" rx="3" fill="#2da44e"/>
+  <text x="235" y="143" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+75.0%</text>
+  <text x="235" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">scope</text>
+
+  <rect x="314" y="185" width="54" height="70" rx="3" fill="#2da44e"/>
+  <text x="341" y="178" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+50.0%</text>
+  <text x="341" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">safe-defaults</text>
+
+  <rect x="420" y="227" width="54" height="28" rx="3" fill="#2da44e"/>
+  <text x="447" y="220" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+20.0%</text>
+  <text x="447" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">risk-stop</text>
+
+  <rect x="526" y="208" width="54" height="47" rx="3" fill="#2da44e"/>
+  <text x="553" y="201" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+33.4%</text>
+  <text x="553" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">proof-report</text>
+
+  <rect x="632" y="252" width="54" height="3" rx="1" fill="#6e7681"/>
+  <text x="659" y="245" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#8b949e">0.0%</text>
+  <text x="659" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">memory</text>
+
+  <rect x="738" y="167" width="54" height="88" rx="3" fill="#2da44e"/>
+  <text x="765" y="160" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#56d364">+62.5%</text>
+  <text x="765" y="277" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#8b949e">trace-complete</text>
+
+  <text x="450" y="307" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#6e7681">Largest gains: scope +75.0%, trace-complete +62.5%, safe-defaults +50.0%</text>
+  <line x1="70" y1="326" x2="830" y2="326" stroke="#21262d" stroke-width="2"/>
+
+  <text x="70" y="355" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">Overall result</text>
+  <text x="70" y="372" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#6e7681">Raw rubric totals: skill off 40/76 - skill on 73/76</text>
+
+  <text x="70" y="414" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#c9d1d9">Skill off</text>
+  <rect x="220" y="390" width="520" height="38" rx="7" fill="#21262d"/>
+  <rect x="220" y="390" width="274" height="38" rx="7" fill="#8b949e"/>
+  <text x="755" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#c9d1d9">off 52.6%</text>
+
+  <text x="70" y="474" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#c9d1d9">Skill on</text>
+  <rect x="220" y="450" width="520" height="38" rx="7" fill="#21262d"/>
+  <rect x="220" y="450" width="500" height="38" rx="7" fill="#2da44e"/>
+  <text x="755" y="475" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#56d364">on 96.1%</text>
+
+  <rect x="220" y="510" width="520" height="54" rx="10" fill="#132b1b" stroke="#2da44e" stroke-width="1.5"/>
+  <text x="480" y="532" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#8b949e">Overall skill impact</text>
+  <text x="480" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="700" fill="#56d364">+43.5 pts overall</text>
+
+  <text x="450" y="588" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">Known skill-on partials: EAI-005 paid-tool proof trace - EAI-007 architecture scope map</text>
+  <text x="450" y="607" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" fill="#6e7681">Source: v0.4.2-full-codex-medium/codex_judge_summary.json - extra Codex proof; historical judge method unchanged</text>
 </svg>

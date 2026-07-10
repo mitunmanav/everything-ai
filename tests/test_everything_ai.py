@@ -598,6 +598,52 @@ def test_v042_full_codex_judge_result_is_recorded():
     )
 
 
+def test_v042_full_report_graph_matches_judge_summary():
+    svg = read(V042_GRAPH)
+    summary = json.loads(
+        read(ROOT / "tests" / "results" / "v0.4.2-full-codex-medium" / "codex_judge_summary.json")
+    )
+
+    assert summary["arms"]["skill_off"]["pct"] == 52.6
+    assert summary["arms"]["skill_on"]["pct"] == 96.1
+    assert summary["delta_pct"] == 43.5
+    assert_contains(
+        svg,
+        [
+            "per-metric skill delta",
+            "ask-gate",
+            "+33.4%",
+            "scope",
+            "+75.0%",
+            "safe-defaults",
+            "+50.0%",
+            "risk-stop",
+            "+20.0%",
+            "proof-report",
+            "+33.4%",
+            "memory",
+            "0.0%",
+            "trace-complete",
+            "+62.5%",
+            "off 52.6%",
+            "on 96.1%",
+            "+43.5 pts overall",
+            "Codex CLI",
+            "gpt-5.5",
+            "medium reasoning",
+            "20 scenarios",
+            "40 raw outputs",
+            "EAI-005",
+            "EAI-007",
+        ],
+    )
+
+    graph_ref = "tests/results/v0.4.2-codex-proof.svg"
+    assert graph_ref in read(README)
+    assert graph_ref in read(TEST_RESULTS)
+    assert graph_ref in read(ROOT / "EVALUATION.md")
+
+
 def test_phase1_claude_agent_and_install_targets_exist():
     assert CLAUDE_AGENT.exists(), "Claude agent metadata required"
     claude = read(CLAUDE_AGENT)
