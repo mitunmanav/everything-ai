@@ -8,8 +8,7 @@
     "everything-ai": "./scripts/install.js"
   },
   "scripts": {
-    "test": "node scripts/run-tests.js",
-    "check:public-package": "node scripts/check-public-package.js"
+    "test": "python3 -m pytest tests/test_everything_ai.py -v && node scripts/install.js --dry-run"
   },
   "files": [
     "skills/everything-ai",
