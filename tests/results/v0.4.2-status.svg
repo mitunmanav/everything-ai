@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+<title id="title">Everything AI release history and current status</title>
+<desc id="desc">Timeline of measured results. v0.3.0 had plus 6 saved-output lift. v0.4.0 live run on gpt-5.5 had plus 3.9 and gpt-5.4-mini had minus 10.5 due to PLUGIN_DATA bug. v0.4.1 fixed mini to plus 2.6. v0.4.2 has no live benchmark yet and shows only unit tests 44 of 44 passing.</desc>
+<rect width="900" height="520" fill="#0d1117"/>
+<text x="450" y="30" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#c9d1d9">Everything AI · honest results history</text>
+<text x="450" y="52" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Live results shown where measured. No fabricated v0.4.2 benchmark values.</text>
+
+<line x1="80" y1="110" x2="820" y2="110" stroke="#30363d" stroke-width="2"/>
+<circle cx="120" cy="110" r="7" fill="#2da44e"/>
+<circle cx="310" cy="110" r="7" fill="#2da44e"/>
+<circle cx="500" cy="110" r="7" fill="#2da44e"/>
+<circle cx="690" cy="110" r="7" fill="#e3a008"/>
+
+<text x="120" y="92" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">v0.3.0</text>
+<text x="310" y="92" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">v0.4.0</text>
+<text x="500" y="92" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">v0.4.1</text>
+<text x="690" y="92" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">v0.4.2</text>
+
+<rect x="70" y="140" width="220" height="145" rx="8" fill="#161b22" stroke="#30363d"/>
+<text x="85" y="165" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">v0.3.0 (history)</text>
+<text x="85" y="188" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Saved-output benchmark</text>
+<text x="85" y="208" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">with skill 20/20 vs without 14/20</text>
+<text x="85" y="228" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">delta +6</text>
+<text x="85" y="248" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Source: v0.3.0-all-phases.json</text>
+
+<rect x="300" y="140" width="260" height="175" rx="8" fill="#161b22" stroke="#30363d"/>
+<text x="315" y="165" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">v0.4.0 (live run)</text>
+<text x="315" y="188" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">gpt-5.5: +3.9 pts</text>
+<text x="315" y="208" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#cf222e">gpt-5.4-mini: -10.5 pts</text>
+<text x="315" y="228" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#e3a008">Root cause: PLUGIN_DATA memory-dir bug</text>
+<text x="315" y="248" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Blind judge, n=20/model</text>
+<text x="315" y="268" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Source: v0.4.0-live-run.json</text>
+
+<rect x="300" y="330" width="260" height="120" rx="8" fill="#161b22" stroke="#30363d"/>
+<text x="315" y="355" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">v0.4.1 (retest fix)</text>
+<text x="315" y="378" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">gpt-5.4-mini: +2.6 pts</text>
+<text x="315" y="398" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">Recovery swing: +13.1 pts</text>
+<text x="315" y="418" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Source: v0.4.1-retest-run.json</text>
+
+<rect x="570" y="140" width="250" height="175" rx="8" fill="#161b22" stroke="#e3a008"/>
+<text x="585" y="165" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">v0.4.2 (current)</text>
+<text x="585" y="188" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#e3a008">No live benchmark run yet</text>
+<text x="585" y="208" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#2da44e">Unit tests: 44/44 pass</text>
+<text x="585" y="228" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Features shipped in codebase</text>
+<text x="585" y="248" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">but no claimed live lift yet.</text>
+<text x="585" y="268" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#8b949e">Honesty mode: pending benchmark.</text>
+
+<text x="450" y="485" text-anchor="middle" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" fill="#6e7681">Use this chart in README and TEST_RESULTS for public status clarity.</text>
+</svg>
