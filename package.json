@@ -1,0 +1,33 @@
+{
+  "name": "everything-ai-skill",
+  "version": "0.4.2",
+  "description": "Install the Everything AI skill for Codex/OpenAI or Claude.",
+  "license": "MIT",
+  "bin": {
+    "everything-ai-install": "./scripts/install.js",
+    "everything-ai": "./scripts/install.js"
+  },
+  "scripts": {
+    "test": "python tests/test_everything_ai.py && node scripts/install.js --dry-run"
+  },
+  "files": [
+    "skills/everything-ai",
+    "scripts/install.js",
+    "scripts/bootstrap-memory.js",
+    "QUICKSTART.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitunmanav/everything-ai.git"
+  },
+  "keywords": [
+    "codex",
+    "claude",
+    "skill",
+    "ai-agent",
+    "observability",
+    "memory"
+  ]
+}

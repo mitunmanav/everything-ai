@@ -1,0 +1,3 @@
+interface:
+  display_name: Everything AI
+  default_prompt: Use -ai.

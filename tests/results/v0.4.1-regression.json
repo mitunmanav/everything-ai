@@ -1,0 +1,62 @@
+{
+  "version": "0.4.1",
+  "date": "2026-06-20",
+  "type": "root-cause-analysis",
+  "status": "fix-applied-retest-confirmed",
+  "summary": "PLUGIN_DATA env var was hijacking the memory dir in Codex environments, injecting zero memory files on every prompt. This caused scope_inference and safe_defaults to regress on both models; gpt-5.4-mini had no resilience and netted -10.5%.",
+  "root_cause": {
+    "file": "skills/everything-ai/hooks/context_inject.py",
+    "bug": "if PLUGIN_DATA in os.environ: memory_dir = Path(os.environ['PLUGIN_DATA'])",
+    "explanation": "PLUGIN_DATA is the plugin installation directory (e.g. superpowers/6.0.3/), not a memory directory. It contains no semantic.md / episodic.md / procedural.md. Hook fell silent: zero context injected. Agents had nothing to infer scope from.",
+    "fix": "Removed PLUGIN_DATA branch. Memory dir now always resolves via EVERYTHING_AI_MEMORY_DIR env var or ~/.agents/skills/everything-ai default."
+  },
+  "skill_md_fix": {
+    "file": "skills/everything-ai/SKILL.md",
+    "bug": "Workflow step 3 said 'use general defaults' with no definition. Agents stalled or guessed.",
+    "fix": "Added ## Safe Defaults section (narrowest scope, reversible first, non-expert assumption, plain language). Replaced 'use general defaults' with concrete domain tiebreaker + 'apply safe defaults'."
+  },
+  "evidence": {
+    "source": "tests/results/v0.4.0-live-run.json",
+    "note": "Both models show scope_inference and safe_defaults scoring LOWER with skill ON than OFF — structural regression, not noise.",
+    "models": {
+      "gpt-5.5": {
+        "overall": { "off_pct": 88.2, "on_pct": 92.1, "delta_pct": 3.9 },
+        "per_metric": {
+          "ask_gate":          { "off": 1.833, "on": 2.0,   "delta": 0.167,  "direction": "improved" },
+          "scope_inference":   { "off": 2.0,   "on": 1.75,  "delta": -0.25,  "direction": "regressed" },
+          "safe_defaults":     { "off": 1.8,   "on": 1.6,   "delta": -0.2,   "direction": "regressed" },
+          "risk_stop":         { "off": 2.0,   "on": 2.0,   "delta": 0.0,    "direction": "neutral" },
+          "proof_report":      { "off": 1.556, "on": 1.667, "delta": 0.111,  "direction": "improved" },
+          "memory_safety":     { "off": 2.0,   "on": 2.0,   "delta": 0.0,    "direction": "neutral" },
+          "trace_completeness":{ "off": 1.625, "on": 2.0,   "delta": 0.375,  "direction": "improved" }
+        },
+        "interpretation": "trace_completeness gain (+0.375) offset scope_inference/safe_defaults loss. Net positive. gpt-5.5 is resilient enough to absorb the PLUGIN_DATA regression."
+      },
+      "gpt-5.4-mini": {
+        "overall": { "off_pct": 75.0, "on_pct": 64.5, "delta_pct": -10.5 },
+        "per_metric": {
+          "ask_gate":          { "off": 1.667, "on": 1.5,   "delta": -0.167, "direction": "regressed" },
+          "scope_inference":   { "off": 1.0,   "on": 0.75,  "delta": -0.25,  "direction": "regressed" },
+          "safe_defaults":     { "off": 1.2,   "on": 1.0,   "delta": -0.2,   "direction": "regressed" },
+          "risk_stop":         { "off": 2.0,   "on": 2.0,   "delta": 0.0,    "direction": "neutral" },
+          "proof_report":      { "off": 1.333, "on": 1.0,   "delta": -0.333, "direction": "regressed" },
+          "memory_safety":     { "off": 2.0,   "on": 2.0,   "delta": 0.0,    "direction": "neutral" },
+          "trace_completeness":{ "off": 1.625, "on": 1.375, "delta": -0.25,  "direction": "regressed" }
+        },
+        "interpretation": "Every non-neutral metric regressed. No offset gains. Without memory context, mini cannot infer scope, apply defaults, or structure reports. PLUGIN_DATA silenced the hook on every prompt."
+      }
+    }
+  },
+  "diagnostic_fingerprint": "skill_off outperforms skill_on on scope_inference and safe_defaults across BOTH models. Unique to context-dependent metrics. Memory-independent metrics (risk_stop, memory_safety) hold at ceiling — confirming the bug is specifically in context injection, not the skill logic.",
+  "confirmed_v0_4_1": {
+    "note": "Retest complete (n=40, gpt-5.4-mini only). First run failed transiently; second run confirmed. gpt-5.5 not re-run in v0.4.1.",
+    "gpt-5.4-mini_actual": "off 88.2% → on 90.8% → +2.6 pts overall. Recovery of +13.1 pts from v0.4.0 bugged baseline of -10.5.",
+    "gpt-5.5_actual": "Not retested. v0.4.0 result (+3.9 pts) stands as the current reference.",
+    "raw_data": "tests/results/v0.4.1-retest-run.json",
+    "graph": "tests/results/v0.4.1-fixed.svg"
+  },
+  "commits": {
+    "context_inject_fix": "Remove PLUGIN_DATA branch from context_inject.py",
+    "skill_md_fix": "Add ## Safe Defaults section to SKILL.md; replace vague 'use general defaults'"
+  }
+}

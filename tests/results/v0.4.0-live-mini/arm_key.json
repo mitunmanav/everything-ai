@@ -1,0 +1,162 @@
+{
+  "run_001": {
+    "scenario_id": "EAI-005",
+    "arm": "skill_on"
+  },
+  "run_002": {
+    "scenario_id": "EAI-002",
+    "arm": "skill_on"
+  },
+  "run_003": {
+    "scenario_id": "EAI-006",
+    "arm": "skill_off"
+  },
+  "run_005": {
+    "scenario_id": "writing_email",
+    "arm": "skill_on"
+  },
+  "run_006": {
+    "scenario_id": "writing_email",
+    "arm": "skill_off"
+  },
+  "run_007": {
+    "scenario_id": "health_sleep",
+    "arm": "skill_off"
+  },
+  "run_008": {
+    "scenario_id": "EAI-006",
+    "arm": "skill_on"
+  },
+  "run_009": {
+    "scenario_id": "EAI-003",
+    "arm": "skill_off"
+  },
+  "run_010": {
+    "scenario_id": "finance_budget",
+    "arm": "skill_off"
+  },
+  "run_011": {
+    "scenario_id": "coding_bug_fix",
+    "arm": "skill_on"
+  },
+  "run_013": {
+    "scenario_id": "coding_feature_build",
+    "arm": "skill_on"
+  },
+  "run_014": {
+    "scenario_id": "EAI-010",
+    "arm": "skill_off"
+  },
+  "run_015": {
+    "scenario_id": "EAI-007",
+    "arm": "skill_off"
+  },
+  "run_016": {
+    "scenario_id": "learning_python",
+    "arm": "skill_off"
+  },
+  "run_017": {
+    "scenario_id": "learning_python",
+    "arm": "skill_on"
+  },
+  "run_018": {
+    "scenario_id": "writing_blog_post",
+    "arm": "skill_off"
+  },
+  "run_019": {
+    "scenario_id": "EAI-007",
+    "arm": "skill_on"
+  },
+  "run_020": {
+    "scenario_id": "coding_feature_build",
+    "arm": "skill_off"
+  },
+  "run_021": {
+    "scenario_id": "coding_bug_fix",
+    "arm": "skill_off"
+  },
+  "run_022": {
+    "scenario_id": "health_sleep",
+    "arm": "skill_on"
+  },
+  "run_023": {
+    "scenario_id": "life_home_organization",
+    "arm": "skill_on"
+  },
+  "run_024": {
+    "scenario_id": "health_fitness_beginner",
+    "arm": "skill_on"
+  },
+  "run_025": {
+    "scenario_id": "EAI-010",
+    "arm": "skill_on"
+  },
+  "run_026": {
+    "scenario_id": "EAI-009",
+    "arm": "skill_off"
+  },
+  "run_027": {
+    "scenario_id": "research_product_comparison",
+    "arm": "skill_on"
+  },
+  "run_028": {
+    "scenario_id": "finance_budget",
+    "arm": "skill_on"
+  },
+  "run_029": {
+    "scenario_id": "EAI-002",
+    "arm": "skill_off"
+  },
+  "run_030": {
+    "scenario_id": "EAI-001",
+    "arm": "skill_off"
+  },
+  "run_031": {
+    "scenario_id": "research_product_comparison",
+    "arm": "skill_off"
+  },
+  "run_032": {
+    "scenario_id": "writing_blog_post",
+    "arm": "skill_on"
+  },
+  "run_033": {
+    "scenario_id": "EAI-003",
+    "arm": "skill_on"
+  },
+  "run_034": {
+    "scenario_id": "EAI-004",
+    "arm": "skill_off"
+  },
+  "run_035": {
+    "scenario_id": "EAI-005",
+    "arm": "skill_off"
+  },
+  "run_036": {
+    "scenario_id": "EAI-008",
+    "arm": "skill_off"
+  },
+  "run_037": {
+    "scenario_id": "EAI-008",
+    "arm": "skill_on"
+  },
+  "run_038": {
+    "scenario_id": "EAI-009",
+    "arm": "skill_on"
+  },
+  "run_039": {
+    "scenario_id": "EAI-001",
+    "arm": "skill_on"
+  },
+  "run_040": {
+    "scenario_id": "EAI-004",
+    "arm": "skill_on"
+  },
+  "run_004": {
+    "scenario_id": "life_home_organization",
+    "arm": "skill_off"
+  },
+  "run_012": {
+    "scenario_id": "health_fitness_beginner",
+    "arm": "skill_off"
+  }
+}

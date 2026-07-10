@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mitunmanav/everything-ai/trace.schema.json",
+  "title": "Everything AI Trace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_surface",
+    "source_docs",
+    "request",
+    "inferred_target",
+    "scope_map",
+    "defaults_chosen",
+    "questions_asked",
+    "actions_taken",
+    "blocked_items",
+    "assumptions",
+    "coverage",
+    "confidence",
+    "corrections",
+    "feedback",
+    "learnings"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "agent_surface": { "type": "string", "enum": ["codex", "claude", "portable"] },
+    "source_docs": { "type": "array", "items": { "type": "string" } },
+    "request": { "type": "string" },
+    "inferred_target": { "type": "string" },
+    "scope_map": { "type": "array", "items": { "type": "string" } },
+    "defaults_chosen": { "type": "array", "items": { "type": "string" } },
+    "questions_asked": { "type": "array", "items": { "type": "string" } },
+    "actions_taken": { "type": "array", "items": { "type": "string" } },
+    "blocked_items": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "coverage": { "type": "object", "additionalProperties": { "type": "string" } },
+    "confidence": { "type": "object", "additionalProperties": { "type": "string" } },
+    "corrections": { "type": "array", "items": { "type": "string" } },
+    "feedback": { "type": "string" },
+    "learnings": { "type": "array", "items": { "type": "string" } }
+  }
+}

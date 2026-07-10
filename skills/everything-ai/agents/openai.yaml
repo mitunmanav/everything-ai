@@ -1,0 +1,7 @@
+interface:
+  display_name: Everything AI
+  short_description: Expert-scope agent. Handles ambiguous end-to-end tasks. Infers intent and acts.
+  default_prompt: Handle everything for this task end-to-end.
+
+policy:
+  allow_implicit_invocation: true

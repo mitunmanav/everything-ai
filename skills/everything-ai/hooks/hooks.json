@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOME/.agents/skills/everything-ai/hooks/context_inject.py\"",
+            "statusMessage": "Injecting context"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOME/.agents/skills/everything-ai/hooks/memory_write.py\"",
+            "statusMessage": "Writing memory"
+          }
+        ]
+      }
+    ]
+  }
+}

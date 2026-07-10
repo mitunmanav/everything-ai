@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "agent_surface": "portable",
+  "source_docs": [
+    "https://code.claude.com/docs/en/skills",
+    "https://developers.openai.com/codex/skills/create-skill"
+  ],
+  "request": "Do everything to make this repo ready for launch.",
+  "inferred_target": "launch readiness audit and first safe fixes",
+  "scope_map": [
+    "read project docs",
+    "inspect install path",
+    "run available tests",
+    "fix reversible quality-gate blockers",
+    "report remaining release risks"
+  ],
+  "defaults_chosen": [
+    "read before edit",
+    "use existing test command",
+    "avoid destructive or paid actions",
+    "keep changes portable across Codex and Claude"
+  ],
+  "questions_asked": [],
+  "actions_taken": [
+    "read README, roadmap, skill, and tests",
+    "ran local test suite",
+    "fixed Windows test command",
+    "added proof guard for the core do-everything promise"
+  ],
+  "blocked_items": [
+    "publishing release needs explicit approval"
+  ],
+  "assumptions": [
+    "repo root is the active project",
+    "public package should avoid local-only files"
+  ],
+  "coverage": {
+    "docs": "checked",
+    "tests": "passed",
+    "release": "blocked on approval",
+    "cross_agent": "checked against docs"
+  },
+  "confidence": {
+    "local_quality_gate": "high",
+    "release_readiness": "medium",
+    "cross_agent_portability": "medium"
+  },
+  "corrections": [
+    "Everything AI means AI do everything, not mode choices"
+  ],
+  "feedback": "Quality gate works and proof is visible; release still needs approval.",
+  "learnings": [
+    "Keep the skill centered on AI carrying the expert checklist."
+  ]
+}

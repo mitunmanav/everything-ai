@@ -1,0 +1,14 @@
+[
+  {
+    "run_id": "run_004",
+    "scenario_id": "life_home_organization",
+    "arm": "skill_off",
+    "result": "rerun_succeeded"
+  },
+  {
+    "run_id": "run_012",
+    "scenario_id": "health_fitness_beginner",
+    "arm": "skill_off",
+    "result": "rerun_succeeded"
+  }
+]

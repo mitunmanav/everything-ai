@@ -1,0 +1,47 @@
+{
+  "version": "0.4.0",
+  "date": "2026-06-19",
+  "execution": "live-run",
+  "summary": {
+    "tests_passed": 32,
+    "tests_total": 32,
+    "benchmark_scenarios": 20,
+    "domains": 10,
+    "domains_previous": 3,
+    "phases_complete": 5,
+    "behavior_lift": {
+      "model": "gpt-5.5",
+      "reasoning": "medium",
+      "judge": "claude, blind, cross-model",
+      "without_skill_pct": 88.2,
+      "with_skill_pct": 92.1,
+      "delta_pct": 3.9,
+      "weak_model": "gpt-5.4-mini",
+      "weak_reasoning": "low",
+      "weak_without_skill_pct": 75.0,
+      "weak_with_skill_pct": 64.5,
+      "weak_delta_pct": -10.5,
+      "source": "tests/results/v0.4.0-live-run.json live blind cross-model run"
+    },
+    "finding": "Live v0.4.0 run, blind cross-model judge. On gpt-5.5 (medium) the skill lifts behavior quality 88.2 -> 92.1 (+3.9), concentrated in trace completeness and ask-gating. On gpt-5.4-mini (low) the same skill hurts, 75.0 -> 64.5 (-10.5): the heavy instructions overload a small model. The skill is built for capable models. 32/32 unit tests green."
+  },
+  "domains": [
+    "startup",
+    "data-analysis",
+    "personal-productivity",
+    "coding",
+    "writing",
+    "health",
+    "learning",
+    "finance",
+    "life",
+    "research"
+  ],
+  "phases": {
+    "A": "Domain expansion — 7 new packs, 10-domain routing in SKILL.md and playbook.md",
+    "B": "Memory bootstrap — creates semantic.md, episodic.md, procedural.md at install time",
+    "C": "Non-technical UX — QUICKSTART.md, plain-language output rule",
+    "D": "Context hook — injects today date and working directory on every prompt",
+    "E": "Benchmark expansion — 20 scenarios, v0.4.0 tag, package.json bump, live blind benchmark runner"
+  }
+}

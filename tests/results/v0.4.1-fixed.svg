@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="590" viewBox="0 0 900 590" role="img" aria-labelledby="chart-title chart-desc">
+<title id="chart-title">Everything AI v0.4.1 — skill impact and regression fix</title>
+<desc id="chart-desc">Two charts. Chart one: gpt-5.5 medium reasoning per-metric skill delta in percent of metric max (v0.4.0 baseline unchanged in v0.4.1). Seven metrics: ask-gate plus 8%, scope minus 13%, safe-defaults minus 10%, risk-stop 0%, proof-report plus 6%, memory 0%, trace-complete plus 19%. Overall off 88.2% on 92.1% delta plus 3.9 pts. Chart two: gpt-5.4-mini low reasoning overall skill delta before and after fix. v0.4.0 bugged PLUGIN_DATA minus 10.5 pts. v0.4.1 fixed plus 2.6 pts. gpt-5.5 reference plus 3.9 shown. v0.4.1 retested on mini only. First v0.4.1 run failed transiently; second run produced these results.</desc>
+
+<!-- ─── background ─── -->
+<rect width="900" height="590" fill="#0d1117"/>
+
+<!-- ─── title ─── -->
+<text x="450" y="27" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="16" font-weight="700" fill="#c9d1d9">
+  Everything AI · v0.4.1 — skill impact &amp; regression fix confirmed
+</text>
+
+<!-- ─── legend ─── -->
+<rect x="178" y="40" width="11" height="11" fill="#2da44e" rx="2"/>
+<text x="193" y="50" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" fill="#8b949e">skill helps</text>
+<rect x="290" y="40" width="11" height="11" fill="#cf222e" rx="2"/>
+<text x="305" y="50" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" fill="#8b949e">skill hurts</text>
+<rect x="400" y="40" width="11" height="11" fill="#6e7681" rx="2"/>
+<text x="415" y="50" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" fill="#8b949e">no change</text>
+<rect x="525" y="40" width="11" height="11" fill="#e3a008" rx="2"/>
+<text x="540" y="50" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" fill="#8b949e">PLUGIN_DATA bug (v0.4.0)</text>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CHART 1 — gpt-5.5 per-metric delta
+     Zero line y=183, scale 2.6px per percent-of-metric-max, range ±25%
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<text x="70" y="80" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="13" font-weight="700" fill="#c9d1d9">
+  gpt-5.5 · medium reasoning
+  <tspan fill="#8b949e" font-size="11" font-weight="400">  off 88.2% → on 92.1% = </tspan>
+  <tspan fill="#2da44e" font-size="13" font-weight="700">+3.9 pts overall</tspan>
+</text>
+<text x="70" y="97" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10" fill="#6e7681">
+  v0.4.0 baseline · unchanged in v0.4.1 · n=20 · bars = % of metric max (0–2 scale)
+</text>
+
+<!-- y-axis labels and grid -->
+<text x="62" y="121" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">+25%</text>
+<line x1="70" y1="118" x2="830" y2="118" stroke="#21262d" stroke-width="1"/>
+<text x="62" y="147" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">+10%</text>
+<line x1="70" y1="144" x2="830" y2="144" stroke="#30363d" stroke-width="0.75" stroke-dasharray="4 3"/>
+<text x="62" y="187" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">0%</text>
+<line x1="70" y1="183" x2="830" y2="183" stroke="#6e7681" stroke-width="1.5"/>
+<text x="62" y="222" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">-10%</text>
+<line x1="70" y1="218" x2="830" y2="218" stroke="#30363d" stroke-width="0.75" stroke-dasharray="4 3"/>
+<text x="62" y="252" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">-25%</text>
+<line x1="70" y1="248" x2="830" y2="248" stroke="#21262d" stroke-width="1"/>
+
+<!-- Bar: ask_gate +8% → y_top=183-20.8=162, h=21 -->
+<rect x="109" y="162" width="50" height="21" fill="#2da44e" rx="3"/>
+<text x="134" y="157" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#2da44e">+8%</text>
+<text x="134" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">ask-gate</text>
+
+<!-- Bar: scope_inference -13% → y_top=183, h=33.8 -->
+<rect x="217" y="183" width="50" height="34" fill="#cf222e" rx="3"/>
+<text x="242" y="230" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#cf222e">-13%</text>
+<text x="242" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">scope</text>
+
+<!-- Bar: safe_defaults -10% → y_top=183, h=26 -->
+<rect x="325" y="183" width="50" height="26" fill="#cf222e" rx="3"/>
+<text x="350" y="221" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#cf222e">-10%</text>
+<text x="350" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">safe-defaults</text>
+
+<!-- Bar: risk_stop 0% → flat line -->
+<rect x="433" y="182" width="50" height="3" fill="#6e7681" rx="1"/>
+<text x="458" y="176" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#6e7681">0%</text>
+<text x="458" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">risk-stop</text>
+
+<!-- Bar: proof_report +6% → y_top=183-15.6=167, h=16 -->
+<rect x="541" y="167" width="50" height="16" fill="#2da44e" rx="3"/>
+<text x="566" y="162" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#2da44e">+6%</text>
+<text x="566" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">proof-report</text>
+
+<!-- Bar: memory_safety 0% → flat line -->
+<rect x="649" y="182" width="50" height="3" fill="#6e7681" rx="1"/>
+<text x="674" y="176" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#6e7681">0%</text>
+<text x="674" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">memory</text>
+
+<!-- Bar: trace_completeness +19% → y_top=183-49.4=134, h=49 -->
+<rect x="757" y="134" width="50" height="49" fill="#2da44e" rx="3"/>
+<text x="782" y="129" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#2da44e">+19%</text>
+<text x="782" y="270" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">trace-complete</text>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CHART 2 — gpt-5.4-mini before / after fix (overall pts)
+     Zero line y=418, scale 5px per point, range -12 to +6
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<!-- Divider -->
+<line x1="70" y1="296" x2="830" y2="296" stroke="#21262d" stroke-width="2"/>
+
+<text x="70" y="322" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="13" font-weight="700" fill="#c9d1d9">
+  gpt-5.4-mini · low reasoning — PLUGIN_DATA regression fix
+</text>
+<text x="70" y="339" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10" fill="#6e7681">
+  v0.4.1 retested on gpt-5.4-mini only (not re-run on gpt-5.5) · first run failed transiently; results from second run · bars = overall score delta in pts
+</text>
+
+<!-- y-axis labels and grid (zero at y=418, 5px per pt) -->
+<text x="62" y="388" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">+6 pts</text>
+<line x1="70" y1="388" x2="830" y2="388" stroke="#21262d" stroke-width="1"/>
+<text x="62" y="408" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">+2 pts</text>
+<line x1="70" y1="408" x2="830" y2="408" stroke="#30363d" stroke-width="0.75" stroke-dasharray="4 3"/>
+<text x="62" y="422" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">0</text>
+<line x1="70" y1="418" x2="830" y2="418" stroke="#6e7681" stroke-width="1.5"/>
+<text x="62" y="448" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">-6 pts</text>
+<line x1="70" y1="448" x2="830" y2="448" stroke="#30363d" stroke-width="0.75" stroke-dasharray="4 3"/>
+<text x="62" y="478" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" fill="#8b949e">-12 pts</text>
+<line x1="70" y1="478" x2="830" y2="478" stroke="#21262d" stroke-width="1"/>
+
+<!-- Reference bar: gpt-5.5 baseline +3.9 pts → top=418-19.5=398, h=20 -->
+<rect x="125" y="398" width="90" height="20" fill="#2da44e" rx="3" opacity="0.55"/>
+<text x="170" y="393" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10.5" font-weight="600" fill="#2da44e">+3.9 pts</text>
+<text x="170" y="510" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">gpt-5.5</text>
+<text x="170" y="522" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9" fill="#6e7681">v0.4.0 (ref)</text>
+
+<!-- Bug bar: mini v0.4.0 -10.5 pts → top=418, h=52 amber -->
+<!-- amber dashed border to highlight bug -->
+<rect x="370" y="414" width="96" height="58" fill="none" stroke="#e3a008" stroke-width="1.5" stroke-dasharray="5 3" rx="4"/>
+<rect x="375" y="418" width="86" height="52" fill="#e3a008" rx="3"/>
+<text x="418" y="483" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="11" font-weight="700" fill="#0d1117">-10.5 pts</text>
+<text x="418" y="510" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#e3a008">gpt-5.4-mini</text>
+<text x="418" y="522" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9" fill="#e3a008">v0.4.0 ← PLUGIN_DATA bug</text>
+
+<!-- Fix bar: mini v0.4.1 +2.6 pts → top=418-13=405, h=13 green -->
+<rect x="634" y="405" width="90" height="13" fill="#2da44e" rx="3"/>
+<text x="679" y="400" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="11" font-weight="700" fill="#2da44e">+2.6 pts</text>
+
+<!-- "FIXED" badge -->
+<rect x="634" y="422" width="90" height="20" fill="#1a3722" stroke="#2da44e" stroke-width="1" rx="4"/>
+<text x="679" y="436" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="10" font-weight="700" fill="#2da44e">FIXED v0.4.1</text>
+
+<text x="679" y="510" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e">gpt-5.4-mini</text>
+<text x="679" y="522" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9" fill="#2da44e">v0.4.1 · +13.1 pt swing</text>
+
+<!-- Arrow: before → after recovery -->
+<line x1="461" y1="418" x2="634" y2="411" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrow)"/>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+          markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+  </marker>
+</defs>
+<text x="548" y="406" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#8b949e" font-style="italic">regression fixed</text>
+
+<!-- ─── footer ─── -->
+<text x="450" y="557" text-anchor="middle"
+      font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+      font-size="9.5" fill="#6e7681">
+  blind cross-model judge · Chart 1 safe-defaults and proof-report estimated from run totals · gpt-5.5 not retested in v0.4.1
+</text>
+</svg>
