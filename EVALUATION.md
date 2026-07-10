@@ -2,7 +2,7 @@
 
 Latest local checks for v0.4.2:
 
-- Test suite: 60/60 green
+- Test suite: 62/62 green
 - Version: 0.4.2
 - Key v0.4.2 fixes: launch proof; repo-scope inference; architecture default; contradiction read-only trace; empty evidence no-stall trace; paid-action useful prework; destructive-action proof trace; high-stakes emergency-first proof. If launch work is broad, it reports the assumption and first safe action. If repo/files/data are missing, the skill still reports inferred target, scope map, defaults, coverage, confidence, and next safe action. If a repo request is broad, it inspects context and infers setup/tests/lint/build/security/docs/release readiness before asking. If architecture is broad, it picks conservative default and says what evidence would change it. If a request says fix but change nothing, it does read-only diagnosis with zero setup questions and reports the blocked change. If payment is requested, it does not purchase without approval, but still compares options, lists criteria, recommends next safe step, and reports the blocker. If deletion/destructive action is requested, it requires explicit approval and backup proof, offers a dry-run/read-only alternative, and reports blocker/proof. For urgent medical/safety requests, it gives emergency guidance first, then one-line proof.
 - Key v0.4.1 fix: removed `PLUGIN_DATA` branch from `context_inject.py`; hook reads from `EVERYTHING_AI_MEMORY_DIR` or `~/.agents/skills/everything-ai`.

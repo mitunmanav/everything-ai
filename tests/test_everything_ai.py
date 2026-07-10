@@ -31,6 +31,7 @@ BENCHMARK_RUNNER = ROOT / "scripts" / "run_benchmark.py"
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
 COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
 COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-all-phases.svg"
+V042_GRAPH = ROOT / "tests" / "results" / "v0.4.2-codex-proof.svg"
 TRACE_SCHEMA = ROOT / "skills" / "everything-ai" / "references" / "trace.schema.json"
 EXAMPLE_TRACE = ROOT / "skills" / "everything-ai" / "references" / "example-trace.json"
 AGENT_COMPATIBILITY = ROOT / "skills" / "everything-ai" / "references" / "agent-compatibility.md"
@@ -539,20 +540,29 @@ def test_launch_everything_reports_assumption_and_first_safe_action():
     )
 
 
-def test_v041_release_proof_files_are_current():
+def test_v042_readme_is_short_clear_and_proof_first():
     package = json.loads(read(PACKAGE))
     readme = read(README)
     roadmap = read(ROADMAP)
     results = read(TEST_RESULTS)
 
     assert package["version"] == "0.4.2"
-    assert 'src="tests/results/v0.4.1-fixed.svg"' in readme
-    assert "## v0.4.2 Status" in readme
-    assert "## Numbers" in readme
-    assert "blind cross-model judge" in readme
-    assert "60/60 unit tests green" in readme
-    assert "Star History Chart" in readme
-    assert "User gives goal. AI carries expert scope." in readme
+    assert len(readme.splitlines()) <= 130, "README must stay easy to scan"
+    assert_contains(
+        readme,
+        [
+            "User gives goal. AI carries expert scope.",
+            "## Install",
+            "## Proof",
+            "## Safety",
+            "## Improve It",
+            'src="tests/results/v0.4.2-codex-proof.svg"',
+            "skill off 52.6%",
+            "skill on 96.1%",
+            "+43.5 points",
+        ],
+    )
+    assert V042_GRAPH.exists(), "v0.4.2 proof graph required"
     assert "Build on `development`" in roadmap
     assert "Validate on `testing`" in roadmap
     assert "Update `main` only after development and testing are complete" in roadmap
@@ -849,6 +859,49 @@ def test_public_files_do_not_leak_local_identity_or_paths():
 def test_release_excludes_development_only_rules():
     leaked = [path.name for path in RELEASE_EXCLUDED_FILES if path.exists()]
     assert not leaked, f"Development-only rule files must not ship: {leaked}"
+
+
+def test_repo_ignores_local_dev_files_and_disables_dependabot_updates():
+    gitignore = read(ROOT / ".gitignore").splitlines()
+    required = {
+        ".agents/",
+        ".claude/",
+        ".superpowers/",
+        ".tmp/",
+        ".venv/",
+        ".pytest_cache/",
+        "node_modules/",
+        "dist/",
+        "build/",
+        "coverage/",
+        "*.log",
+        "*.tgz",
+    }
+    assert required <= set(gitignore), f"Missing ignore rules: {sorted(required - set(gitignore))}"
+    assert not (ROOT / ".github" / "dependabot.yml").exists()
+
+
+def test_public_package_contains_only_launch_files():
+    npm = shutil.which("npm.cmd") or shutil.which("npm")
+    assert npm, "npm required"
+    result = subprocess.run(
+        [npm, "pack", "--dry-run", "--json"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    files = [item["path"] for item in json.loads(result.stdout)[0]["files"]]
+    exact = {
+        "package.json",
+        "README.md",
+        "LICENSE",
+        "QUICKSTART.md",
+        "scripts/install.js",
+        "scripts/bootstrap-memory.js",
+    }
+    leaked = [path for path in files if path not in exact and not path.startswith("skills/everything-ai/")]
+    assert not leaked, f"Development files in public package: {leaked}"
 
 
 def test_release_checklist_covers_codex_claude_and_package_safety():

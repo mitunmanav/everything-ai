@@ -6,7 +6,7 @@ Latest proof is the **v0.4.0 live behavior run** below, the v0.4.1 root-cause fi
 
 ## v0.4.2 Targeted Improvements
 
-**Status:** targeted fix applied locally. Current local suite: 60/60 tests green.
+**Status:** targeted fix applied locally. Current local suite: 62/62 tests green.
 
 ## v0.4.2 Full Codex Blind Judge
 
@@ -111,7 +111,7 @@ Root cause JSON: `tests/results/v0.4.1-regression.json`.
 
 New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
 sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
-asserts the hook reads from the right directory. Current local suite: 60/60 tests green.
+asserts the hook reads from the right directory. Current local suite: 62/62 tests green.
 
 ### Projected recovery
 

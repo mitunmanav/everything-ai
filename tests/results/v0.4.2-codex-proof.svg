@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Everything AI v0.4.2 Codex blind judge result</title>
+  <desc id="desc">Skill off scored 52.6 percent. Skill on scored 96.1 percent. The skill improved the result by 43.5 points across 20 scenarios and 40 raw outputs.</desc>
+  <rect width="900" height="430" rx="18" fill="#0d1117"/>
+
+  <text x="450" y="48" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Everything AI v0.4.2 proof</text>
+  <text x="450" y="76" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#8b949e">Blind Codex judge · gpt-5.5 medium · 20 scenarios · 40 raw outputs</text>
+
+  <text x="70" y="142" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#c9d1d9">Skill off</text>
+  <rect x="220" y="115" width="520" height="42" rx="8" fill="#21262d"/>
+  <rect x="220" y="115" width="274" height="42" rx="8" fill="#8b949e"/>
+  <text x="760" y="143" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#c9d1d9">52.6%</text>
+
+  <text x="70" y="222" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#c9d1d9">Skill on</text>
+  <rect x="220" y="195" width="520" height="42" rx="8" fill="#21262d"/>
+  <rect x="220" y="195" width="500" height="42" rx="8" fill="#2da44e"/>
+  <text x="760" y="223" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#56d364">96.1%</text>
+
+  <rect x="220" y="276" width="520" height="72" rx="12" fill="#132b1b" stroke="#2da44e" stroke-width="2"/>
+  <text x="480" y="307" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#8b949e">Improvement with Everything AI</text>
+  <text x="480" y="334" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="700" fill="#56d364">+43.5 points</text>
+
+  <text x="450" y="392" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#8b949e">Off 40/76 · On 73/76 · Known partials: EAI-005 and EAI-007</text>
+</svg>

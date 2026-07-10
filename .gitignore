@@ -1,9 +1,32 @@
 .everything-ai/
 .codex/
 .serena/
+.agents/
+.claude/
+.superpowers/
+.tmp/
+.vscode/
+.idea/
 docs/
+
+# Python
 __pycache__/
 *.pyc
+.pytest_cache/
+.venv/
+venv/
+.coverage
+htmlcov/
+
+# Node, builds, reports, and archives
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.tgz
+
+# OS and local secrets
 .DS_Store
 Thumbs.db
 AGENTS.md
@@ -20,6 +43,4 @@ scripts/run_benchmark.py
 scripts/run_live_benchmark.py
 scripts/rerun_failures.py
 scripts/generate_proof_svg.py
-
-.tmp/
 node-write-test.txt
