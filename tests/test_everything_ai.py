@@ -33,6 +33,8 @@ COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
 COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-all-phases.svg"
 V042_GRAPH = ROOT / "tests" / "results" / "v0.4.2-codex-proof.svg"
 V042_MINI_SUMMARY = ROOT / "tests" / "results" / "v0.4.2-full-codex-mini-low" / "codex_judge_summary.json"
+V042_MEDIUM_CLAUDE_SUMMARY = ROOT / "tests" / "results" / "v0.4.2-full-codex-medium" / "claude_judge_summary.json"
+V042_MINI_CLAUDE_SUMMARY = ROOT / "tests" / "results" / "v0.4.2-full-codex-mini-low" / "claude_judge_summary.json"
 TRACE_SCHEMA = ROOT / "skills" / "everything-ai" / "references" / "trace.schema.json"
 EXAMPLE_TRACE = ROOT / "skills" / "everything-ai" / "references" / "example-trace.json"
 AGENT_COMPATIBILITY = ROOT / "skills" / "everything-ai" / "references" / "agent-compatibility.md"
@@ -558,8 +560,10 @@ def test_v042_readme_is_short_clear_and_proof_first():
             "## Safety",
             "## Improve It",
             'src="tests/results/v0.4.2-codex-proof.svg"',
-            "skill off 52.6%",
-            "skill on 96.1%",
+            "Claude blind judge",
+            "47.4% → **96.1%**",
+            "+48.7 points",
+            "Codex blind judge",
             "+43.5 points",
         ],
     )
@@ -584,17 +588,78 @@ def test_v042_readme_is_short_clear_and_proof_first():
 
 
 def test_v042_full_codex_judge_result_is_recorded():
-    combined = read(README) + "\n" + read(TEST_RESULTS)
+    combined = read(README) + "\n" + read(TEST_RESULTS) + "\n" + read(ROOT / "EVALUATION.md")
     assert_contains(
         combined,
         [
-            "v0.4.2 full Codex blind judge",
+            "v0.4.2 Full Codex Blind Judge",
             "skill off 52.6%",
             "skill on 96.1%",
             "+43.5 points",
             "EAI-005",
             "EAI-007",
-            "Claude judge",
+            "Claude Sonnet 5",
+        ],
+    )
+
+
+def test_v042_claude_blind_judge_result_is_recorded_and_labeled():
+    for summary in [V042_MEDIUM_CLAUDE_SUMMARY, V042_MINI_CLAUDE_SUMMARY]:
+        for name in [
+            "claude_judge_metadata.json",
+            "claude_judge_scores.json",
+            "claude_judge_scores.raw.txt",
+            "claude_judge_summary.json",
+        ]:
+            assert summary.with_name(name).exists(), f"missing Claude proof: {name}"
+        directory = summary.parent
+        inputs = {item["run_id"]: item for item in json.loads(read(directory / "judge_input.json"))}
+        scores = json.loads(read(directory / "claude_judge_scores.json"))
+        raw = re.sub(r"^```json\s*|\s*```\s*$", "", read(directory / "claude_judge_scores.raw.txt"))
+        arm_key = json.loads(read(directory / "arm_key.json"))
+        totals = {arm: {"raw": 0, "max": 0} for arm in ["skill_off", "skill_on"]}
+        assert json.loads(raw) == scores
+        assert len(scores) == len({score["run_id"] for score in scores}) == 40
+        for score in scores:
+            required = inputs[score["run_id"]]["required_metrics"]
+            assert set(score["scores"]) == set(required)
+            assert all(value in [0, 1, 2] for value in score["scores"].values())
+            arm = arm_key[score["run_id"]]["arm"]
+            totals[arm]["raw"] += sum(score["scores"].values())
+            totals[arm]["max"] += 2 * len(required)
+        saved = json.loads(read(summary))["arms"]
+        assert totals == {
+            arm: {"raw": saved[arm]["raw"], "max": saved[arm]["max"]}
+            for arm in totals
+        }
+    medium = json.loads(read(V042_MEDIUM_CLAUDE_SUMMARY))
+    mini = json.loads(read(V042_MINI_CLAUDE_SUMMARY))
+    combined = read(README) + "\n" + read(TEST_RESULTS) + "\n" + read(ROOT / "EVALUATION.md")
+    graph = read(V042_GRAPH)
+
+    assert medium["judge_model"] == "claude-sonnet-5"
+    assert medium["output_model"] == "gpt-5.5"
+    assert medium["output_reasoning"] == "medium"
+    assert medium["arms"]["skill_off"]["pct"] == 47.4
+    assert medium["arms"]["skill_on"]["pct"] == 96.1
+    assert medium["delta_pct"] == 48.7
+    assert mini["judge_model"] == "claude-sonnet-5"
+    assert mini["output_model"] == "gpt-5.4-mini"
+    assert mini["output_reasoning"] == "low"
+    assert mini["arms"]["skill_off"]["pct"] == 46.1
+    assert mini["arms"]["skill_on"]["pct"] == 86.8
+    assert mini["delta_pct"] == 40.7
+    assert_contains(
+        combined + graph,
+        [
+            "Claude Sonnet 5",
+            "47.4%",
+            "96.1%",
+            "+48.7 points",
+            "46.1%",
+            "86.8%",
+            "+40.7 points",
+            "not comparable with v0.4.0",
         ],
     )
 
@@ -618,38 +683,26 @@ def test_v042_full_report_graph_matches_judge_summary():
     assert_contains(
         svg,
         [
-            "per-metric skill delta",
-            "ask-gate",
-            "+33.4%",
-            "scope",
-            "+75.0%",
-            "safe-defaults",
-            "+50.0%",
-            "risk-stop",
-            "+20.0%",
-            "proof-report",
-            "+33.4%",
-            "memory",
-            "0.0%",
-            "trace-complete",
-            "+62.5%",
+            "two-model, two-judge proof",
+            "Claude Sonnet 5",
+            "Codex gpt-5.5",
+            "off 47.4%",
             "off 52.6%",
             "on 96.1%",
             "+43.5 pts overall",
-            "Codex CLI",
             "gpt-5.5",
             "medium reasoning",
             "20 scenarios",
             "40 raw outputs",
-            "EAI-005",
-            "EAI-007",
             "gpt-5.4-mini",
             "low reasoning",
+            "off 46.1%",
+            "on 86.8%",
+            "+48.7 pts overall",
+            "+40.7 pts overall",
             "89.5%",
             "+36.9 pts",
-            "+41.7%",
-            "+60.0%",
-            "+37.5%",
+            "not comparable with v0.4.0",
         ],
     )
 

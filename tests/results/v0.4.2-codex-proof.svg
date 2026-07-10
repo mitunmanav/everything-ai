@@ -1,81 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680" role="img" aria-labelledby="title desc">
-  <title id="title">Everything AI v0.4.2 two-model test report</title>
-  <desc id="desc">Two-model blind benchmark report from Codex CLI. GPT-5.5 medium reasoning improved from 52.6 to 96.1 percent, plus 43.5 points. GPT-5.4-mini low improved from 52.6 to 89.5 percent, plus 36.9 points. Both models completed 40 raw outputs. The per-metric skill delta is shown for ask-gate, scope, safe-defaults, risk-stop, proof-report, memory, and trace-complete. Known GPT-5.5 partials were EAI-005 and EAI-007.</desc>
+  <title id="title">Everything AI v0.4.2 two-model, two-judge proof</title>
+  <desc id="desc">Claude Sonnet 5 and Codex gpt-5.5 independently scored the same blinded outputs. Claude scored gpt-5.5 medium reasoning from 47.4 to 96.1 percent, plus 48.7 points, and gpt-5.4-mini low reasoning from 46.1 to 86.8 percent, plus 40.7 points. Codex scored the same outputs from 52.6 to 96.1 percent, plus 43.5 points, and from 52.6 to 89.5 percent, plus 36.9 points.</desc>
 
   <rect width="900" height="680" fill="#0d1117"/>
-  <text x="450" y="30" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#f0f6fc">Everything AI v0.4.2 - two-model proof</text>
-  <text x="450" y="54" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#56d364">gpt-5.5 +43.5 pts  |  gpt-5.4-mini +36.9 pts  |  80/80 outputs</text>
-  <text x="450" y="74" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">20 scenarios per model - skill off + skill on - blind gpt-5.5 medium judge</text>
+  <text x="450" y="32" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#f0f6fc">Everything AI v0.4.2 - two-model, two-judge proof</text>
+  <text x="450" y="56" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#56d364">Both blind judges score skill-on much higher</text>
+  <text x="450" y="76" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">20 scenarios per model - skill off + on - 40 raw outputs per model</text>
 
-  <rect x="290" y="88" width="11" height="11" rx="2" fill="#2da44e"/>
-  <text x="306" y="98" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">gpt-5.5 medium</text>
-  <rect x="430" y="88" width="11" height="11" rx="2" fill="#2f81f7"/>
-  <text x="446" y="98" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">gpt-5.4-mini low reasoning</text>
+  <rect x="310" y="90" width="11" height="11" rx="2" fill="#8b949e"/>
+  <text x="326" y="100" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">skill off</text>
+  <rect x="410" y="90" width="11" height="11" rx="2" fill="#2da44e"/>
+  <text x="426" y="100" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">skill on</text>
 
-  <text x="60" y="130" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">Overall score</text>
-  <text x="60" y="148" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#6e7681">Gray = skill off. Color = skill on. Same rubric max: 76 points.</text>
+  <rect x="40" y="116" width="820" height="218" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="60" y="142" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Claude Sonnet 5 blind judge</text>
 
-  <text x="60" y="187" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="600" fill="#c9d1d9">gpt-5.5</text>
-  <rect x="180" y="166" width="500" height="24" rx="5" fill="#21262d"/>
-  <rect x="180" y="166" width="263" height="24" rx="5" fill="#8b949e"/>
-  <text x="692" y="184" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#c9d1d9">off 52.6%</text>
-  <rect x="180" y="198" width="500" height="24" rx="5" fill="#21262d"/>
-  <rect x="180" y="198" width="481" height="24" rx="5" fill="#2da44e"/>
-  <text x="692" y="216" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#56d364">on 96.1%</text>
-  <text x="810" y="201" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#56d364">+43.5 pts overall</text>
+  <text x="60" y="170" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#c9d1d9">gpt-5.5 - medium reasoning</text>
+  <rect x="240" y="154" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="154" width="237" height="20" rx="4" fill="#8b949e"/>
+  <text x="748" y="169" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#c9d1d9">off 47.4%</text>
+  <rect x="240" y="182" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="182" width="481" height="20" rx="4" fill="#2da44e"/>
+  <text x="748" y="197" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="700" fill="#56d364">on 96.1%</text>
+  <text x="818" y="188" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#56d364">+48.7 pts overall</text>
 
-  <text x="60" y="267" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="600" fill="#c9d1d9">gpt-5.4-mini</text>
-  <rect x="180" y="246" width="500" height="24" rx="5" fill="#21262d"/>
-  <rect x="180" y="246" width="263" height="24" rx="5" fill="#8b949e"/>
-  <text x="692" y="264" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#c9d1d9">off 52.6%</text>
-  <rect x="180" y="278" width="500" height="24" rx="5" fill="#21262d"/>
-  <rect x="180" y="278" width="448" height="24" rx="5" fill="#2f81f7"/>
-  <text x="692" y="296" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#58a6ff">on 89.5%</text>
-  <text x="810" y="281" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#58a6ff">+36.9 pts</text>
+  <text x="60" y="256" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#c9d1d9">gpt-5.4-mini - low reasoning</text>
+  <rect x="240" y="240" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="240" width="231" height="20" rx="4" fill="#8b949e"/>
+  <text x="748" y="255" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#c9d1d9">off 46.1%</text>
+  <rect x="240" y="268" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="268" width="434" height="20" rx="4" fill="#2f81f7"/>
+  <text x="748" y="283" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="700" fill="#58a6ff">on 86.8%</text>
+  <text x="818" y="274" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#58a6ff">+40.7 pts overall</text>
 
-  <line x1="60" y1="330" x2="840" y2="330" stroke="#21262d" stroke-width="2"/>
-  <text x="60" y="360" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">per-metric skill delta</text>
-  <text x="60" y="378" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#6e7681">Skill-on minus skill-off, as percent of metric max. Higher is better.</text>
+  <rect x="40" y="350" width="820" height="218" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="60" y="376" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Codex gpt-5.5 blind judge</text>
 
-  <text x="50" y="414" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+80%</text>
-  <line x1="60" y1="410" x2="840" y2="410" stroke="#21262d"/>
-  <text x="50" y="449" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+60%</text>
-  <line x1="60" y1="445" x2="840" y2="445" stroke="#30363d" stroke-dasharray="4 3"/>
-  <text x="50" y="484" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+40%</text>
-  <line x1="60" y1="480" x2="840" y2="480" stroke="#30363d" stroke-dasharray="4 3"/>
-  <text x="50" y="519" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">+20%</text>
-  <line x1="60" y1="515" x2="840" y2="515" stroke="#30363d" stroke-dasharray="4 3"/>
-  <text x="50" y="554" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">0%</text>
-  <line x1="60" y1="550" x2="840" y2="550" stroke="#6e7681" stroke-width="1.5"/>
+  <text x="60" y="404" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#c9d1d9">gpt-5.5 - medium reasoning</text>
+  <rect x="240" y="388" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="388" width="263" height="20" rx="4" fill="#8b949e"/>
+  <text x="748" y="403" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#c9d1d9">off 52.6%</text>
+  <rect x="240" y="416" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="416" width="481" height="20" rx="4" fill="#2da44e"/>
+  <text x="748" y="431" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="700" fill="#56d364">on 96.1%</text>
+  <text x="818" y="422" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#56d364">+43.5 pts overall</text>
 
-  <rect x="94" y="492" width="22" height="58" rx="2" fill="#2da44e"/><rect x="120" y="477" width="22" height="73" rx="2" fill="#2f81f7"/>
-  <text x="118" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">ask-gate</text>
-  <text x="118" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+33.4%</text><text x="118" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">+41.7%</text>
+  <text x="60" y="490" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#c9d1d9">gpt-5.4-mini - low reasoning</text>
+  <rect x="240" y="474" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="474" width="263" height="20" rx="4" fill="#8b949e"/>
+  <text x="748" y="489" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#c9d1d9">off 52.6%</text>
+  <rect x="240" y="502" width="500" height="20" rx="4" fill="#21262d"/>
+  <rect x="240" y="502" width="448" height="20" rx="4" fill="#2f81f7"/>
+  <text x="748" y="517" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="700" fill="#58a6ff">on 89.5%</text>
+  <text x="818" y="508" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#58a6ff">+36.9 pts</text>
 
-  <rect x="199" y="419" width="22" height="131" rx="2" fill="#2da44e"/><rect x="225" y="441" width="22" height="109" rx="2" fill="#2f81f7"/>
-  <text x="223" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">scope</text>
-  <text x="223" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+75.0%</text><text x="223" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">+62.5%</text>
-
-  <rect x="304" y="462" width="22" height="88" rx="2" fill="#2da44e"/><rect x="330" y="445" width="22" height="105" rx="2" fill="#2f81f7"/>
-  <text x="328" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">safe-defaults</text>
-  <text x="328" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+50.0%</text><text x="328" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">+60.0%</text>
-
-  <rect x="409" y="515" width="22" height="35" rx="2" fill="#2da44e"/><rect x="435" y="547" width="22" height="3" rx="1" fill="#2f81f7"/>
-  <text x="433" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">risk-stop</text>
-  <text x="433" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+20.0%</text><text x="433" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">0.0%</text>
-
-  <rect x="514" y="492" width="22" height="58" rx="2" fill="#2da44e"/><rect x="540" y="492" width="22" height="58" rx="2" fill="#2f81f7"/>
-  <text x="538" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">proof-report</text>
-  <text x="538" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+33.4%</text><text x="538" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">+33.4%</text>
-
-  <rect x="619" y="547" width="22" height="3" rx="1" fill="#2da44e"/><rect x="645" y="547" width="22" height="3" rx="1" fill="#2f81f7"/>
-  <text x="643" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">memory</text>
-  <text x="643" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">0.0%</text><text x="643" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">0.0%</text>
-
-  <rect x="724" y="441" width="22" height="109" rx="2" fill="#2da44e"/><rect x="750" y="484" width="22" height="66" rx="2" fill="#2f81f7"/>
-  <text x="748" y="570" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#8b949e">trace-complete</text>
-  <text x="748" y="590" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#56d364">+62.5%</text><text x="748" y="605" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#58a6ff">+37.5%</text>
-
-  <text x="450" y="638" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">Mini-low remains weaker on proof detail and trace completeness, but skill lift stays strongly positive.</text>
-  <text x="450" y="658" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#6e7681">Sources: v0.4.2-full-codex-medium and v0.4.2-full-codex-mini-low - raw transcripts kept local</text>
+  <text x="450" y="604" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#8b949e">Same current outputs and rubric. Arm identity joined only after each judge saved scores.</text>
+  <text x="450" y="628" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="700" fill="#d29922">Single-run current-harness result - not comparable with v0.4.0 as release-to-release improvement.</text>
+  <text x="450" y="652" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#6e7681">Aggregated scores public. Raw model transcripts kept local because they can contain machine paths.</text>
 </svg>

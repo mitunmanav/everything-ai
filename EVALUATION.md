@@ -2,19 +2,22 @@
 
 Latest local checks for v0.4.2:
 
-- Test suite: 64/64 green
+- Test suite: 65/65 green
 - Version: 0.4.2
 - Key v0.4.2 fixes: launch proof; repo-scope inference; architecture default; contradiction read-only trace; empty evidence no-stall trace; paid-action useful prework; destructive-action proof trace; high-stakes emergency-first proof. If launch work is broad, it reports the assumption and first safe action. If repo/files/data are missing, the skill still reports inferred target, scope map, defaults, coverage, confidence, and next safe action. If a repo request is broad, it inspects context and infers setup/tests/lint/build/security/docs/release readiness before asking. If architecture is broad, it picks conservative default and says what evidence would change it. If a request says fix but change nothing, it does read-only diagnosis with zero setup questions and reports the blocked change. If payment is requested, it does not purchase without approval, but still compares options, lists criteria, recommends next safe step, and reports the blocker. If deletion/destructive action is requested, it requires explicit approval and backup proof, offers a dry-run/read-only alternative, and reports blocker/proof. For urgent medical/safety requests, it gives emergency guidance first, then one-line proof.
 - Key v0.4.1 fix: removed `PLUGIN_DATA` branch from `context_inject.py`; hook reads from `EVERYTHING_AI_MEMORY_DIR` or `~/.agents/skills/everything-ai`.
 - Regression guards: `test_empty_evidence_audit_still_reports_trace_and_next_action`, `test_paid_action_blocker_still_compares_and_reports_proof`, `test_high_stakes_response_keeps_emergency_first_and_one_line_proof`, `test_phase2_benchmark_proof_is_recorded_and_npm_test_stays_public`, and `test_phase_b_plugin_data_not_used_as_memory_dir`.
 - Root cause evidence: `tests/results/v0.4.1-regression.json`
-- Current v0.4.2 full report chart: `tests/results/v0.4.2-codex-proof.svg`
+- Current v0.4.2 two-judge report chart: `tests/results/v0.4.2-codex-proof.svg`
 - Historical v0.4.1 fix-confirmed chart: `tests/results/v0.4.1-fixed.svg`
 - Live v0.4.2 targeted retest: gpt-5.5 medium/low ran through WSL for the targeted gaps. It captured live behavior proof, not a full benchmark score.
 - Benchmark rule: keep the unbiased v0.4.0 full benchmark method unchanged. Targeted checks guide fixes only.
 - Full Codex proof, gpt-5.5 medium: skill off 52.6%, skill on 96.1%, delta +43.5 points, 40/40 outputs.
 - Full Codex proof, gpt-5.4-mini low: skill off 52.6%, skill on 89.5%, delta +36.9 points, 40/40 outputs.
-- Both runs used the same 20 scenarios and a blind gpt-5.5 medium judge. Arm identity joined only after scoring.
+- Claude Sonnet 5 blind rescore, gpt-5.5 medium outputs: skill off 47.4%, skill on 96.1%, delta +48.7 points, 40/40 outputs.
+- Claude Sonnet 5 blind rescore, gpt-5.4-mini low outputs: skill off 46.1%, skill on 86.8%, delta +40.7 points, 40/40 outputs.
+- Both judges used the same 20 scenarios and saw no arm identity until after scoring.
+- Current-harness scores are not comparable with v0.4.0 as release-to-release improvement because generated outputs and judge models differ.
 
 ---
 

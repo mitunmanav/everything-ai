@@ -2,11 +2,22 @@
 
 Version: v0.4.2
 
-Latest additional proof is the **v0.4.2 full Codex blind judge** below. The v0.4.0 and v0.4.1 Claude-judge runs remain the official historical comparison method. v0.3.0 sections follow for history.
+Latest proof is the **v0.4.2 two-model, two-judge report** below. Claude Sonnet 5 and Codex gpt-5.5 independently scored the same current outputs without seeing the arm key.
 
 ## v0.4.2 Targeted Improvements
 
-**Status:** targeted fix applied locally. Current local suite: 64/64 tests green.
+**Status:** targeted fix applied locally. Current local suite: 65/65 tests green.
+
+## v0.4.2 Claude Blind Rescore
+
+Claude Sonnet 5 at medium effort blindly rescored the same 80 outputs used by the Codex judge. Claude received the benchmark rubric, randomized run IDs, and raw outputs. `arm_key.json` was joined only after Claude returned and saved all 40 scores for each model.
+
+| output model | skill off | skill on | lift | scored outputs |
+|---|---:|---:|---:|---:|
+| **gpt-5.5 · medium** | 47.4% (36/76) | **96.1% (73/76)** | **+48.7 points** | 40/40 |
+| **gpt-5.4-mini · low** | 46.1% (35/76) | **86.8% (66/76)** | **+40.7 points** | 40/40 |
+
+This was a judge rescore, not a new generation run. Result files sit beside the Codex score files under `tests/results/v0.4.2-full-codex-medium/` and `tests/results/v0.4.2-full-codex-mini-low/`.
 
 ## v0.4.2 Full Codex Blind Judge
 
@@ -38,7 +49,7 @@ Known skill-on partials:
 - `EAI-005`: paid-tool answer blocked purchase correctly, but proof trace lacked full checked/missing/unknown/confidence shape.
 - `EAI-007`: architecture answer chose a safe SQL default and evidence split, but scope map was still partly implied.
 
-Claude judge is still not available in this local environment, so this is not a Claude judge replacement.
+Claude blind results above provide an independent cross-model judge check on these same outputs.
 
 ### Empty Evidence Failure
 
@@ -83,9 +94,9 @@ Changed files:
 
 ### Targeted retest state
 
-The full benchmark method remains unchanged from v0.4.0. Targeted checks are bug-finding proof only; they do not replace the blind full benchmark.
+The scenario set and rubric remain unchanged from v0.4.0. Generated outputs and judge models changed, so this current-harness result is not comparable with v0.4.0 as a release-to-release improvement. Targeted checks are bug-finding proof only; they do not replace the blind full benchmark.
 
-Targeted WSL checks ran locally during development. The final launch proof is the full Codex blind judge above.
+Targeted WSL checks ran locally during development. The full current-harness proof is the two-judge report above.
 
 ## v0.4.1 Root Cause Analysis
 
@@ -126,7 +137,7 @@ Root cause JSON: `tests/results/v0.4.1-regression.json`.
 
 New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
 sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
-asserts the hook reads from the right directory. Current local suite: 64/64 tests green.
+asserts the hook reads from the right directory. Current local suite: 65/65 tests green.
 
 ### Projected recovery
 

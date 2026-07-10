@@ -45,18 +45,16 @@ More install options: [QUICKSTART.md](QUICKSTART.md).
 
 ## Proof
 
-<p align="center"><strong>gpt-5.5 +43.5 pts &middot; gpt-5.4-mini +36.9 pts &middot; 80/80 outputs</strong><br><sub>Same 20 scenarios, skill off + on, blind judge. Higher is better.</sub></p>
+<p align="center"><strong>Two blind judges agree: skill helps current outputs</strong><br><sub>Same 80 outputs. Claude Sonnet 5 and Codex gpt-5.5 scored independently. Higher is better.</sub></p>
 
-<p align="center"><img alt="v0.4.2 two-model report. GPT-5.5 medium improved from 52.6 to 96.1 percent, plus 43.5 points. GPT-5.4-mini low improved from 52.6 to 89.5 percent, plus 36.9 points. Per-metric skill deltas are also shown." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
+<p align="center"><img alt="v0.4.2 two-model, two-judge report. Claude Sonnet 5 scored gpt-5.5 medium 47.4 to 96.1 percent and gpt-5.4-mini low 46.1 to 86.8 percent. Codex scored the same outputs 52.6 to 96.1 percent and 52.6 to 89.5 percent." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
 
-Both models started at skill off 52.6%. With the skill: gpt-5.5 reached skill on 96.1%; gpt-5.4-mini reached skill on 89.5%.
+| output model | Claude blind judge | lift | Codex blind judge | lift |
+|---|---:|---:|---:|---:|
+| **gpt-5.5 · medium** | 47.4% → **96.1%** | **+48.7 points** | 52.6% → **96.1%** | **+43.5 points** |
+| **gpt-5.4-mini · low** | 46.1% → **86.8%** | **+40.7 points** | 52.6% → **89.5%** | **+36.9 points** |
 
-| model | skill off | skill on | lift |
-|---|---:|---:|---:|
-| **gpt-5.5 · medium** | 52.6% | **96.1%** | **+43.5 points** |
-| **gpt-5.4-mini · low** | 52.6% | **89.5%** | **+36.9 points** |
-
-Mini-low still loses some proof and trace detail, but the skill remains a strong positive lift. Historical comparison method stays unchanged.
+This is a single-run current-harness result. It is not comparable with v0.4.0 as a release-to-release improvement because the generated outputs and judge models differ.
 
 Full method, older results, raw score files, and caveats: [TEST_RESULTS.md](TEST_RESULTS.md) and [EVALUATION.md](EVALUATION.md).
 

@@ -1,0 +1,53 @@
+{
+  "judge": "Claude Code CLI",
+  "judge_model": "claude-sonnet-5",
+  "judge_effort": "medium",
+  "output_model": "gpt-5.5",
+  "output_reasoning": "medium",
+  "method": "blind; arm_key joined only after scores were returned and saved",
+  "arms": {
+    "skill_off": {
+      "raw": 36,
+      "max": 76,
+      "runs": 20,
+      "pct": 47.4
+    },
+    "skill_on": {
+      "raw": 73,
+      "max": 76,
+      "runs": 20,
+      "pct": 96.1
+    }
+  },
+  "per_metric": {
+    "ask_gate": {
+      "skill_on": 2.0,
+      "skill_off": 1.5
+    },
+    "safe_defaults": {
+      "skill_on": 2.0,
+      "skill_off": 0.8
+    },
+    "risk_stop": {
+      "skill_on": 2.0,
+      "skill_off": 1.6
+    },
+    "proof_report": {
+      "skill_on": 1.889,
+      "skill_off": 1.111
+    },
+    "trace_completeness": {
+      "skill_on": 1.75,
+      "skill_off": 0.125
+    },
+    "scope_inference": {
+      "skill_on": 2.0,
+      "skill_off": 0.5
+    },
+    "memory_safety": {
+      "skill_off": 2.0,
+      "skill_on": 2.0
+    }
+  },
+  "delta_pct": 48.7
+}

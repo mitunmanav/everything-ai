@@ -189,7 +189,7 @@ Done when:
 | v0.3.0 | 2026-06-18 | feature | Five-phase skill, 19/19 tests green |
 | v0.4.0 | 2026-06-19 | feature | 10 domain packs, live benchmark, +3.9 on gpt-5.5, -10.5 on gpt-5.4-mini (PLUGIN_DATA bug) |
 | v0.4.1 | 2026-06-20 | bugfix | Remove PLUGIN_DATA memory-dir hijack; add Safe Defaults to SKILL.md; 40/40 tests green |
-| v0.4.2 | 2026-07-07 | targeted skill fix | Launch proof, repo/product shipping, repo-scope inference, business-ops routing, research/buying safety, architecture default, contradiction read-only trace, empty-evidence no-stall trace, paid-action useful prework, destructive-action proof trace, community prompt lanes, high-stakes proof, empty-evidence scope boundary, and architecture proof shape for Codex and Claude; WSL gpt-5.5 targeted rerun captured live proof; full Codex blind judge: skill off 52.6%, skill on 96.1%, delta +43.5; 60/60 tests green |
+| v0.4.2 | 2026-07-07 | targeted skill fix | Launch proof, repo/product shipping, repo-scope inference, business-ops routing, research/buying safety, architecture default, contradiction read-only trace, empty-evidence no-stall trace, paid-action useful prework, destructive-action proof trace, community prompt lanes, high-stakes proof, empty-evidence scope boundary, and architecture proof shape for Codex and Claude; two-model proof independently judged blind by Claude Sonnet 5 and Codex gpt-5.5; 65/65 tests green |
 
 ## Immediate Next Build Tasks
 
