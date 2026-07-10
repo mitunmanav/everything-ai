@@ -6,29 +6,32 @@ Latest additional proof is the **v0.4.2 full Codex blind judge** below. The v0.4
 
 ## v0.4.2 Targeted Improvements
 
-**Status:** targeted fix applied locally. Current local suite: 63/63 tests green.
+**Status:** targeted fix applied locally. Current local suite: 64/64 tests green.
 
 ## v0.4.2 Full Codex Blind Judge
 
-WSL `codex exec` completed the full benchmark with `gpt-5.5` medium reasoning: 20 scenarios, both arms, 40/40 raw outputs in `tests/results/v0.4.2-full-codex-medium/`.
+WSL `codex exec` completed the full benchmark twice: `gpt-5.5` medium and `gpt-5.4-mini` low. Each model ran 20 scenarios in both arms, producing 40/40 raw outputs. Total: 80/80 outputs.
 
 Codex judged blind before reading `arm_key.json`. After joining scores to the arm key:
 
-- skill off 52.6% (40/76)
-- skill on 96.1% (73/76)
-- delta +43.5 points
+| model | skill off | skill on | lift | output |
+|---|---:|---:|---:|---:|
+| **gpt-5.5 · medium** | 52.6% (40/76) | **96.1% (73/76)** | **+43.5 points** | 40/40 |
+| **gpt-5.4-mini · low** | 52.6% (40/76) | **89.5% (68/76)** | **+36.9 points** | 40/40 |
 
-<p align="center"><img alt="v0.4.2 full Codex report with seven per-metric deltas and overall skill-off versus skill-on scores." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
+<p align="center"><img alt="v0.4.2 two-model report with overall and per-metric skill impact for gpt-5.5 medium and gpt-5.4-mini low." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
 
-| metric | skill off | skill on | delta as % of metric max |
-|---|---:|---:|---:|
-| ask-gate | 1.333 | 2.000 | +33.4% |
-| scope inference | 0.250 | 1.750 | +75.0% |
-| safe defaults | 1.000 | 2.000 | +50.0% |
-| risk stop | 1.600 | 2.000 | +20.0% |
-| proof report | 1.222 | 1.889 | +33.4% |
-| memory safety | 2.000 | 2.000 | 0.0% |
-| trace completeness | 0.625 | 1.875 | +62.5% |
+| metric lift | gpt-5.5 medium | gpt-5.4-mini low |
+|---|---:|---:|
+| ask-gate | +33.4% | +41.7% |
+| scope inference | +75.0% | +62.5% |
+| safe defaults | +50.0% | +60.0% |
+| risk stop | +20.0% | 0.0% |
+| proof report | +33.4% | +33.4% |
+| memory safety | 0.0% | 0.0% |
+| trace completeness | +62.5% | +37.5% |
+
+The mini-low arm remains weaker at complete proof traces. Its skill-on partials are mostly missing proof or trace fields, not unsafe paid or destructive action. Full proof files: `tests/results/v0.4.2-full-codex-medium/` and `tests/results/v0.4.2-full-codex-mini-low/`. Raw model transcripts remain local because they can contain machine paths or unrelated context.
 
 Known skill-on partials:
 
@@ -123,7 +126,7 @@ Root cause JSON: `tests/results/v0.4.1-regression.json`.
 
 New regression guard test (`test_phase_b_plugin_data_not_used_as_memory_dir`):
 sets `PLUGIN_DATA` to a decoy dir, `EVERYTHING_AI_MEMORY_DIR` to a real one,
-asserts the hook reads from the right directory. Current local suite: 63/63 tests green.
+asserts the hook reads from the right directory. Current local suite: 64/64 tests green.
 
 ### Projected recovery
 

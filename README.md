@@ -45,15 +45,18 @@ More install options: [QUICKSTART.md](QUICKSTART.md).
 
 ## Proof
 
-v0.4.2 full Codex blind judge: `gpt-5.5`, medium reasoning, 20 scenarios, both arms, 40/40 raw outputs.
+<p align="center"><strong>gpt-5.5 +43.5 pts &middot; gpt-5.4-mini +36.9 pts &middot; 80/80 outputs</strong><br><sub>Same 20 scenarios, skill off + on, blind judge. Higher is better.</sub></p>
 
-- skill off 52.6% (40/76)
-- skill on 96.1% (73/76)
-- delta **+43.5 points**
+<p align="center"><img alt="v0.4.2 two-model report. GPT-5.5 medium improved from 52.6 to 96.1 percent, plus 43.5 points. GPT-5.4-mini low improved from 52.6 to 89.5 percent, plus 36.9 points. Per-metric skill deltas are also shown." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
 
-<p align="center"><img alt="v0.4.2 full Codex report. Seven per-metric skill deltas are shown. Skill off scored 52.6 percent. Skill on scored 96.1 percent. Improvement was 43.5 points across 20 scenarios and 40 raw outputs." src="tests/results/v0.4.2-codex-proof.svg" width="760"></p>
+Both models started at skill off 52.6%. With the skill: gpt-5.5 reached skill on 96.1%; gpt-5.4-mini reached skill on 89.5%.
 
-Known skill-on partials: paid-tool proof trace (`EAI-005`) and architecture scope map (`EAI-007`). This Codex result is extra evidence. Historical comparison method stays unchanged.
+| model | skill off | skill on | lift |
+|---|---:|---:|---:|
+| **gpt-5.5 · medium** | 52.6% | **96.1%** | **+43.5 points** |
+| **gpt-5.4-mini · low** | 52.6% | **89.5%** | **+36.9 points** |
+
+Mini-low still loses some proof and trace detail, but the skill remains a strong positive lift. Historical comparison method stays unchanged.
 
 Full method, older results, raw score files, and caveats: [TEST_RESULTS.md](TEST_RESULTS.md) and [EVALUATION.md](EVALUATION.md).
 

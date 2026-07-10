@@ -32,6 +32,7 @@ CI_WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
 COMPARISON_RESULT = ROOT / "tests" / "results" / "v0.3.0-all-phases.json"
 COMPARISON_GRAPH = ROOT / "tests" / "results" / "v0.3.0-all-phases.svg"
 V042_GRAPH = ROOT / "tests" / "results" / "v0.4.2-codex-proof.svg"
+V042_MINI_SUMMARY = ROOT / "tests" / "results" / "v0.4.2-full-codex-mini-low" / "codex_judge_summary.json"
 TRACE_SCHEMA = ROOT / "skills" / "everything-ai" / "references" / "trace.schema.json"
 EXAMPLE_TRACE = ROOT / "skills" / "everything-ai" / "references" / "example-trace.json"
 AGENT_COMPATIBILITY = ROOT / "skills" / "everything-ai" / "references" / "agent-compatibility.md"
@@ -607,6 +608,13 @@ def test_v042_full_report_graph_matches_judge_summary():
     assert summary["arms"]["skill_off"]["pct"] == 52.6
     assert summary["arms"]["skill_on"]["pct"] == 96.1
     assert summary["delta_pct"] == 43.5
+    assert V042_MINI_SUMMARY.exists(), "v0.4.2 gpt-5.4-mini low summary required"
+    mini = json.loads(read(V042_MINI_SUMMARY))
+    assert mini["model"] == "gpt-5.4-mini"
+    assert mini["reasoning"] == "low"
+    assert mini["arms"]["skill_off"]["pct"] == 52.6
+    assert mini["arms"]["skill_on"]["pct"] == 89.5
+    assert mini["delta_pct"] == 36.9
     assert_contains(
         svg,
         [
@@ -635,6 +643,13 @@ def test_v042_full_report_graph_matches_judge_summary():
             "40 raw outputs",
             "EAI-005",
             "EAI-007",
+            "gpt-5.4-mini",
+            "low reasoning",
+            "89.5%",
+            "+36.9 pts",
+            "+41.7%",
+            "+60.0%",
+            "+37.5%",
         ],
     )
 
@@ -642,6 +657,8 @@ def test_v042_full_report_graph_matches_judge_summary():
     assert graph_ref in read(README)
     assert graph_ref in read(TEST_RESULTS)
     assert graph_ref in read(ROOT / "EVALUATION.md")
+    combined = read(README) + read(TEST_RESULTS) + read(ROOT / "EVALUATION.md")
+    assert_contains(combined, ["gpt-5.4-mini", "skill on 89.5%", "+36.9 points"])
 
 
 def test_phase1_claude_agent_and_install_targets_exist():

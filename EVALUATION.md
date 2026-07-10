@@ -2,7 +2,7 @@
 
 Latest local checks for v0.4.2:
 
-- Test suite: 63/63 green
+- Test suite: 64/64 green
 - Version: 0.4.2
 - Key v0.4.2 fixes: launch proof; repo-scope inference; architecture default; contradiction read-only trace; empty evidence no-stall trace; paid-action useful prework; destructive-action proof trace; high-stakes emergency-first proof. If launch work is broad, it reports the assumption and first safe action. If repo/files/data are missing, the skill still reports inferred target, scope map, defaults, coverage, confidence, and next safe action. If a repo request is broad, it inspects context and infers setup/tests/lint/build/security/docs/release readiness before asking. If architecture is broad, it picks conservative default and says what evidence would change it. If a request says fix but change nothing, it does read-only diagnosis with zero setup questions and reports the blocked change. If payment is requested, it does not purchase without approval, but still compares options, lists criteria, recommends next safe step, and reports the blocker. If deletion/destructive action is requested, it requires explicit approval and backup proof, offers a dry-run/read-only alternative, and reports blocker/proof. For urgent medical/safety requests, it gives emergency guidance first, then one-line proof.
 - Key v0.4.1 fix: removed `PLUGIN_DATA` branch from `context_inject.py`; hook reads from `EVERYTHING_AI_MEMORY_DIR` or `~/.agents/skills/everything-ai`.
@@ -12,7 +12,9 @@ Latest local checks for v0.4.2:
 - Historical v0.4.1 fix-confirmed chart: `tests/results/v0.4.1-fixed.svg`
 - Live v0.4.2 targeted retest: gpt-5.5 medium/low ran through WSL for the targeted gaps. It captured live behavior proof, not a full benchmark score.
 - Benchmark rule: keep the unbiased v0.4.0 full benchmark method unchanged. Targeted checks guide fixes only.
-- Full Codex proof: v0.4.2 full Codex blind judge scored skill off 52.6%, skill on 96.1%, delta +43.5 points, with 40/40 raw outputs.
+- Full Codex proof, gpt-5.5 medium: skill off 52.6%, skill on 96.1%, delta +43.5 points, 40/40 outputs.
+- Full Codex proof, gpt-5.4-mini low: skill off 52.6%, skill on 89.5%, delta +36.9 points, 40/40 outputs.
+- Both runs used the same 20 scenarios and a blind gpt-5.5 medium judge. Arm identity joined only after scoring.
 
 ---
 
